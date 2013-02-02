@@ -14,7 +14,7 @@
 	<div id="sidebar">
 		<div id="about" class="sidebarBox">
 			<h2>About</h2>
-			<p>WebNoted is a quick way to use your browser as a notepad.</p>
+			<p>WebNoted turns your browser into a notepad.</p>
 			<h2>Usage</h2>
 			<p>Simply start typing. Your notes are automatically saved.</p>
 		</div>
@@ -25,21 +25,53 @@
 			<p><a href="#" id="jsSaveContents">Save contents</a></p>
 			<p><a href="#" id="jsShareContents">Share contents</a></p>
 			<p><a href="#" id="jsClearContents">Clear contents</a></p>
+			<div id="scratchPad">
+				<h2>Scratch Pad</h2>
+				<select id="scratch"></select>
+			</div>
 		</div>
 	</div>
 	
 	<script>
 	$(function() {
+		var gutter = 88;
 		var webPad = $('#webpad');
 		var charCounter = $('#char-count span');
-		var dataStore = new WNDataStore(localStorage);
-		var text = dataStore.getItem('webPadText');
+		var dataStore = new WNDataStore(localStorage);		
 		var noteId = $.url(true).param('noteId');
+		var currentDoc = dataStore.getItem('currentDoc');
+		var storageKey = getStorageKey(noteId);
+
+		if (currentDoc != undefined) {
+			storageKey = currentDoc;
+		}
 		
-		webPad.css('height', $(document).height() - 88);
+		var text = dataStore.getItem(storageKey);
+		dataStore.setItem('currentDoc', storageKey);
+		
+		webPad.css('height', $(document).height() - gutter);
 		
 		$(window).resize(function() {
-			webPad.css('height', $(document).height() - 88);
+			webPad.css('height', $(document).height() - gutter);
+		});
+		
+		if (dataStore.getStorageType().length > 2) {
+			for (var i = 0; i < dataStore.getStorageType().length; i++) {
+				if (dataStore.getStorageType().key(i).substring(0,10) == 'webPadText') {
+					$('#scratch').append('<option value="' + dataStore.getStorageType().key(i) + '">'+dataStore.getStorageType().key(i).substring(0,15)+'</option>');
+				}
+			}
+		} else {
+			$('#scratchPad').hide();
+		}
+		
+		$('#scratch option[value=' + currentDoc + ']').attr('selected', 'selected');
+		$("#scratch").change(function() {
+			dataStore.setItem(storageKey, webPad.html());
+			currentDoc = $(this).val();
+			storageKey = currentDoc;
+			dataStore.setItem('currentDoc', currentDoc);
+			setContents(dataStore.getItem(storageKey));
 		});
 
 		if (noteId != undefined) {
@@ -56,7 +88,8 @@
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
 				setContents(result.result);
-				webPad.removeAttr('contenteditable');				
+				webPad.removeAttr('contenteditable');
+				webPad.data('clicked', true);
 			});
 		} else {
 			$("#jsSaveContents").hide();
@@ -84,7 +117,7 @@
 		$('#jsClearContents').click(function(e) {
 			e.preventDefault();
 			setContents('');
-			dataStore.removeItem('webPadText');
+			dataStore.removeItem(storageKey);
 		});
 		
 		$('#jsShareContents').click(function(e) {
@@ -104,15 +137,26 @@
 		
 		$('#jsSaveContents').click(function(e) {
 			e.preventDefault();
-			dataStore.setItem('webPadText', webPad.html());
+			storageKey = getStorageKey(noteId);
+			dataStore.setItem('currentDoc', storageKey);
+			dataStore.setItem(storageKey, webPad.html());
 			window.location = "/";
 		});
 		
 		$(window).on('beforeunload', function() {
 			if (webPad.text().length > 0 && webPad.data('clicked') != undefined && noteId == undefined) {
-				dataStore.setItem('webPadText', webPad.html());
+				dataStore.setItem(storageKey, webPad.html());
 			}
 		});
+		
+		function getStorageKey(noteId) {
+			var storageKey = 'webPadText';
+		
+			if (noteId != undefined) {
+				storageKey += '-' + noteId;
+			}
+			return storageKey;
+		}
 		
 		function setContents(data) {
 			webPad.html(data);

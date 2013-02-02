@@ -65,7 +65,7 @@ div.sidebarBox {
 	border-radius: 4px 0 0 4px;
 }
 
-div#webPad:focus {
+div#webPad:focus, #scratch {
 	outline: 0;
 }
 

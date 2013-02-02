@@ -11,7 +11,11 @@ function WNDataStore(storageType) {
 	
 	this.removeItem = function(itemName) {
 		this.storageType.removeItem(itemName);
-	}	
+	}
+	
+	this.getStorageType = function() {
+		return this.storageType;
+	}
 }
 
 ;(function(factory) {
