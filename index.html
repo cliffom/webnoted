@@ -40,7 +40,7 @@
 		var dataStore = new WNDataStore(localStorage);		
 		var noteId = $.url(true).param('noteId');
 		var currentDoc = dataStore.getItem('currentDoc');
-		var storageKey = getStorageKey(noteId);
+		var storageKey = dataStore.getKey(noteId);
 
 		if (currentDoc != undefined) {
 			storageKey = currentDoc;
@@ -49,8 +49,7 @@
 		var text = dataStore.getItem(storageKey);
 		dataStore.setItem('currentDoc', storageKey);
 		
-		webPad.css('height', $(document).height() - gutter);
-		
+		webPad.css('height', $(document).height() - gutter);	
 		$(window).resize(function() {
 			webPad.css('height', $(document).height() - gutter);
 		});
@@ -58,7 +57,7 @@
 		if (dataStore.getStorageType().length > 2) {
 			for (var i = 0; i < dataStore.getStorageType().length; i++) {
 				if (dataStore.getStorageType().key(i).substring(0,10) == 'webPadText') {
-					$('#scratch').append('<option value="' + dataStore.getStorageType().key(i) + '">'+dataStore.getStorageType().key(i).substring(0,15)+'</option>');
+					$('#scratch').append('<option value="' + dataStore.getStorageType().key(i) + '">'+dataStore.getStorageType().key(i).substring(0,18)+'</option>');
 				}
 			}
 		} else {
@@ -77,7 +76,6 @@
 		if (noteId != undefined) {
 			$("#jsShareContents").hide();
 			$("#jsClearContents").hide();
-			$("#jsSaveContents").show();
 			setContents("Don't mind the fog. We are retrieving your notes from the cloud.")
 			$.ajax({
 				url: '/api/?noteId=' + noteId,
@@ -87,6 +85,7 @@
 				}
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
+				$("#jsSaveContents").show();
 				setContents(result.result);
 				webPad.removeAttr('contenteditable');
 				webPad.data('clicked', true);
@@ -95,6 +94,7 @@
 			$("#jsSaveContents").hide();
 			if (text == undefined) {
 				setContents('Type your notes here');
+				dataStore.setItem(storageKey, webPad.html());
 			} else {
 				setContents(text);
 				webPad.data('clicked', true);
@@ -137,27 +137,22 @@
 		
 		$('#jsSaveContents').click(function(e) {
 			e.preventDefault();
-			storageKey = getStorageKey(noteId);
+			storageKey = dataStore.getKey(noteId);
 			dataStore.setItem('currentDoc', storageKey);
 			dataStore.setItem(storageKey, webPad.html());
 			window.location = "/";
 		});
 		
 		$(window).on('beforeunload', function() {
-			if (webPad.text().length > 0 && webPad.data('clicked') != undefined && noteId == undefined) {
+			if (
+				webPad.text().length > 0
+				&& webPad.data('clicked') != undefined
+				&& noteId == undefined
+			) {
 				dataStore.setItem(storageKey, webPad.html());
 			}
 		});
-		
-		function getStorageKey(noteId) {
-			var storageKey = 'webPadText';
-		
-			if (noteId != undefined) {
-				storageKey += '-' + noteId;
-			}
-			return storageKey;
-		}
-		
+
 		function setContents(data) {
 			webPad.html(data);
 			charCounter.html(webPad.text().length);

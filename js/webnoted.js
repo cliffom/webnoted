@@ -1,5 +1,7 @@
 function WNDataStore(storageType) {
 	this.storageType = storageType;
+	this.keyPrefix = 'webPadText';
+	this.key = this.keyPrefix;
 	
 	this.setItem = function(itemName, itemValue) {
 		this.storageType.setItem(itemName, itemValue);
@@ -11,7 +13,17 @@ function WNDataStore(storageType) {
 	
 	this.removeItem = function(itemName) {
 		this.storageType.removeItem(itemName);
-	}
+	};
+	
+	this.getKey = function(noteId) {
+		if (noteId != undefined) {
+			this.key += '-' + noteId;
+		} else {
+			this.key += '-default';
+		}
+		
+		return this.key;
+	};
 	
 	this.getStorageType = function() {
 		return this.storageType;
