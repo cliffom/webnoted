@@ -1,0 +1,81 @@
+body {
+	font-size: 14px;
+	font-family: Verdana, "Bitstream Vera Sans", sans-serif;
+	background-color: #d1d1d1;
+	color: #000;
+	margin: 0 0 0 15px;
+	padding: 0;
+}
+
+div#header {
+	height: 63px;
+}
+
+h1, h2 {
+	margin: 0;
+	padding: 0;
+	color: #7f7373;
+	font-family: "Helvetica Neue",Helvetica,Arial,Sans-Serif;
+	font-size: 24px;
+	text-shadow: #f4f4f4 0px 1px 0px;
+}
+
+h1 {
+	line-height: 63px;
+}
+
+h2 {
+	font-size: 15px;
+	margin: 5px;
+}
+
+a, a:link, a:visited {
+	color: #7f7373;
+	text-decoration: none;
+	border-bottom: 1px dotted;
+}
+
+p {
+	margin: 5px;
+}
+
+div#webpad {
+	color: #000;
+	width: 80%;
+	padding: 4px;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	overflow-y: hidden;
+	position: relative;
+	background-color: #fff;
+	float: left;
+}
+
+div#sidebar {
+	width: 18%;
+	float: right;
+}
+
+div.sidebarBox {
+	background: #eee;
+	padding: 4px;
+	margin-bottom: 5px;
+	border: 1px solid #aaa;
+	border-right: 0;
+	border-radius: 4px 0 0 4px;
+}
+
+div#webPad:focus {
+	outline: 0;
+}
+
+div#footer {
+	clear: both;
+	color: #666;
+	margin-top: 15px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 12px;
+}

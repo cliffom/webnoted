@@ -1,0 +1,138 @@
+<html>
+<head>
+	<title>Notes in your browser</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="js/webnoted.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>Take a quick note. Share a quick thought.</h1>
+	</div>
+		
+	<div id="webpad" contenteditable></div>
+	<div id="sidebar">
+		<div id="about" class="sidebarBox">
+			<h2>About</h2>
+			<p>WebNoted is a quick way to use your browser as a notepad.</p>
+			<h2>Usage</h2>
+			<p>Simply start typing. Your notes are automatically saved.</p>
+		</div>
+		<div id="stats" class="sidebarBox">
+			<h2>Stats</h2>
+			<p id="char-count">Characters: <span>0</span></p>
+			<h2>Options</h2>
+			<p><a href="#" id="jsSaveContents">Save contents</a></p>
+			<p><a href="#" id="jsShareContents">Share contents</a></p>
+			<p><a href="#" id="jsClearContents">Clear contents</a></p>
+		</div>
+	</div>
+	
+	<script>
+	$(function() {
+		var webPad = $('#webpad');
+		var charCounter = $('#char-count span');
+		var dataStore = new WNDataStore(localStorage);
+		var text = dataStore.getItem('webPadText');
+		var noteId = $.url(true).param('noteId');
+		
+		webPad.css('height', $(document).height() - 88);
+		
+		$(window).resize(function() {
+			webPad.css('height', $(document).height() - 88);
+		});
+
+		if (noteId != undefined) {
+			$("#jsShareContents").hide();
+			$("#jsClearContents").hide();
+			$("#jsSaveContents").show();
+			setContents("Don't mind the fog. We are retrieving your notes from the cloud.")
+			$.ajax({
+				url: '/api/?noteId=' + noteId,
+				type: 'get',
+				beforeSend: function() {
+
+				}
+			}).done(function(msg) {
+				var result = JSON.parse(msg);
+				setContents(result.result);
+				webPad.removeAttr('contenteditable');				
+			});
+		} else {
+			$("#jsSaveContents").hide();
+			if (text == undefined) {
+				setContents('Type your notes here');
+			} else {
+				setContents(text);
+				webPad.data('clicked', true);
+			}
+		}
+
+		charCounter.html(webPad.text().length);
+		
+		webPad.keyup(function() {
+			charCounter.html($(this).text().length);
+		});
+		
+		webPad.click(function() {
+			if (webPad.data('clicked') == undefined) {
+				setContents('');
+				webPad.data('clicked', true);
+			}
+		});
+		
+		$('#jsClearContents').click(function(e) {
+			e.preventDefault();
+			setContents('');
+			dataStore.removeItem('webPadText');
+		});
+		
+		$('#jsShareContents').click(function(e) {
+			e.preventDefault();
+			$.ajax({
+				url: '/api/',
+				type: 'post',
+				data: ({note: webPad.html()}),
+				dataType: "text",
+				beforeSend: function() {
+				}
+			}).done(function(msg) {
+				var result = JSON.parse(msg);
+				window.location = "?noteId=" + result.result
+			});
+		});
+		
+		$('#jsSaveContents').click(function(e) {
+			e.preventDefault();
+			dataStore.setItem('webPadText', webPad.html());
+			window.location = "/";
+		});
+		
+		$(window).on('beforeunload', function() {
+			if (webPad.text().length > 0 && webPad.data('clicked') != undefined && noteId == undefined) {
+				dataStore.setItem('webPadText', webPad.html());
+			}
+		});
+		
+		function setContents(data) {
+			webPad.html(data);
+			charCounter.html(webPad.text().length);
+		}
+	});	
+	</script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-947207-15']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	
+</body>
+</html>
