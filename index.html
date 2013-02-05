@@ -1,13 +1,13 @@
 <html>
 <head>
 	<title>Notes in your browser</title>
-	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
-	<link rel="stylesheet" type="text/css" href="css/webnoted.css">
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/css/webnoted.css">
 
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/webnoted.js"></script>
-	<script type="text/javascript" src="js/jquery.webnoted.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/js/webnoted.js"></script>
+	<script type="text/javascript" src="/js/jquery.webnoted.js"></script>
 </head>
 <body>
 	<div id="header">
@@ -44,82 +44,8 @@
 	</div>
 	
 	<script type="text/javascript">
-	$(function() {
-		var webNoted = $("#webpad");
-		var dataStore = new WNDataStore(localStorage);
-		var shareDialogElement = $("#share-message");
-		var noteId = $.url(true).param('noteId')
-		
-		if (noteId !== undefined) {
-			$("#save, #clear, #share").hide();
-			$("#edit").show();
-		} else {
-			$("#edit").hide();
-		}
-
-		webNoted
-			.webNoted({
-				"counterElement": $("#char-count span"),
-				"dataStore": dataStore,
-				"storageKey": 'note',
-				"noteId": noteId,
-				"historyElement": $("#history")
-			})
-			.on('resizeWebNoted', function() {
-				$(this).height($(document).height() - 88);
-			})
-			.on('shareLinkGenerated', function() {
-				var url ="http://www.webnoted.com/" + webNoted.webNoted('getSharedHash');
-				shareDialogElement
-					.find("input")
-					.val(url)
-					.focus(function() { this.select(); });
-				shareDialogElement.dialog("open");
-			})
-			.trigger('resizeWebNoted')
-		;
-		
-		shareDialogElement.dialog({
-			autoOpen: false,
-			modal: true,
-			resizable: false,
-			draggable: false
-		});				
-
-		$("#stats .jsManageContents").click(function() {
-			var e = $(this);
-			var defaultText = e.text();
-			var statusText = '';
-			var action = e.attr('id');
-			var timeout = 750;
-			
-			if (action === 'save') {
-				statusText = 'Contents saved';
-			} else if (action === 'open') {
-				statusText = 'Contents retrieved';
-			} else if (action === 'clear') {
-				statusText = 'Contents cleared';				
-			} else if (action === 'share') {
-				statusText = 'Generating Link';
-			}
-			
-			webNoted.webNoted(action);
-			e.text(statusText);
-			
-			setTimeout(function () {
-				e.text(defaultText);
-			}, timeout);
-		});
-		
-		$(window)
-			.resize(function() {
-				webNoted.trigger('resizeWebNoted');	
-			})
-			.on('beforeunload', function() {
-				webNoted.webNoted('save');	
-			})
-		;
-	});	
+	$(function(){var b=$("#webpad"),g=new WNDataStore(localStorage),c=$("#share-message"),f=$.url(!0).param("noteId");void 0!==f?($("#save, #clear, #share").hide(),$("#edit").show()):$("#edit").hide();b.webNoted({counterElement:$("#char-count span"),dataStore:g,storageKey:"note",noteId:f,historyElement:$("#history")}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var a="http://www.webnoted.com/"+b.webNoted("getSharedHash");c.find("input").val(a).focus(function(){this.select()});
+	c.dialog("open")}).trigger("resizeWebNoted");c.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});$("#stats .jsManageContents").click(function(){var a=$(this),c=a.text(),d="",e=a.attr("id");"save"===e?d="Contents saved":"open"===e?d="Contents retrieved":"clear"===e?d="Contents cleared":"share"===e&&(d="Generating Link");b.webNoted(e);a.text(d);setTimeout(function(){a.text(c)},750)});$(window).resize(function(){b.trigger("resizeWebNoted")}).on("beforeunload",function(){b.webNoted("save")});$("body").show()});	
 	</script>
 	
 </body>

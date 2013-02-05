@@ -5,6 +5,7 @@ body {
 	color: #000;
 	margin: 0 0 0 15px;
 	padding: 0;
+	display: none;
 }
 
 div#header {
@@ -42,6 +43,7 @@ p {
 div#webpad {
 	color: #000;
 	width: 80%;
+	min-height: 301px;
 	padding: 4px;
 	border: 1px solid #aaa;
 	border-radius: 4px;
