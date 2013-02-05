@@ -9,67 +9,14 @@ use Aws\DynamoDb\Exception\DynamoDbException;
 $client = getClient('dynamodb');
 
 if ($_GET['noteId']) {
-	$noteId = $_GET['noteId'];
+	$hashId = $_GET['noteId'];
 
-	try {
-		$result = $client->getItem(array(
-			'TableName' => 'wnNotes',
-			'Key' => $client->formatAttributes(array(
-				'HashKeyElement' => $noteId
-			)),
-			'ConsistentRead' => true
-		));
-		if (!is_null($result['Item'])) {
-			$result = json_encode(
-				array(
-					'status' => 'success',
-					'result' => $result['Item']['note']['S']
-				)
-			);
-		} else {
-			$result = json_encode(
-				array(
-					'status' => 'fail',
-					'message' => 'Item not found for that id'
-				)
-			);
-		}
-		echo $result;
-	} catch (DynamoDbException $e) {
-		echo json_encode(
-			array(
-				'status' => 'fail',
-				'message' => 'Unable to fetch result.'
-			)
-		);
-	}
+	echo getItem($client, $hashId);
 } else if ($_POST['note']) {
 	$note = $_POST['note'];
-	$noteId = md5(uniqid('mitchell-'));
+	$hashId = md5(uniqid('mitchell-'));
 	
-	try {
-		$response = $client->putItem(array(
-			"TableName" => 'wnNotes',
-			"Item" => array(
-				"noteId"	=> array(Type::STRING => $noteId),
-				"note"		=> array(Type::STRING => $note),
-				"created"	=> array(Type::STRING => date('Y-m-d H:i:s')),
-			)
-		));
-		$result = json_encode(array(
-			'status'	=> 'success',
-			'result'	=> $noteId,
-			'data'		=> $note
-		));
-		echo $result;
-	} catch (DynamoDbException $e) {
-		echo json_encode(
-			array(
-				'status'	=> 'fail',
-				'message'	=> 'Unable to save item.'
-			)
-		);
-	}
+	echo putItem($client, $hashId, $note);
 }
 
 
@@ -83,7 +30,104 @@ function aws()
 	));
 }
 
+/**
+ *
+ */
 function getClient($shortName)
 {
 	return aws()->get('dynamodb');
+}
+
+/**
+ *
+ */
+function getItem($client, $hashId)
+{
+	if (($result = getCachedItem($hashId)) === false) {
+		try {
+			$result = $client->getItem(array(
+				'TableName' => 'wnNotes',
+				'Key' => $client->formatAttributes(array(
+					'HashKeyElement' => $hashId
+				)),
+				'ConsistentRead' => true
+			));
+			if (!is_null($result['Item'])) {
+				$result = json_encode(
+					array(
+						'status' => 'success',
+						'hashId' => $hashId,
+						'result' => $result['Item']['note']['S'],
+						'cacheStatus' => 'MISS'
+					)
+				);
+			} else {
+				$result = json_encode(
+					array(
+						'status' => 'fail',
+						'message' => 'Item not found for that id'
+					)
+				);
+			}
+		} catch (DynamoDbException $e) {
+			$result = json_encode(
+				array(
+					'status' => 'fail',
+					'message' => 'Unable to fetch result.'
+				)
+			);
+		}
+	}
+
+	return $result;
+}
+
+/**
+ *
+ */
+function putItem($client, $hashId, $itemValue)
+{
+	try {
+		$response = $client->putItem(array(
+			"TableName" => 'wnNotes',
+			"Item" => array(
+				"noteId"	=> array(Type::STRING => $hashId),
+				"note"		=> array(Type::STRING => $itemValue),
+				"created"	=> array(Type::STRING => date('Y-m-d H:i:s')),
+			)
+		));
+		$result = json_encode(array(
+			'status'	=> 'success',
+			'hashId'	=> $hashId,
+			'result'	=> $itemValue
+		));
+		cacheItem($hashId, $result);
+	} catch (DynamoDbException $e) {
+		$result = json_encode(
+			array(
+				'status'	=> 'fail',
+				'message'	=> 'Unable to save item.'
+			)
+		);
+	}
+	
+	return $result;
+}
+
+function cacheItem($hashId, $itemValue)
+{
+	$result = json_decode($itemValue, true);
+	$result['cacheStatus'] = 'HIT';
+	$result = json_encode($result);
+	return file_put_contents('cache/' . $hashId, $result);
+}
+
+function getCachedItem($hashId)
+{
+	$cacheFile = 'cache/' . $hashId;
+	if (file_exists($cacheFile)) {
+		return file_get_contents($cacheFile);
+	} else {
+		return false;
+	}
 }

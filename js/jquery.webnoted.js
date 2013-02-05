@@ -150,7 +150,7 @@
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
 				if (result.status === 'success') {
-					sharedHash = result.result;
+					sharedHash = result.hashId;
 					webNoted.trigger('shareLinkGenerated');
 				}
 			});
