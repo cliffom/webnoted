@@ -17,13 +17,17 @@ function WNDataStore(storageType) {
 	
 	this.getKey = function(noteId) {
 		if (noteId != undefined) {
-			this.key += '-' + noteId;
+			this.key = this.keyPrefix + '-' + noteId;
 		} else {
-			this.key += '-default';
+			this.key = this.keyPrefix + '-default';
 		}
 		
 		return this.key;
 	};
+	
+	this.getLength = function() {
+		return this.storageType.length;
+	}
 	
 	this.getStorageType = function() {
 		return this.storageType;
