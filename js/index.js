@@ -3,6 +3,12 @@ $(function() {
 	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
 	var noteId = $.url(true).param('noteId')
+	if (noteId === undefined) {
+		noteId = $.url(true).segment(-1);
+		if (noteId === '') {
+			noteId = undefined;
+		}
+	}
 
 	if (noteId !== undefined) {
 		$("#save, #clear, #share").hide();
