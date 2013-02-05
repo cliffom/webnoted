@@ -5,7 +5,7 @@ $(function() {
 	var noteId = $.url(true).param('noteId')
 	if (noteId === undefined) {
 		noteId = $.url(true).segment(-1);
-		if (noteId === '') {
+		if (noteId === '' || noteId === 'index.html') {
 			noteId = undefined;
 		}
 	}
