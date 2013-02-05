@@ -61,6 +61,7 @@ function getItem($client, $hashId)
 						'cacheStatus' => 'MISS'
 					)
 				);
+				cacheItem($hashId, $result);
 			} else {
 				$result = json_encode(
 					array(
