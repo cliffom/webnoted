@@ -100,7 +100,10 @@
 					if (noteId !== undefined) {
 						window.location = "/";
 					} else {
-						webNoted.webNoted('open');
+						webNoted.
+							webNoted('open')
+							.focus()
+						;
 					}
 				});
 			}
