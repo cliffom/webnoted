@@ -25,9 +25,10 @@
 			<h2>Usage</h2>
 			<p>Simply start typing. Your notes are automatically saved.</p>
 		</div>
-		<div id="stats" class="sidebarBox">
-			<h2>Stats</h2>
+		<div id="status" class="sidebarBox">
+			<h2>Status</h2>
 			<p id="char-count">Characters: <span>0</span></p>
+			<p id="status-message">test</p>
 			<h2>Options</h2>
 			<p><a href="#" id="save" class="jsManageContents">Save contents</a></p>
 			<p><a href="#" id="clear" class="jsManageContents">Clear contents</a></p>
@@ -47,8 +48,8 @@
 	</div>
 	
 	<script type="text/javascript">
-	$(function(){var b=$("#webpad"),f=new WNDataStore(localStorage),c=$("#share-message"),a=$.url(!0).param("noteId");if(void 0===a&&(a=$.url(!0).segment(-1),""===a||"index.html"===a))a=void 0;void 0!==a?($("#save, #clear, #share").hide(),$("#edit").show()):$("#edit").hide();b.webNoted({counterElement:$("#char-count span"),dataStore:f,storageKey:"note",noteId:a,historyElement:$("#history")}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var a="http://www.webnoted.com/"+b.webNoted("getSharedHash");c.find("input").val(a).focus(function(){this.select()});c.dialog("open")}).trigger("resizeWebNoted");c.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});$("#stats .jsManageContents").click(function(){var a=$(this),c=a.text(),d="",e=a.attr("id");"save"===e?d="Contents saved":"open"===e?d="Contents retrieved":"clear"===e?d="Contents cleared":"share"===e&&(d="Generating Link");b.webNoted(e);a.text(d);setTimeout(function(){a.text(c)},750)});
-$(window).resize(function(){b.trigger("resizeWebNoted")}).on("beforeunload",function(){b.webNoted("save")});$("body").show()});
+		$(function(){var c=$("#webpad"),e=new WNDataStore(localStorage),d=$("#share-message"),a=$.url(!0).param("noteId");if(void 0===a&&(a=$.url(!0).segment(-1),""===a||"index.html"===a))a=void 0;void 0!==a?($("#save, #clear, #share").hide(),$("#edit").show()):$("#edit").hide();c.webNoted({counterElement:$("#char-count span"),dataStore:e,storageKey:"note",noteId:a,historyElement:$("#history")}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var b="http://www.webnoted.com/"+c.webNoted("getSharedHash");d.find("input").val(b).focus(function(){this.select()});d.dialog("open")}).trigger("resizeWebNoted");d.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});$("#status .jsManageContents").click(function(){var b=$(this),a=$("#status-message"),b=b.attr("id");"save"===b?statusText="Contents saved":"open"===b?statusText="Contents retrieved":"clear"===b?statusText="Contents cleared":"share"===b&&(statusText="Generating Link");c.webNoted(b);a.text(statusText).show("fast");
+setTimeout(function(){a.hide("fast")},1E3)});$(window).resize(function(){c.trigger("resizeWebNoted")}).on("beforeunload",function(){c.webNoted("save")});$("body").show()});
 	</script>
 	<script type="text/javascript">
 		var _gaq = _gaq || [];

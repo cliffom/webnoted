@@ -46,12 +46,11 @@ $(function() {
 		draggable: false
 	});				
 
-	$("#stats .jsManageContents").click(function() {
+	$("#status .jsManageContents").click(function() {
 		var e = $(this);
-		var defaultText = e.text();
-		var statusText = '';
+		var status = $("#status-message");
 		var action = e.attr('id');
-		var timeout = 750;
+		var timeout = 1000;
 
 		if (action === 'save') {
 			statusText = 'Contents saved';
@@ -64,10 +63,10 @@ $(function() {
 		}
 
 		webNoted.webNoted(action);
-		e.text(statusText);
+		status.text(statusText).show('fast');
 
 		setTimeout(function () {
-			e.text(defaultText);
+			status.hide('fast');
 		}, timeout);
 	});
 

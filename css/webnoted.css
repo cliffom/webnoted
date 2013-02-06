@@ -67,6 +67,10 @@ div.sidebarBox {
 	border-radius: 4px 0 0 4px;
 }
 
+#status-message {
+	display: none;
+}
+
 div#share-message p {
 	margin-left: 0;
 }
