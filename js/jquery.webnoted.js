@@ -66,7 +66,7 @@
 				dataStore.setItem('currentDoc', storageKey);
 				this
 					.webNoted('open')
-					.attr('contenteditable','true').focus()
+					.webNoted('setEditable')
 					.webNoted('save')
 				;
 			}
@@ -111,14 +111,14 @@
 
 		save: function() {
 			if (canSave) {
-				dataStore.setItem(storageKey, webNoted.html());
+				dataStore.setItem(storageKey, webNoted.webNoted('getContents'));
 			}
 			return this;
-		},
+		},		
 
 		open: function() {
 			webNoted
-				.html(dataStore.getItem(storageKey))
+				.webNoted('setContents', dataStore.getItem(storageKey))
 				.webNoted('refresh')
 			;
 			return this;
@@ -126,7 +126,7 @@
 
 		clear: function() {
 			webNoted
-				.html('')
+				.webNoted('setContents', '')
 				.webNoted('refresh')
 			return this;
 		},
@@ -144,7 +144,7 @@
 				url: '/api/',
 				type: 'post',
 				data: ({
-					note: webNoted.html()
+					note: webNoted.webNoted('getContents')
 				}),
 				dataType: "text",
 			}).done(function(msg) {
@@ -165,7 +165,7 @@
 				var result = JSON.parse(msg);
 				if (result.status === 'success') {
 					webNoted
-						.html(result.result)
+						.webNoted('setContents', result.result)
 						.trigger('contentChanged')
 						.webNoted('save')
 					;
@@ -186,8 +186,24 @@
 			return this;
 		},
 
+		getContents: function() {
+			return webNoted.val();
+		},
+
+		setContents: function(contents) {
+			webNoted.val(contents);
+			return this;
+		},
+
+		setEditable: function() {
+			webNoted
+				.removeAttr('disabled')
+				.focus();
+			return this;
+		},
+
 		count: function() {
-			return webNoted.text().length;
+			return webNoted.val().length;
 		},
 
 		version: function() {
