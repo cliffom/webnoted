@@ -47,6 +47,16 @@
 	$(function(){var b=$("#webpad"),f=new WNDataStore(localStorage),c=$("#share-message"),a=$.url(!0).param("noteId");if(void 0===a&&(a=$.url(!0).segment(-1),""===a||"index.html"===a))a=void 0;void 0!==a?($("#save, #clear, #share").hide(),$("#edit").show()):$("#edit").hide();b.webNoted({counterElement:$("#char-count span"),dataStore:f,storageKey:"note",noteId:a,historyElement:$("#history")}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var a="http://www.webnoted.com/"+b.webNoted("getSharedHash");c.find("input").val(a).focus(function(){this.select()});c.dialog("open")}).trigger("resizeWebNoted");c.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});$("#stats .jsManageContents").click(function(){var a=$(this),c=a.text(),d="",e=a.attr("id");"save"===e?d="Contents saved":"open"===e?d="Contents retrieved":"clear"===e?d="Contents cleared":"share"===e&&(d="Generating Link");b.webNoted(e);a.text(d);setTimeout(function(){a.text(c)},750)});
 $(window).resize(function(){b.trigger("resizeWebNoted")}).on("beforeunload",function(){b.webNoted("save")});$("body").show()});
 	</script>
-	
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-947207-15']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 </body>
 </html>
