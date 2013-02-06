@@ -8,6 +8,10 @@ use Aws\DynamoDb\Exception\DynamoDbException;
 
 $client = getClient('dynamodb');
 
+////////////////////////////////////////////////////////////////////////////////
+// Main Control
+////////////////////////////////////////////////////////////////////////////////
+
 if ($_GET['noteId']) {
 	$hashId = $_GET['noteId'];
 
@@ -19,8 +23,17 @@ if ($_GET['noteId']) {
 	echo putItem($client, $hashId, $note);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Supporting Functions
+////////////////////////////////////////////////////////////////////////////////
 
-// Create a service building using shared credentials for each service
+/**
+ * Supporting functions
+ */
+
+/**
+ * Create a service building using shared credentials for each service
+ */
 function aws()
 {
 	return Aws::factory(array(
