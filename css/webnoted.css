@@ -79,7 +79,7 @@ div#share-message p.foot-note {
 	font-size: 11px;
 }
 
-div#webPad:focus, #history-list, input:focus {
+div#webpad:focus, #history-list, input:focus {
 	outline: 0;
 }
 
