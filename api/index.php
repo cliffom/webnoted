@@ -21,6 +21,9 @@ if ($_GET['noteId']) {
 	$hashId = md5(uniqid('mitchell-'));
 	
 	echo putItem($client, $hashId, $note);
+} else {
+	header('HTTP/1.0 403 Forbidden');
+	die('Unauthorized API call');
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -128,6 +131,9 @@ function putItem($client, $hashId, $itemValue)
 	return $result;
 }
 
+/**
+ *
+ */
 function cacheItem($hashId, $itemValue)
 {
 	$result = json_decode($itemValue, true);
@@ -136,6 +142,9 @@ function cacheItem($hashId, $itemValue)
 	return file_put_contents('cache/' . $hashId, $result);
 }
 
+/**
+ *
+ */
 function getCachedItem($hashId)
 {
 	$cacheFile = 'cache/' . $hashId;
