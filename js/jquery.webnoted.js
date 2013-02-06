@@ -170,7 +170,6 @@
 						.webNoted('save')
 					;
 				} else {
-					canSave = false;
 					window.location = "/";
 				}
 			});

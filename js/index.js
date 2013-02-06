@@ -11,7 +11,7 @@ $(function() {
 	}
 
 	if (noteId !== undefined) {
-		$("#save, #clear, #share").hide();
+		$("#save, #clear, #share, #history").hide();
 		$("#edit").show();
 	} else {
 		$("#edit").hide();

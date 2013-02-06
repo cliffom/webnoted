@@ -23,7 +23,7 @@
 			<h2>About</h2>
 			<p>WebNoted turns your browser into a notepad.</p>
 			<h2>Usage</h2>
-			<p>Simply start typing. Your notes are automatically saved.</p>
+			<p>Simply start typing. Your notes are automatically saved (Shared notes are not editable).</p>
 		</div>
 		<div id="status" class="sidebarBox">
 			<h2>Status</h2>
@@ -48,7 +48,7 @@
 	</div>
 	
 	<script type="text/javascript">
-		$(function(){var c=$("#webpad"),e=new WNDataStore(localStorage),d=$("#share-message"),a=$.url(!0).param("noteId");if(void 0===a&&(a=$.url(!0).segment(-1),""===a||"index.html"===a))a=void 0;void 0!==a?($("#save, #clear, #share").hide(),$("#edit").show()):$("#edit").hide();c.webNoted({counterElement:$("#char-count span"),dataStore:e,storageKey:"note",noteId:a,historyElement:$("#history")}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var b="http://www.webnoted.com/"+c.webNoted("getSharedHash");d.find("input").val(b).focus(function(){this.select()});d.dialog("open")}).trigger("resizeWebNoted");d.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});$("#status .jsManageContents").click(function(){var b=$(this),a=$("#status-message"),b=b.attr("id");"save"===b?statusText="Contents saved":"open"===b?statusText="Contents retrieved":"clear"===b?statusText="Contents cleared":"share"===b&&(statusText="Generating Link");c.webNoted(b);a.text(statusText).show("fast");
+		$(function(){var c=$("#webpad"),e=new WNDataStore(localStorage),d=$("#share-message"),a=$.url(!0).param("noteId");if(void 0===a&&(a=$.url(!0).segment(-1),""===a||"index.html"===a))a=void 0;void 0!==a?($("#save, #clear, #share, #history").hide(),$("#edit").show()):$("#edit").hide();c.webNoted({counterElement:$("#char-count span"),dataStore:e,storageKey:"note",noteId:a,historyElement:$("#history")}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var b="http://www.webnoted.com/"+c.webNoted("getSharedHash");d.find("input").val(b).focus(function(){this.select()});d.dialog("open")}).trigger("resizeWebNoted");d.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});$("#status .jsManageContents").click(function(){var b=$(this),a=$("#status-message"),b=b.attr("id");"save"===b?statusText="Contents saved":"open"===b?statusText="Contents retrieved":"clear"===b?statusText="Contents cleared":"share"===b&&(statusText="Generating Link");c.webNoted(b);a.text(statusText).show("fast");
 setTimeout(function(){a.hide("fast")},1E3)});$(window).resize(function(){c.trigger("resizeWebNoted")}).on("beforeunload",function(){c.webNoted("save")});$("body").show()});
 	</script>
 	<script type="text/javascript">
