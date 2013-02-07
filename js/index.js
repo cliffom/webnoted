@@ -47,7 +47,7 @@ $(function() {
 		.trigger('contentChanged')
 	;
 
-	$("#status .jsManageContents").click(function() {
+	$("#sidebar .jsManageContents").click(function() {
 		var e = $(this);
 		var status = $("#status-message");
 		var action = e.attr('id');
