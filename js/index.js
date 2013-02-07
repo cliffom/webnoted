@@ -1,50 +1,51 @@
 $(function() {
 	var webNoted = $("#webpad");
+	var counterElement = $("#char-count span");
 	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
-	var noteId = $.url(true).param('noteId')
+	var noteId = $.url(true).param('noteId');
+	
 	if (noteId === undefined) {
 		noteId = $.url(true).segment(-1);
 		if (noteId === '' || noteId === 'index.html') {
 			noteId = undefined;
+			$("#home").hide();
+		} else {
+			$("#save, #clear, #share").hide();	
 		}
 	}
-
-	if (noteId !== undefined) {
-		$("#save, #clear, #share, #history").hide();
-		$("#edit").show();
-	} else {
-		$("#edit").hide();
-	}
-
-	webNoted
-		.webNoted({
-			"counterElement": $("#char-count span"),
-			"dataStore": dataStore,
-			"storageKey": 'note',
-			"noteId": noteId,
-			"historyElement": $("#history")
-		})
-		.on('resizeWebNoted', function() {
-			$(this).height($(document).height() - 88);
-		})
-		.on('shareLinkGenerated', function() {
-			var url ="http://www.webnoted.com/" + webNoted.webNoted('getSharedHash');
-			shareDialogElement
-				.find("input")
-				.val(url)
-				.focus(function() { this.select(); });
-			shareDialogElement.dialog("open");
-		})
-		.trigger('resizeWebNoted')
-	;
 
 	shareDialogElement.dialog({
 		autoOpen: false,
 		modal: true,
 		resizable: false,
 		draggable: false
-	});				
+	});
+
+	webNoted
+		.webNoted({
+			"dataStore": dataStore,
+			"storageKey": 'note',
+			"noteId": noteId
+		})
+		.on('resizeWebNoted', function() {
+			$(this).height($(document).height() - 88);
+		})
+		.on('shareLinkGenerated', function() {
+			var url ="http://www.webnoted.com/" + webNoted.webNoted('getSharedHash');
+			var shared = shareDialogElement.find("input");
+			shared.val(url).focus(function() { this.select(); });
+			shareDialogElement.dialog("open");
+			shared.attr("readonly", true);
+		})
+		.on('contentChanged', function() {
+			setTimeout(function () {
+				counterElement.html(webNoted.webNoted('count'));
+			}, 0);
+		})
+		.trigger('resizeWebNoted')
+		.trigger('contentChanged')
+	;
 
 	$("#status .jsManageContents").click(function() {
 		var e = $(this);
@@ -54,8 +55,6 @@ $(function() {
 
 		if (action === 'save') {
 			statusText = 'Contents saved';
-		} else if (action === 'open') {
-			statusText = 'Contents retrieved';
 		} else if (action === 'clear') {
 			statusText = 'Contents cleared';				
 		} else if (action === 'share') {
