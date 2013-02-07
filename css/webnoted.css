@@ -69,6 +69,13 @@ div.sidebarBox {
 	border-radius: 4px 0 0 4px;
 }
 
+hr {
+	border: 0;
+	color: #7f7373;
+	background-color: #7f7373;
+	height: 1px;
+}
+
 #status-message {
 	display: none;
 }
