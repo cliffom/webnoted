@@ -14,7 +14,7 @@
 	var settings;
 	var sharedHash;
 	var storageKey;
-	var version = '0.7';
+	var version = '0.8.5';
 	var webNoted;	
 
 	var methods = {
