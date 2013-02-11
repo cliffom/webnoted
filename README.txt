@@ -1,1 +1,1 @@
-Insert some clever text here.\n
+WebNoted - Notes in your browser
