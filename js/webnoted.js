@@ -22,6 +22,9 @@ function WNDataStore(storageType) {
 	}
 }
 
+/**
+ * The following code is from https://github.com/allmarkedup/jQuery-URL-Parser
+ */
 ;(function(factory) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD available; use anonymous module
