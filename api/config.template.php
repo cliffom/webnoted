@@ -13,9 +13,16 @@ class Config
 		'table'			=> 'YOUR_DYNAMODB_TABLE',
 		'cacheFolder'	=> 'cache'
 	);
-	
+
+	/**
+	 *
+	 */
 	public static function getOption($optionName)
 	{
-		return self::$options[$optionName];
+		if (isset(self::$options[$optionName])) {
+			return self::$options[$optionName];
+		} else {
+			return null;
+		}
 	}
 }
