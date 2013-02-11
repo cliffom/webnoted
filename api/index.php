@@ -52,7 +52,7 @@ function aws()
  */
 function getClient($shortName)
 {
-	return aws()->get('dynamodb');
+	return aws()->get($shortName);
 }
 
 /**
