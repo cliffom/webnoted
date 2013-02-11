@@ -1,10 +1,11 @@
 <?php
-require 'aws.phar';
+require_once 'aws.phar';
+require_once 'config.php';
 
 use Aws\Common\Aws;
-use Aws\Common\Enum\Region;
 use Aws\DynamoDb\Enum\Type;
 use Aws\DynamoDb\Exception\DynamoDbException;
+use WebNoted\Config;
 
 $client = getClient('dynamodb');
 
@@ -40,9 +41,9 @@ if ($_GET['noteId']) {
 function aws()
 {
 	return Aws::factory(array(
-		'key'    => 'AKIAI5Q5KQMJLQQVAQDA',
-		'secret' => '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',
-		'region' => Region::US_WEST_2
+		'key'    => Config::getOption('awsKey'),
+		'secret' => Config::getOption('awsSecret'),
+		'region' => Config::getOption('awsRegion')
 	));
 }
 
@@ -62,7 +63,7 @@ function getItem($client, $hashId)
 	if (($result = getCachedItem($hashId)) === false) {
 		try {
 			$result = $client->getItem(array(
-				'TableName' => 'wnNotes',
+				'TableName' => Config::getOption('table'),
 				'Key' => $client->formatAttributes(array(
 					'HashKeyElement' => $hashId
 				)),
@@ -106,7 +107,7 @@ function putItem($client, $hashId, $itemValue)
 {
 	try {
 		$response = $client->putItem(array(
-			"TableName" => 'wnNotes',
+			"TableName" => Config::getOption('table'),
 			"Item" => array(
 				"noteId"	=> array(Type::STRING => $hashId),
 				"note"		=> array(Type::STRING => $itemValue),
@@ -139,7 +140,11 @@ function cacheItem($hashId, $itemValue)
 	$result = json_decode($itemValue, true);
 	$result['cacheStatus'] = 'HIT';
 	$result = json_encode($result);
-	return file_put_contents('cache/' . $hashId, $result);
+	if (is_dir(Config::getOption('cacheFolder'))) {
+		return file_put_contents(Config::getOption('cacheFolder') . '/' . $hashId, $result);
+	} else {
+		return false;
+	}
 }
 
 /**
@@ -147,7 +152,7 @@ function cacheItem($hashId, $itemValue)
  */
 function getCachedItem($hashId)
 {
-	$cacheFile = 'cache/' . $hashId;
+	$cacheFile = Config::getOption('cacheFolder') . '/' . $hashId;
 	if (file_exists($cacheFile)) {
 		return file_get_contents($cacheFile);
 	} else {
