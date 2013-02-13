@@ -71,7 +71,7 @@
 
 		share: function() {
 			$.ajax({
-				url: '/api/',
+				url: 'http://api.webnoted.com/',
 				type: 'post',
 				data: ({
 					note: webNoted.webNoted('getContents')
@@ -89,7 +89,7 @@
 		
 		loadShared: function() {
 			$.ajax({
-				url: '/api/?noteId=' + noteId,
+				url: 'http://api.webnoted.com/?noteId=' + noteId,
 				type: 'get',
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
