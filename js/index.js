@@ -3,16 +3,15 @@ $(function() {
 	var counterElement = $("#char-count span");
 	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
-	var noteId = $.url(true).param('noteId');
-	
-	if (noteId === undefined) {
-		noteId = $.url(true).segment(-1);
-		if (noteId === '' || noteId === 'index.html') {
-			noteId = undefined;
-			$("#home").hide();
-		} else {
-			$("#save, #clear, #share").hide();	
-		}
+	var queryString = getQueryString();
+	var locationArray = window.location.href.split('/');
+	var noteId = (queryString.noteId !== undefined) ? queryString.noteId : locationArray[locationArray.length - 1];
+
+	if (noteId === '' || noteId === 'index.html') {
+		noteId = undefined;
+		$("#home").hide();
+	} else {
+		$("#save, #clear, #share").hide();	
 	}
 
 	shareDialogElement.dialog({
