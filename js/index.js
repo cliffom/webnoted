@@ -3,12 +3,9 @@ $(function() {
 	var counterElement = $("#char-count span");
 	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
-	var queryString = getQueryString();
-	var locationArray = window.location.href.split('/');
-	var noteId = (queryString.noteId !== undefined) ? queryString.noteId : locationArray[locationArray.length - 1];
+	noteId = getNoteId();
 
-	if (noteId === '' || noteId === 'index.html') {
-		noteId = undefined;
+	if (noteId === undefined) {
 		$("#home").hide();
 	} else {
 		$("#save, #clear, #share").hide();	

@@ -42,3 +42,15 @@ function getQueryString() {
 	} 
 	return query_string;
 }
+
+function getNoteId() {
+	var queryString = getQueryString();
+	var locationArray = window.location.href.split('/');
+	var noteId = (queryString.noteId !== undefined) ? queryString.noteId : locationArray[locationArray.length - 1];
+	
+	if (noteId === '' || noteId === 'index.html' || noteId === '#') {
+		noteId = undefined;
+	}
+	
+	return noteId;
+}
