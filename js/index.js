@@ -3,7 +3,7 @@ $(function() {
 	var counterElement = $("#char-count span");
 	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
-	noteId = getNoteId();
+	var noteId = getNoteId();
 
 	if (noteId === undefined) {
 		$("#home").hide();
