@@ -24,6 +24,7 @@ $(function() {
 
 	webNoted
 		.webNoted({
+			"apiURL": "http://api.webnoted.com/",
 			"dataStore": dataStore,
 			"storageKey": 'note',
 			"noteId": noteId

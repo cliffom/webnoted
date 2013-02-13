@@ -8,6 +8,7 @@
  *
  */
 (function($) {
+	var apiURL;
 	var canSave = true;
 	var dataStore;
 	var noteId;
@@ -22,11 +23,13 @@
 			webNoted = this;
 			
 			settings = $.extend({
+				'apiURL': '/api/',
 				'dataStore': localStorage,
 				'storageKey': 'note',
-				'noteId': '',
+				'noteId': ''				
 			}, options);
-			
+
+			apiURL = options['apiURL'];
 			dataStore = options['dataStore'];
 			storageKey = options['storageKey'];
 			noteId = options['noteId'];
@@ -71,7 +74,7 @@
 
 		share: function() {
 			$.ajax({
-				url: 'http://api.webnoted.com/',
+				url: apiURL,
 				type: 'post',
 				data: ({
 					note: webNoted.webNoted('getContents')
@@ -89,7 +92,7 @@
 		
 		loadShared: function() {
 			$.ajax({
-				url: 'http://api.webnoted.com/?noteId=' + noteId,
+				url: apiURL + '?noteId=' + noteId,
 				type: 'get',
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
