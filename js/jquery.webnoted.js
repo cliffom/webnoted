@@ -68,7 +68,7 @@
 		},
 
 		clear: function() {
-			webNoted.webNoted('setContents', '')
+			webNoted.webNoted('setContents', '');
 			return this;
 		},
 
@@ -79,7 +79,7 @@
 				data: ({
 					note: webNoted.webNoted('getContents')
 				}),
-				dataType: "text",
+				dataType: "text"
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
 				if (result.status === 'success') {
@@ -93,7 +93,7 @@
 		loadShared: function() {
 			$.ajax({
 				url: apiURL + '?noteId=' + noteId,
-				type: 'get',
+				type: 'get'
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
 				if (result.status === 'success') {
