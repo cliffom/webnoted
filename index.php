@@ -4,17 +4,27 @@ $noteId = (isset($_GET['noteId'])) ? $_GET['noteId'] : '';
 $note = '';
 
 if ($noteId !== '') {
-	$apiData = json_decode(file_get_contents($apiURL . $noteId));
-	if (isset($apiData->status)) {
-		if ($apiData->status === 'success') {
-			$note = $apiData->result;
+	$apiData = @file_get_contents($apiURL . $noteId);
+
+	if ($apiData !== false) {
+		$apiData = json_decode($apiData);
+
+		if (isset($apiData->status)) {
+
+			if ($apiData->status === 'success') {
+				$note = $apiData->result;
+			} else {
+				header('HTTP/1.0 404 Not Found');
+				die('Error: Invalid noteId');
+			}
 		} else {
-			header('HTTP/1.0 404 Not Found');
-			die('Invalid noteId');
+			header('HTTP/1.0 500 Internal Server Error');
+			die('Fatal Error: API is offline');
 		}
+
 	} else {
 		header('HTTP/1.0 500 Internal Server Error');
-		die('API is offline');
+		die('Fatal Error: API is offline');
 	}
 } else {
 	
