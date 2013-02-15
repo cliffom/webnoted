@@ -17,6 +17,7 @@ if ($noteId !== '') {
 				header('HTTP/1.0 404 Not Found');
 				die('Error: Invalid noteId');
 			}
+
 		} else {
 			header('HTTP/1.0 500 Internal Server Error');
 			die('Fatal Error: API is offline');
@@ -24,7 +25,7 @@ if ($noteId !== '') {
 
 	} else {
 		header('HTTP/1.0 500 Internal Server Error');
-		die('Fatal Error: API is offline');
+		die('Fatal Error: API URL is unreachable');
 	}
 } else {
 	
