@@ -30,8 +30,11 @@
 			<p id="char-count">Characters: <span>0</span></p>
 			<p id="status-message">test</p>
 			<h2>Options</h2>
-			<p><a href="#" id="save" class="jsManageContents">Save contents</a></p>
-			<p><a href="#" id="clear" class="jsManageContents">Clear contents</a></p>
+			<p>
+				<span><a href="#" id="create" class="jsManageContents">Create</a></span> | 
+				<span><a href="#" id="save" class="jsManageContents">Save</a></span> |
+				<span><a href="#" id="clear" class="jsManageContents">Clear</a></span>
+			</p>
 			<p><a href="#" id="share" class="jsManageContents">Share this note</a></p>
 			<p><a href="/" id="home">Return to my note</a></p>
 		</div>
@@ -68,7 +71,6 @@
 				.webNoted({
 					"apiURL": "http://api.webnoted.com/",
 					"dataStore": dataStore,
-					"storageKey": 'note',
 					"noteId": noteId
 				})
 				.on('resizeWebNoted', function() {
@@ -93,6 +95,7 @@
 			$("#sidebar .jsManageContents").click(function() {
 				var e = $(this);
 				var status = $("#status-message");
+				var statusText = '';
 				var action = e.attr('id');
 				var timeout = 1000;
 		

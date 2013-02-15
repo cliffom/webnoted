@@ -14,7 +14,6 @@
 	var noteId;
 	var settings;
 	var sharedHash;
-	var storageKey;
 	var version = '0.9';
 	var webNoted;	
 
@@ -25,13 +24,11 @@
 			settings = $.extend({
 				'apiURL': '/api/',
 				'dataStore': localStorage,
-				'storageKey': 'note',
 				'noteId': ''				
 			}, options);
 
 			apiURL = options['apiURL'];
 			dataStore = options['dataStore'];
-			storageKey = options['storageKey'];
 			noteId = options['noteId'];
 
 			if (noteId !== '') {
@@ -50,14 +47,29 @@
 
 		save: function() {
 			if (canSave) {
-				dataStore.setItem(storageKey, webNoted.webNoted('getContents'));
+				dataStore.setItem(webNoted.webNoted('getCurrentDocument'), webNoted.webNoted('getContents'));
 			}
 			return this;
 		},		
 
 		open: function() {
-			webNoted.webNoted('setContents', dataStore.getItem(storageKey));
+			webNoted.webNoted('setContents', dataStore.getItem(webNoted.webNoted('getCurrentDocument')));
 			return this;
+		},
+
+		create: function() {
+			var now = new Date;
+			
+			webNoted.webNoted('save');
+			webNoted.webNoted('clear');
+			webNoted.webNoted('setCurrentDocument', 'note-' + now);
+			webNoted.webNoted('save');
+		},
+
+		switchDocument: function(documentName) {
+			webNoted.webNoted('save');
+			webNoted.webNoted('setCurrentDocument', documentName);
+			webNoted.webNoted('open');
 		},
 
 		clear: function() {
@@ -81,6 +93,19 @@
 				}
 			});
 			return this;
+		},
+
+		getCurrentDocument: function() {
+			var currentDocument = dataStore.getItem('currentDocument');
+			if (currentDocument === null) {
+				currentDocument = 'note';
+				webNoted.webNoted('setCurrentDocument', currentDocument);
+			}
+			return currentDocument;
+		},
+
+		setCurrentDocument: function(documentName) {
+			dataStore.setItem('currentDocument', documentName);
 		},
 
 		getSharedHash: function() {
