@@ -7,3 +7,5 @@ api/cache/*
 api/config.php
 
 api/aws.phar
+
+.idea/*
