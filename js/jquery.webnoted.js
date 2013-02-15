@@ -34,18 +34,11 @@
 			storageKey = options['storageKey'];
 			noteId = options['noteId'];
 
-			if (noteId !== undefined) {
-				storageKey = "#" + storageKey + "-" + noteId;
-				if (dataStore.getItem(storageKey) != undefined) {
-					webNoted.webNoted('open');
-				} else {
-					this.webNoted('loadShared');
-				}
+			if (noteId !== '') {
+				canSave = false;
 			} else {
-				this
-					.webNoted('open')
-					.webNoted('setEditable')
-				;
+				this.webNoted('open');
+				this.webNoted('setEditable');
 			}
 
 			this.on('keyup paste', function() {
@@ -88,25 +81,6 @@
 				}
 			});
 			return this;
-		},
-		
-		loadShared: function() {
-			$.ajax({
-				url: apiURL + '?noteId=' + noteId,
-				type: 'get'
-			}).done(function(msg) {
-				var result = JSON.parse(msg);
-				if (result.status === 'success') {
-					webNoted
-						.webNoted('setContents', result.result)
-						.webNoted('save')
-					;
-				} else {
-					canSave = false;
-					window.location = "/";
-				}
-			});
-			return this;			
 		},
 
 		getSharedHash: function() {
