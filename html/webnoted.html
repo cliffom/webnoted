@@ -9,7 +9,6 @@
 
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/js/webnoted.js"></script>
 	<script type="text/javascript" src="/js/jquery.webnoted.js"></script>
 </head>
 <body>
@@ -123,6 +122,29 @@
 			;
 			$("body").show();
 		});
+		function WNDataStore(storageType) {
+			this.storageType = storageType;
+			
+			this.setItem = function(itemName, itemValue) {
+				this.storageType.setItem(itemName, itemValue);
+			};
+			
+			this.getItem = function(itemName) {
+				return this.storageType.getItem(itemName);
+			};
+			
+			this.removeItem = function(itemName) {
+				this.storageType.removeItem(itemName);
+			};
+			
+			this.getLength = function() {
+				return this.storageType.length;
+			}
+			
+			this.getStorageType = function() {
+				return this.storageType;
+			}
+		}
 	</script>
 	<script type="text/javascript">
 		var _gaq = _gaq || [];
