@@ -88,11 +88,11 @@ div#share-message p.foot-note {
 	font-size: 11px;
 }
 
-#webpad:focus, #history-list, input:focus {
+#webpad:focus, #history, input:focus {
 	outline: 0;
 }
 
-#history-list {
+#history {
 	width: 100%;
 }
 

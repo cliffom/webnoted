@@ -1,28 +1,28 @@
 $(function() {
 	var webNoted = $("#webpad");
 	var counterElement = $("#char-count span");
+	var historyElement = $("#history");
 	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
 	var noteId = "<?php echo $noteId ?>";
-
+	
 	if (noteId === '') {
 		$("#home").hide();
 	} else {
 		$("#save, #clear, #share").hide();	
 	}
-
+	
 	shareDialogElement.dialog({
 		autoOpen: false,
 		modal: true,
 		resizable: false,
 		draggable: false
 	});
-
+	
 	webNoted
 		.webNoted({
 			"apiURL": "http://api.webnoted.com/",
 			"dataStore": dataStore,
-			"storageKey": 'note',
 			"noteId": noteId
 		})
 		.on('resizeWebNoted', function() {
@@ -40,16 +40,32 @@ $(function() {
 				counterElement.html(webNoted.webNoted('count'));
 			}, 0);
 		})
+		.on('noteCreated', function() {
+			var documentName = webNoted.webNoted('getCurrentDocument');
+			historyElement.append('<option value="' + documentName + '" selected="selected">' + documentName + '</option>');
+		})
 		.trigger('resizeWebNoted')
 		.trigger('contentChanged')
 	;
-
+	
+	$.each(webNoted.webNoted('getSavedNotes'), function(key, value) {
+		var currentDocument = webNoted.webNoted('getCurrentDocument');
+		historyElement.append('<option value="' + value + '">' + value + '</option>');
+		if (currentDocument === value) {
+			historyElement.val(value).attr('selected', true);
+		}
+	});
+	historyElement.on("change", function() {
+		webNoted.webNoted('switchDocument', $(this).val());
+	});
+	
 	$("#sidebar .jsManageContents").click(function() {
 		var e = $(this);
 		var status = $("#status-message");
+		var statusText = '';
 		var action = e.attr('id');
 		var timeout = 1000;
-
+	
 		if (action === 'save') {
 			statusText = 'Contents saved';
 		} else if (action === 'clear') {
@@ -57,15 +73,15 @@ $(function() {
 		} else if (action === 'share') {
 			statusText = 'Generating Link';
 		}
-
+	
 		webNoted.webNoted(action);
 		status.text(statusText).show('fast');
-
+	
 		setTimeout(function () {
 			status.hide('fast');
 		}, timeout);
 	});
-
+	
 	$(window)
 		.resize(function() {
 			webNoted.trigger('resizeWebNoted');	
@@ -75,8 +91,8 @@ $(function() {
 		})
 	;
 	$("body").show();
-});
-function WNDataStore(storageType) {
+	});
+	function WNDataStore(storageType) {
 	this.storageType = storageType;
 	
 	this.setItem = function(itemName, itemValue) {

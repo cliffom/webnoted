@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedHash;
-	var version = '0.9';
+	var version = '0.9.5';
 	var webNoted;	
 
 	var methods = {
@@ -64,6 +64,7 @@
 			webNoted.webNoted('clear');
 			webNoted.webNoted('setCurrentDocument', 'note-' + now);
 			webNoted.webNoted('save');
+			webNoted.trigger('noteCreated');
 		},
 
 		switchDocument: function(documentName) {
@@ -126,6 +127,16 @@
 				.removeAttr('disabled')
 				.focus();
 			return this;
+		},
+
+		getSavedNotes: function() {
+			var savedNotes = new Array;
+			for (var i = 0; i <= dataStore.getLength(); i++) {
+				if (dataStore.getStorageType().key(i) !== null && dataStore.getStorageType().key(i).substring(0,4) === 'note') {
+					savedNotes.push(dataStore.getStorageType().key(i));
+				}
+			}
+			return savedNotes;
 		},
 
 		count: function() {
