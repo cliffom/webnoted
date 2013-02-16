@@ -6,17 +6,12 @@
 	<title>Notes in your browser</title>
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" />
 	<link rel="stylesheet" type="text/css" href="/css/webnoted.css">
-
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/js/jquery.webnoted.js"></script>
 </head>
 <body>
 	<div id="header">
 		<h1>Take a quick note. Share a quick thought.</h1>
 	</div>
 
-	<textarea id="webpad" value="test" disabled><?php echo $note; ?></textarea>
 	<div id="sidebar">
 		<div id="about" class="sidebarBox">
 			<h2>About</h2>
@@ -45,15 +40,20 @@
 			</div>
 		</div>
 	</div>
-	
+	<textarea id="webpad" value="test" disabled><?php echo $note; ?></textarea>
+
 	<div id="share-message" title="Share">
 		<p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
 		<input type="text" style="width: 100%" />
 		<p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
 	</div>
-	
+
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.webnoted.js"></script>
 	<script type="text/javascript">
-		$(function(){var webNoted=$("#webpad");var counterElement=$("#char-count span");var historyElement=$("#history");var shareDialogElement=$("#share-message");var noteId="<?php echo $noteId ?>";shareDialogElement.dialog({autoOpen:false,modal:true,resizable:false,draggable:false});webNoted.webNoted({"apiURL":"http://api.webnoted.com/","dataStore":localStorage,"noteId":noteId}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var url="http://www.webnoted.com/"+webNoted.webNoted("getSharedHash");var shared=shareDialogElement.find("input");shared.val(url).focus(function(){this.select()});shareDialogElement.dialog("open");shared.attr("readonly",true)}).on("contentChanged",function(){setTimeout(function(){counterElement.html(webNoted.webNoted("count"))},0)}).on("noteCreated",function(){var documentName=webNoted.webNoted("getCurrentDocument");historyElement.append('<option value="'+documentName+'" selected="selected">'+documentName+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(webNoted.webNoted("getSavedNotes"),function(key,value){var currentDocument=webNoted.webNoted("getCurrentDocument");historyElement.append('<option value="'+value+'">'+value+"</option>");if(currentDocument===value)historyElement.val(value).attr("selected",true)});historyElement.on("change",function(){webNoted.webNoted("switchDocument",$(this).val())});$("#sidebar .jsManageContents").click(function(){var e=$(this);var status=$("#status-message");var statusText="";var action=e.attr("id");var timeout=1E3;if(action==="create")statusText="New note created";else if(action==="save")statusText="Contents saved";else if(action==="clear")statusText="Contents cleared";else if(action==="share")statusText="Generating Link";webNoted.webNoted(action);status.text(statusText).show("fast");setTimeout(function(){status.hide("fast")},timeout)});$(window).resize(function(){webNoted.trigger("resizeWebNoted")}).on("beforeunload",function(){webNoted.webNoted("save")});if(noteId=="")$("#home").hide();else $("#crud, #share, #history-container").hide();$("body").show()});
+		var noteId = "<?php echo $noteId ?>";
+		$(function(){var b=$("#webpad"),g=$("#char-count span"),e=$("#history"),f=$("#share-message");""==noteId?$("#home").hide():$("#crud, #share, #history-container").hide();f.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});b.webNoted({apiURL:"http://api.webnoted.com/",dataStore:localStorage,noteId:noteId}).on("resizeWebNoted",function(){b.height($(window).height()-88);b.width($(window).width()-298)}).on("shareLinkGenerated",function(){var a="http://www.webnoted.com/"+b.webNoted("getSharedHash"),c=f.find("input");c.val(a).focus(function(){this.select()});f.dialog("open");c.attr("readonly",!0)}).on("contentChanged",function(){setTimeout(function(){g.html(b.webNoted("count"))},0)}).on("noteCreated",function(){var a=b.webNoted("getCurrentDocument");e.append('<option value="'+a+'" selected="selected">'+a+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(b.webNoted("getSavedNotes"),function(a,c){var d=b.webNoted("getCurrentDocument");e.append('<option value="'+c+'">'+c+"</option>");d===c&&e.val(c).attr("selected",!0)});e.on("change",function(){b.webNoted("switchDocument",$(this).val())});$("#sidebar .jsManageContents").click(function(){var a=$(this),c=$("#status-message"),d="",a=a.attr("id");"create"===a?d="New note created":"save"===a?d="Contents saved":"clear"===a?d="Contents cleared":"share"===a&&(d="Generating Link");b.webNoted(a);c.text(d).show("fast");setTimeout(function(){c.hide("fast")},1E3)});$(window).resize(function(){b.trigger("resizeWebNoted")}).on("beforeunload",function(){b.webNoted("save")});$("body").show()});
 	</script>
 	<script type="text/javascript">
 		var _gaq = _gaq || [];

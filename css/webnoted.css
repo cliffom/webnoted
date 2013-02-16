@@ -42,8 +42,6 @@ p {
 
 #webpad {
 	color: #000;
-	width: 80%;
-	min-height: 301px;
 	padding: 4px;
 	border: 1px solid #aaa;
 	border-radius: 4px;
@@ -56,7 +54,7 @@ p {
 }
 
 div#sidebar {
-	width: 18%;
+	width: 260px;
 	float: right;
 }
 

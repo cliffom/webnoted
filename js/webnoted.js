@@ -3,7 +3,12 @@ $(function() {
 	var counterElement = $("#char-count span");
 	var historyElement = $("#history");
 	var shareDialogElement = $("#share-message");
-	var noteId = "<?php echo $noteId ?>";
+
+	if (noteId == '') {
+		$("#home").hide();
+	} else {
+		$("#crud, #share, #history-container").hide();
+	}
 
 	shareDialogElement.dialog({
 		autoOpen: false,
@@ -19,7 +24,8 @@ $(function() {
 			"noteId": noteId
 		})
 		.on('resizeWebNoted', function() {
-			$(this).height($(document).height() - 88);
+			webNoted.height($(window).height() - 88);
+			webNoted.width($(window).width() - 298);
 		})
 		.on('shareLinkGenerated', function() {
 			var url ="http://www.webnoted.com/" + webNoted.webNoted('getSharedHash');
@@ -85,12 +91,6 @@ $(function() {
 			webNoted.webNoted('save');	
 		})
 	;
-
-	if (noteId == '') {
-		$("#home").hide();
-	} else {
-		$("#crud, #share, #history-container").hide();
-	}
 
 	$("body").show();
 });
