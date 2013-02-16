@@ -5,20 +5,14 @@ $(function() {
 	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
 	var noteId = "<?php echo $noteId ?>";
-	
-	if (noteId === '') {
-		$("#home").hide();
-	} else {
-		$("#save, #clear, #share").hide();	
-	}
-	
+
 	shareDialogElement.dialog({
 		autoOpen: false,
 		modal: true,
 		resizable: false,
 		draggable: false
 	});
-	
+
 	webNoted
 		.webNoted({
 			"apiURL": "http://api.webnoted.com/",
@@ -47,7 +41,7 @@ $(function() {
 		.trigger('resizeWebNoted')
 		.trigger('contentChanged')
 	;
-	
+
 	$.each(webNoted.webNoted('getSavedNotes'), function(key, value) {
 		var currentDocument = webNoted.webNoted('getCurrentDocument');
 		historyElement.append('<option value="' + value + '">' + value + '</option>');
@@ -58,7 +52,7 @@ $(function() {
 	historyElement.on("change", function() {
 		webNoted.webNoted('switchDocument', $(this).val());
 	});
-	
+
 	$("#sidebar .jsManageContents").click(function() {
 		var e = $(this);
 		var status = $("#status-message");
@@ -73,15 +67,15 @@ $(function() {
 		} else if (action === 'share') {
 			statusText = 'Generating Link';
 		}
-	
+
 		webNoted.webNoted(action);
 		status.text(statusText).show('fast');
-	
+
 		setTimeout(function () {
 			status.hide('fast');
 		}, timeout);
 	});
-	
+
 	$(window)
 		.resize(function() {
 			webNoted.trigger('resizeWebNoted');	
@@ -90,9 +84,16 @@ $(function() {
 			webNoted.webNoted('save');	
 		})
 	;
+
+	if (noteId == '') {
+		$("#home").hide();
+	} else {
+		$("#crud, #share, #history-container").hide();
+	}
+
 	$("body").show();
-	});
-	function WNDataStore(storageType) {
+});
+function WNDataStore(storageType) {
 	this.storageType = storageType;
 	
 	this.setItem = function(itemName, itemValue) {

@@ -30,7 +30,7 @@
 			<p id="char-count">Characters: <span>0</span></p>
 			<p id="status-message">test</p>
 			<h2>Options</h2>
-			<p>
+			<p id="crud">
 				<span><a href="#" id="create" class="jsManageContents">Create</a></span> | 
 				<span><a href="#" id="save" class="jsManageContents">Save</a></span> |
 				<span><a href="#" id="clear" class="jsManageContents">Clear</a></span>
@@ -38,10 +38,11 @@
 			<p><a href="#" id="share" class="jsManageContents">Share this note</a></p>
 			<p><a href="/" id="home">Return to my note</a></p>
 			
-			<hr />
-			
-			<h2>History</h2>
-			<select id="history"></select>
+			<div id="history-container">
+				<hr />
+				<h2>History</h2>
+				<select id="history"></select>
+			</div>
 		</div>
 	</div>
 	
@@ -52,7 +53,7 @@
 	</div>
 	
 	<script type="text/javascript">
-		$(function(){var a=$("#webpad"),c=$("#char-count span"),e=$("#history"),g=new WNDataStore(localStorage),f=$("#share-message");$("#save, #clear, #share").hide();f.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});a.webNoted({apiURL:"http://api.webnoted.com/",dataStore:g,noteId:"<?php echo $noteId ?>"}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var b="http://www.webnoted.com/"+a.webNoted("getSharedHash"),d=f.find("input");d.val(b).focus(function(){this.select()});f.dialog("open");d.attr("readonly",!0)}).on("contentChanged",function(){setTimeout(function(){c.html(a.webNoted("count"))},0)}).on("noteCreated",function(){var b=a.webNoted("getCurrentDocument");e.append('<option value="'+b+'" selected="selected">'+b+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(a.webNoted("getSavedNotes"),function(b,d){var c=a.webNoted("getCurrentDocument");e.append('<option value="'+d+'">'+d+"</option>");c===d&&e.val(d).attr("selected",!0)});e.on("change",function(){a.webNoted("switchDocument",$(this).val())});$("#sidebar .jsManageContents").click(function(){var b=$(this),d=$("#status-message"),c="",b=b.attr("id");"save"===b?c="Contents saved":"clear"===b?c="Contents cleared":"share"===b&&(c="Generating Link");a.webNoted(b);d.text(c).show("fast");setTimeout(function(){d.hide("fast")},1E3)});$(window).resize(function(){a.trigger("resizeWebNoted")}).on("beforeunload",function(){a.webNoted("save")});$("body").show()});function WNDataStore(a){this.storageType=a;this.setItem=function(c,a){this.storageType.setItem(c,a)};this.getItem=function(a){return this.storageType.getItem(a)};this.removeItem=function(a){this.storageType.removeItem(a)};this.getLength=function(){return this.storageType.length};this.getStorageType=function(){return this.storageType}};
+		$(function(){var webNoted=$("#webpad");var counterElement=$("#char-count span");var historyElement=$("#history");var dataStore=new WNDataStore(localStorage);var shareDialogElement=$("#share-message");var noteId="<?php echo $noteId ?>";shareDialogElement.dialog({autoOpen:false,modal:true,resizable:false,draggable:false});webNoted.webNoted({"apiURL":"http://api.webnoted.com/","dataStore":dataStore,"noteId":noteId}).on("resizeWebNoted",function(){$(this).height($(document).height()-88)}).on("shareLinkGenerated",function(){var url="http://www.webnoted.com/"+webNoted.webNoted("getSharedHash");var shared=shareDialogElement.find("input");shared.val(url).focus(function(){this.select()});shareDialogElement.dialog("open");shared.attr("readonly",true)}).on("contentChanged",function(){setTimeout(function(){counterElement.html(webNoted.webNoted("count"))},0)}).on("noteCreated",function(){var documentName=webNoted.webNoted("getCurrentDocument");historyElement.append('<option value="'+documentName+'" selected="selected">'+documentName+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(webNoted.webNoted("getSavedNotes"),function(key,value){var currentDocument=webNoted.webNoted("getCurrentDocument");historyElement.append('<option value="'+value+'">'+value+"</option>");if(currentDocument===value)historyElement.val(value).attr("selected",true)});historyElement.on("change",function(){webNoted.webNoted("switchDocument",$(this).val())});$("#sidebar .jsManageContents").click(function(){var e=$(this);var status=$("#status-message");var statusText="";var action=e.attr("id");var timeout=1E3;if(action==="save")statusText="Contents saved";else if(action==="clear")statusText="Contents cleared";else if(action==="share")statusText="Generating Link";webNoted.webNoted(action);status.text(statusText).show("fast");setTimeout(function(){status.hide("fast")},timeout)});$(window).resize(function(){webNoted.trigger("resizeWebNoted")}).on("beforeunload",function(){webNoted.webNoted("save")});if(noteId=="")$("#home").hide();else $("#crud, #share, #history-container").hide();$("body").show()});function WNDataStore(storageType){this.storageType=storageType;this.setItem=function(itemName,itemValue){this.storageType.setItem(itemName,itemValue)};this.getItem=function(itemName){return this.storageType.getItem(itemName)};this.removeItem=function(itemName){this.storageType.removeItem(itemName)};this.getLength=function(){return this.storageType.length};this.getStorageType=function(){return this.storageType}};
 	</script>
 	<script type="text/javascript">
 		var _gaq = _gaq || [];

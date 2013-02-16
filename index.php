@@ -1,9 +1,9 @@
 <?php
 $apiURL = "http://api.webnoted.com/?noteId=";
-$noteId = (isset($_GET['noteId'])) ? $_GET['noteId'] : '';
+$noteId = (isset($_GET['noteId'])) ? $_GET['noteId'] : null;
 $note = '';
 
-if ($noteId !== '') {
+if ($noteId !== null) {
 	$apiData = @file_get_contents($apiURL . $noteId);
 
 	if ($apiData !== false) {
