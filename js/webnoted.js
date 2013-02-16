@@ -58,8 +58,10 @@ $(function() {
 		var statusText = '';
 		var action = e.attr('id');
 		var timeout = 1000;
-	
-		if (action === 'save') {
+
+		if (action === 'create') {
+			statusText = 'New note created';
+		} else if (action === 'save') {
 			statusText = 'Contents saved';
 		} else if (action === 'clear') {
 			statusText = 'Contents cleared';				
