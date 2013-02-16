@@ -9,8 +9,8 @@
  */
 (function($) {
 	var apiURL;
-	var canSave = true;
 	var dataStore;
+	var canSave = true;
 	var noteId;
 	var settings;
 	var sharedHash;
@@ -36,6 +36,7 @@
 			} else {
 				this.webNoted('open');
 				this.webNoted('setEditable');
+				this.webNoted('save');
 			}
 
 			this.on('keyup paste', function() {
@@ -131,9 +132,9 @@
 
 		getSavedNotes: function() {
 			var savedNotes = new Array;
-			for (var i = 0; i <= dataStore.getLength(); i++) {
-				if (dataStore.getStorageType().key(i) !== null && dataStore.getStorageType().key(i).substring(0,4) === 'note') {
-					savedNotes.push(dataStore.getStorageType().key(i));
+			for (var i = 0; i <= dataStore.length; i++) {
+				if (dataStore.key(i) !== null && dataStore.key(i).substring(0,4) === 'note') {
+					savedNotes.push(dataStore.key(i));
 				}
 			}
 			return savedNotes;

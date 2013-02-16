@@ -2,7 +2,6 @@ $(function() {
 	var webNoted = $("#webpad");
 	var counterElement = $("#char-count span");
 	var historyElement = $("#history");
-	var dataStore = new WNDataStore(localStorage);
 	var shareDialogElement = $("#share-message");
 	var noteId = "<?php echo $noteId ?>";
 
@@ -16,7 +15,7 @@ $(function() {
 	webNoted
 		.webNoted({
 			"apiURL": "http://api.webnoted.com/",
-			"dataStore": dataStore,
+			"dataStore": localStorage,
 			"noteId": noteId
 		})
 		.on('resizeWebNoted', function() {
@@ -93,26 +92,3 @@ $(function() {
 
 	$("body").show();
 });
-function WNDataStore(storageType) {
-	this.storageType = storageType;
-	
-	this.setItem = function(itemName, itemValue) {
-		this.storageType.setItem(itemName, itemValue);
-	};
-	
-	this.getItem = function(itemName) {
-		return this.storageType.getItem(itemName);
-	};
-	
-	this.removeItem = function(itemName) {
-		this.storageType.removeItem(itemName);
-	};
-	
-	this.getLength = function() {
-		return this.storageType.length;
-	}
-	
-	this.getStorageType = function() {
-		return this.storageType;
-	}
-}
