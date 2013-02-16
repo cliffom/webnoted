@@ -7,7 +7,7 @@ $(function() {
 	if (noteId == '') {
 		$("#home").hide();
 	} else {
-		$("#crud, #share, #history-container").hide();
+		$("#crud, #history-container").hide();
 	}
 
 	shareDialogElement.dialog({
