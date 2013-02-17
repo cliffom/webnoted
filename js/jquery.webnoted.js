@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedHash;
-	var version = '0.9.5';
+	var version = '1.0b1';
 	var webNoted;	
 
 	var methods = {
