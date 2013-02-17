@@ -58,6 +58,15 @@
 			return this;
 		},
 
+		edit: function() {
+			var now = new Date;
+
+			webNoted.webNoted('setCurrentDocument', 'note-' + now);
+			canSave = true;
+			webNoted.webNoted('save');
+			window.location = "/";
+		},
+
 		create: function() {
 			var now = new Date;
 			
