@@ -17,13 +17,13 @@
 			<h2>About</h2>
 			<p>WebNoted turns your browser into a notepad.</p>
 			<h2>Usage</h2>
-			<p>Simply start typing. Your notes are automatically saved.</p>
+			<p>Simply start typing. Your notes are saved automatically.</p>
 			
 			<hr />
 			
 			<h2>Status</h2>
 			<p id="char-count">Characters: <span>0</span></p>
-			<p id="status-message">test</p>
+			<p id="status-message"></p>
 			<h2>Options</h2>
 			<p id="crud">
 				<span><a href="#" id="create" class="jsManageContents">Create</a></span> | 
@@ -34,7 +34,6 @@
 			<p><a href="/" id="home">Return to my note</a></p>
 			
 			<div id="history-container">
-				<hr />
 				<h2>History</h2>
 				<select id="history"></select>
 			</div>
@@ -44,7 +43,7 @@
 
 	<div id="share-message" title="Share">
 		<p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
-		<input type="text" style="width: 100%" />
+		<input id="shared-url" type="text" />
 		<p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
 	</div>
 

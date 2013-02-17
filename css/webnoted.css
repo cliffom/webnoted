@@ -36,6 +36,10 @@ a, a:link, a:visited {
 	border-bottom: 1px dotted;
 }
 
+a:hover {
+	border-bottom: 1px solid;
+}
+
 p {
 	margin: 5px;
 }
@@ -80,6 +84,10 @@ hr {
 
 div#share-message p {
 	margin-left: 0;
+}
+
+input#shared-url {
+	width: 100%;
 }
 
 div#share-message p.foot-note {
