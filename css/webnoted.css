@@ -82,15 +82,19 @@ hr {
 	display: none;
 }
 
-div#share-message p {
+div#share-dialog p {
 	margin-left: 0;
+}
+
+div#share-dialog div {
+	display: none;
 }
 
 input#shared-url {
 	width: 100%;
 }
 
-div#share-message p.foot-note {
+div#share-dialog p.foot-note {
 	font-size: 11px;
 }
 

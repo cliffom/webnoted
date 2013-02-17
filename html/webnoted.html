@@ -25,14 +25,14 @@
 			<p id="char-count">Characters: <span>0</span></p>
 			<p id="status-message"></p>
 			<h2>Options</h2>
-			<p id="option-links" class="not-shared">
-				<span><a href="#" id="create" class="jsManageContents">Create</a></span> | 
-				<span><a href="#" id="save" class="jsManageContents">Save</a></span> |
-				<span><a href="#" id="clear" class="jsManageContents">Clear</a></span> |
+			<p class="not-shared">
+				<span><a href="#" id="create" class="jsManageContents">Create</a> |</span> 
+				<span><a href="#" id="save" class="jsManageContents">Save</a> |</span>
+				<span><a href="#" id="clear" class="jsManageContents">Clear</a> |</span>
 				<span><a href="#" id="share" class="jsManageContents">Share</a></span>
 			</p>
 			<p class="shared">
-				<span><a href="/" id="edit">Edit as new</a></span> |
+				<span><a href="/" id="edit">Edit as new</a> |</span>
 				<span><a href="/" id="home">Return to notes</a></span>
 			</p>
 			
@@ -44,18 +44,19 @@
 	</div>
 	<textarea id="webpad" value="test" disabled><?php echo $note; ?></textarea>
 
-	<div id="share-message" title="Share">
-		<div id="processing" style="display: none">
+	<div id="share-dialog" title="Share">
+		<div id="processing">
 			<p>Generating your link...</p>
 		</div>
-		<div id="error" style="display: none">
+		<div id="error">
 			<p>Your note could not be shared.</p>
+			<p class="foot-note">* Blank notes cannot be shared.</p>
 		</div>
-		<div id="success" style="display: none">
+		<div id="success">
 			<p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
 			<input id="shared-url" type="text" />
+			<p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
 		</div>
-		<p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
 	</div>
 
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -63,7 +64,7 @@
 	<script type="text/javascript" src="/js/jquery.webnoted.js"></script>
 	<script type="text/javascript">
 		var noteId = "<?php echo $noteId ?>";
-		$(function(){var b=$("#webpad"),g=$("#char-count span"),f=$("#history"),e=$("#share-message");""==noteId?$("#sidebar .shared").hide():$("#sidebar .not-shared").hide();e.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});b.webNoted({apiURL:"http://api.webnoted.com/",dataStore:localStorage,noteId:noteId}).on("resizeWebNoted",function(){b.height($(window).height()-88);b.width($(window).width()-298)}).on("shareLinkGenerated",function(){var a="http://www.webnoted.com/"+b.webNoted("getSharedHash"),c=e.find("input");e.find("#success").show().end().find("#processing").hide().end().find("#error").hide();c.attr("readonly",!1).val(a).focus(function(){this.select()}).select().attr("readonly",!0)}).on("shareLinkError",function(){e.find("#error").show().end().find("#success").hide().end().find("#processing").hide()}).on("contentChanged",function(){setTimeout(function(){g.html(b.webNoted("count"))},0)}).on("noteCreated",function(){var a=b.webNoted("getCurrentDocument");f.append('<option value="'+a+'" selected="selected">'+a+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(b.webNoted("getSavedNotes"),function(a,c){var d=b.webNoted("getCurrentDocument");f.append('<option value="'+c+'">'+c+"</option>");d===c&&f.val(c).attr("selected",!0)});f.on("change",function(){b.webNoted("switchDocument",$(this).val())});$("#sidebar .jsManageContents").click(function(){var a=$(this),c=$("#status-message"),d="",a=a.attr("id");"create"===a?d="New note created":"save"===a?d="Contents saved":"clear"===a?d="Contents cleared":"share"===a&&(d="Generating Link",e.dialog("open").find("#processing").show().end().find("#success").hide().end().find("#error").hide());b.webNoted(a);c.text(d).show("fast");setTimeout(function(){c.hide("fast")},1E3)});$(window).resize(function(){b.trigger("resizeWebNoted")}).on("beforeunload",function(){b.webNoted("save")});$("body").show()});
+		<?php include 'js/webnoted.js'; ?>
 	</script>
 	<script type="text/javascript">
 		var _gaq = _gaq || [];

@@ -2,7 +2,7 @@ $(function() {
 	var webNoted = $("#webpad");
 	var counterElement = $("#char-count span");
 	var historyElement = $("#history");
-	var shareDialogElement = $("#share-message");
+	var shareDialogElement = $("#share-dialog");
 
 	if (noteId == '') {
 		$("#sidebar .shared").hide();
@@ -29,14 +29,14 @@ $(function() {
 		})
 		.on('shareLinkGenerated', function() {
 			var url ="http://www.webnoted.com/" + webNoted.webNoted('getSharedHash');
-			var shared = shareDialogElement.find("input");
 			shareDialogElement
 				.find("#success").show()
 				.end()
 				.find("#processing").hide()
 				.end()
-				.find("#error").hide();
-			shared
+				.find("#error").hide()
+				.end()
+				.find("#shared-url")
 				.attr("readonly", false)
 				.val(url)
 				.focus(function() { this.select(); })
