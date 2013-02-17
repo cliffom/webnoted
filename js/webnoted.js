@@ -5,9 +5,9 @@ $(function() {
 	var shareDialogElement = $("#share-message");
 
 	if (noteId == '') {
-		$("#home").hide();
+		$("#sidebar .shared").hide();
 	} else {
-		$("#crud, #history-container").hide();
+		$("#sidebar .not-shared").hide();
 	}
 
 	shareDialogElement.dialog({
@@ -30,9 +30,26 @@ $(function() {
 		.on('shareLinkGenerated', function() {
 			var url ="http://www.webnoted.com/" + webNoted.webNoted('getSharedHash');
 			var shared = shareDialogElement.find("input");
-			shared.val(url).focus(function() { this.select(); });
-			shareDialogElement.dialog("open");
-			shared.attr("readonly", true);
+			shareDialogElement
+				.find("#success").show()
+				.end()
+				.find("#processing").hide()
+				.end()
+				.find("#error").hide();
+			shared
+				.attr("readonly", false)
+				.val(url)
+				.focus(function() { this.select(); })
+				.select()
+				.attr("readonly", true);
+		})
+		.on('shareLinkError', function() {
+			shareDialogElement
+				.find("#error").show()
+				.end()
+				.find("#success").hide()
+				.end()
+				.find("#processing").hide();
 		})
 		.on('contentChanged', function() {
 			setTimeout(function () {
@@ -73,6 +90,13 @@ $(function() {
 			statusText = 'Contents cleared';				
 		} else if (action === 'share') {
 			statusText = 'Generating Link';
+			shareDialogElement
+				.dialog("open")
+				.find("#processing").show()
+				.end()
+				.find("#success").hide()
+				.end()
+				.find("#error").hide();
 		}
 
 		webNoted.webNoted(action);

@@ -86,12 +86,17 @@
 				data: ({
 					note: webNoted.webNoted('getContents')
 				}),
-				dataType: "text"
+				dataType: "text",
+				error: function() {
+					webNoted.trigger('shareLinkError');
+				}
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
 				if (result.status === 'success') {
 					sharedHash = result.hashId;
 					webNoted.trigger('shareLinkGenerated');
+				} else {
+					webNoted.trigger('shareLinkError');
 				}
 			});
 			return this;
