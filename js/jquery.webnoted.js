@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b3';
+	var version = '1.0b4';
 	var webNoted;	
 
 	var methods = {
@@ -95,16 +95,17 @@
 				data: ({
 					note: webNoted.webNoted('getContents')
 				}),
-				dataType: "text",
-				error: function() {
-					webNoted.trigger('shareLinkError');
-				}
+				dataType: "text"
 			}).done(function(msg) {
-				var result = JSON.parse(msg);
-				if (result.status === 'success') {
-					sharedUrl = result.sharedUrl;
-					webNoted.trigger('shareLinkGenerated');
-				} else {
+				try {
+					var result = JSON.parse(msg);
+					if (result.status === 'success') {
+						sharedUrl = result.sharedUrl;
+						webNoted.trigger('shareLinkGenerated');
+					} else {
+						webNoted.trigger('shareLinkError');
+					}
+				} catch (e) {
 					webNoted.trigger('shareLinkError');
 				}
 			});
