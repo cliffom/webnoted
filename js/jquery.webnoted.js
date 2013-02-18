@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b4';
+	var version = '1.0b5';
 	var webNoted;	
 
 	var methods = {
@@ -95,7 +95,10 @@
 				data: ({
 					note: webNoted.webNoted('getContents')
 				}),
-				dataType: "text"
+				dataType: "text",
+				error: function() {
+					webNoted.trigger('shareLinkError');
+				}
 			}).done(function(msg) {
 				try {
 					var result = JSON.parse(msg);
