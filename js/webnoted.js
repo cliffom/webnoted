@@ -28,7 +28,7 @@ $(function() {
 			webNoted.width($(window).width() - 298);
 		})
 		.on('shareLinkGenerated', function() {
-			var url ="http://www.webnoted.com/" + webNoted.webNoted('getSharedHash');
+			var url = webNoted.webNoted('getSharedUrl');
 			shareDialogElement
 				.find("#success").show()
 				.end()

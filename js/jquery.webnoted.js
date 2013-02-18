@@ -13,8 +13,8 @@
 	var canSave = true;
 	var noteId;
 	var settings;
-	var sharedHash;
-	var version = '1.0b2';
+	var sharedUrl;
+	var version = '1.0b3';
 	var webNoted;	
 
 	var methods = {
@@ -102,7 +102,7 @@
 			}).done(function(msg) {
 				var result = JSON.parse(msg);
 				if (result.status === 'success') {
-					sharedHash = result.hashId;
+					sharedUrl = result.sharedUrl;
 					webNoted.trigger('shareLinkGenerated');
 				} else {
 					webNoted.trigger('shareLinkError');
@@ -124,9 +124,9 @@
 			dataStore.setItem('currentDocument', documentName);
 		},
 
-		getSharedHash: function() {
-			return sharedHash;
-		},		
+		getSharedUrl: function() {
+			return sharedUrl;
+		},
 
 		getContents: function() {
 			return webNoted.val();
