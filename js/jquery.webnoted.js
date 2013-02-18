@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b5';
+	var version = '1.0b6';
 	var webNoted;	
 
 	var methods = {
@@ -149,7 +149,7 @@
 		},
 
 		getSavedNotes: function() {
-			var savedNotes = new Array;
+			var savedNotes = [];
 			for (var i = 0; i <= dataStore.length; i++) {
 				if (dataStore.key(i) !== null && dataStore.key(i).substring(0,4) === 'note') {
 					savedNotes.push(dataStore.key(i));

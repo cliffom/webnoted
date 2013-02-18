@@ -1,13 +1,14 @@
 $(function() {
 	var webNoted = $("#webpad");
-	var counterElement = $("#char-count span");
+	var counterElement = $("#char-count").find("span");
+	var sideBarElement = $("#sidebar");
 	var historyElement = $("#history");
 	var shareDialogElement = $("#share-dialog");
 
 	if (noteId == '') {
-		$("#sidebar .shared").hide();
+		sideBarElement.find(".shared").hide();
 	} else {
-		$("#sidebar .not-shared").hide();
+		sideBarElement.find(".not-shared").hide();
 	}
 
 	shareDialogElement.dialog({
@@ -28,7 +29,7 @@ $(function() {
 			webNoted.width($(window).width() - 298);
 		})
 		.on('shareLinkGenerated', function() {
-			var url = webNoted.webNoted('getSharedUrl');
+			var url = webNoted.webNoted("getSharedUrl");
 			shareDialogElement
 				.find("#success").show()
 				.end()
@@ -53,43 +54,43 @@ $(function() {
 		})
 		.on('contentChanged', function() {
 			setTimeout(function () {
-				counterElement.html(webNoted.webNoted('count'));
+				counterElement.html(webNoted.webNoted("count"));
 			}, 0);
 		})
 		.on('noteCreated', function() {
-			var documentName = webNoted.webNoted('getCurrentDocument');
+			var documentName = webNoted.webNoted("getCurrentDocument");
 			historyElement.append('<option value="' + documentName + '" selected="selected">' + documentName + '</option>');
 		})
-		.trigger('resizeWebNoted')
-		.trigger('contentChanged')
+		.trigger("resizeWebNoted")
+		.trigger("contentChanged")
 	;
 
-	$.each(webNoted.webNoted('getSavedNotes'), function(key, value) {
-		var currentDocument = webNoted.webNoted('getCurrentDocument');
+	$.each(webNoted.webNoted("getSavedNotes"), function(key, value) {
+		var currentDocument = webNoted.webNoted("getCurrentDocument");
 		historyElement.append('<option value="' + value + '">' + value + '</option>');
 		if (currentDocument === value) {
-			historyElement.val(value).attr('selected', true);
+			historyElement.val(value).attr("selected", true);
 		}
 	});
 	historyElement.on("change", function() {
-		webNoted.webNoted('switchDocument', $(this).val());
+		webNoted.webNoted("switchDocument", $(this).val());
 	});
 
-	$("#sidebar .jsManageContents").click(function() {
+	sideBarElement.find(".jsManageContents").click(function() {
 		var e = $(this);
 		var status = $("#status-message");
 		var statusText = '';
-		var action = e.attr('id');
+		var action = e.attr("id");
 		var timeout = 1000;
 
-		if (action === 'create') {
-			statusText = 'New note created';
-		} else if (action === 'save') {
-			statusText = 'Contents saved';
-		} else if (action === 'clear') {
-			statusText = 'Contents cleared';				
-		} else if (action === 'share') {
-			statusText = 'Generating Link';
+		if (action === "create") {
+			statusText = "New note created";
+		} else if (action === "save") {
+			statusText = "Contents saved";
+		} else if (action === "clear") {
+			statusText = "Contents cleared";
+		} else if (action === "share") {
+			statusText = "Generating Link";
 			shareDialogElement
 				.dialog("open")
 				.find("#processing").show()
@@ -100,19 +101,19 @@ $(function() {
 		}
 
 		webNoted.webNoted(action);
-		status.text(statusText).show('fast');
+		status.text(statusText).show("fast");
 
 		setTimeout(function () {
-			status.hide('fast');
+			status.hide("fast");
 		}, timeout);
 	});
 
 	$(window)
 		.resize(function() {
-			webNoted.trigger('resizeWebNoted');	
+			webNoted.trigger("resizeWebNoted");
 		})
-		.on('beforeunload', function() {
-			webNoted.webNoted('save');	
+		.on("beforeunload", function() {
+			webNoted.webNoted("save");
 		})
 	;
 
