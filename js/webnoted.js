@@ -59,7 +59,7 @@ $(function() {
 		})
 		.on('noteCreated', function() {
 			var documentName = webNoted.webNoted("getCurrentDocument");
-			historyElement.append('<option value="' + documentName + '" selected="selected">' + documentName + '</option>');
+			historyElement.append('<option value="' + documentName + '" selected="selected">' + documentName.substring(5) + '</option>');
 		})
 		.trigger("resizeWebNoted")
 		.trigger("contentChanged")
@@ -67,7 +67,7 @@ $(function() {
 
 	$.each(webNoted.webNoted("getSavedNotes"), function(key, value) {
 		var currentDocument = webNoted.webNoted("getCurrentDocument");
-		historyElement.append('<option value="' + value + '">' + value + '</option>');
+		historyElement.append('<option value="' + value + '">' + value.substring(5) + '</option>');
 		if (currentDocument === value) {
 			historyElement.val(value).attr("selected", true);
 		}
