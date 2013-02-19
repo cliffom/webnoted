@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b8';
+	var version = '1.0b9';
 	var webNoted;
 
 	var methods = {
@@ -59,20 +59,16 @@
 		},
 
 		edit: function() {
-			var now = new Date;
-
-			webNoted.webNoted('setCurrentDocument', 'note-' + now);
+			webNoted.webNoted('setCurrentDocument', webNoted.webNoted('getNewNoteName'));
 			canSave = true;
 			webNoted.webNoted('save');
 			window.location = '/';
 		},
 
 		create: function() {
-			var now = new Date;
-
 			webNoted.webNoted('save');
 			webNoted.webNoted('clear');
-			webNoted.webNoted('setCurrentDocument', 'note-' + now);
+			webNoted.webNoted('setCurrentDocument', webNoted.webNoted('getNewNoteName'));
 			webNoted.webNoted('save');
 			webNoted.trigger('noteCreated');
 		},
@@ -118,7 +114,7 @@
 		getCurrentDocument: function() {
 			var currentDocument = dataStore.getItem('currentDocument');
 			if (currentDocument === null) {
-				currentDocument = 'note';
+				currentDocument = webNoted.webNoted('getNewNoteName');
 				webNoted.webNoted('setCurrentDocument', currentDocument);
 			}
 			return currentDocument;
@@ -126,6 +122,12 @@
 
 		setCurrentDocument: function(documentName) {
 			dataStore.setItem('currentDocument', documentName);
+		},
+
+		getNewNoteName: function() {
+			var now = new Date;
+			
+			return 'note-' + now;
 		},
 
 		getSharedUrl: function() {
