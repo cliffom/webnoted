@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b6';
+	var version = '1.0b7';
 	var webNoted;	
 
 	var methods = {
@@ -64,7 +64,7 @@
 			webNoted.webNoted('setCurrentDocument', 'note-' + now);
 			canSave = true;
 			webNoted.webNoted('save');
-			window.location = "/";
+			window.location = '/';
 		},
 
 		create: function() {
@@ -95,7 +95,7 @@
 				data: ({
 					note: webNoted.webNoted('getContents')
 				}),
-				dataType: "text",
+				dataType: 'text',
 				error: function() {
 					webNoted.trigger('shareLinkError');
 				}
