@@ -14,17 +14,17 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b7';
-	var webNoted;	
+	var version = '1.0b8';
+	var webNoted;
 
 	var methods = {
 		init: function(options) {
 			webNoted = this;
-			
+
 			settings = $.extend({
 				'apiURL': '/api/',
 				'dataStore': localStorage,
-				'noteId': ''				
+				'noteId': ''
 			}, options);
 
 			apiURL = options['apiURL'];
@@ -51,7 +51,7 @@
 				dataStore.setItem(webNoted.webNoted('getCurrentDocument'), webNoted.webNoted('getContents'));
 			}
 			return this;
-		},		
+		},
 
 		open: function() {
 			webNoted.webNoted('setContents', dataStore.getItem(webNoted.webNoted('getCurrentDocument')));
@@ -69,7 +69,7 @@
 
 		create: function() {
 			var now = new Date;
-			
+
 			webNoted.webNoted('save');
 			webNoted.webNoted('clear');
 			webNoted.webNoted('setCurrentDocument', 'note-' + now);

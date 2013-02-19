@@ -28,7 +28,7 @@ if ($noteId !== null) {
 		die('Fatal Error: API URL is unreachable');
 	}
 } else {
-	
+
 }
 
 require 'html/webnoted.html';
