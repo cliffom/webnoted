@@ -112,7 +112,7 @@ $(function() {
 		.resize(function() {
 			webNoted.trigger("resizeWebNoted");
 		})
-		.on("beforeunload", function() {
+		.on("unload", function() {
 			webNoted.webNoted("save");
 		})
 	;
