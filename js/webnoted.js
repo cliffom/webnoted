@@ -27,6 +27,7 @@ $(function() {
 		.on('resizeWebNoted', function() {
 			webNoted.height($(window).height() - 88);
 			webNoted.width($(window).width() - 298);
+			roundedEdge(webNoted);
 		})
 		.on('shareLinkGenerated', function() {
 			var url = webNoted.webNoted("getSharedUrl");
@@ -53,12 +54,7 @@ $(function() {
 				.find("#processing").hide();
 		})
 		.on('contentChanged', function() {
-			var webNotedElement = webNoted.get(0);
-			if (webNotedElement.scrollHeight > webNotedElement.clientHeight) {
-				webNoted.css("border-radius", "4px 0 0 4px");
-			} else {
-				webNoted.css("border-radius", "4px");
-			}			
+			roundedEdge(webNoted);
 			setTimeout(function () {
 				counterElement.html(webNoted.webNoted("count"));
 			}, 0);
@@ -123,3 +119,11 @@ $(function() {
 		})
 	;
 });
+function roundedEdge(e) {
+	var webNotedElement = e.get(0);
+	if (webNotedElement.scrollHeight > webNotedElement.clientHeight) {
+		e.css("border-radius", "4px 0 0 4px");
+	} else {
+		e.css("border-radius", "4px");
+	}
+}
