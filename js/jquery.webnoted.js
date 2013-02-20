@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0.2';
+	var version = '1.0.3';
 	var webNoted;
 
 	var methods = {
@@ -88,9 +88,9 @@
 			$.ajax({
 				url: apiURL,
 				type: 'post',
-				data: ({
+				data: {
 					note: webNoted.webNoted('getContents')
-				}),
+				},
 				crossDomain: true,
 				dataType: 'json',
 				error: function() {
