@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b14';
+	var version = '1.0b15';
 	var webNoted;
 
 	var methods = {
@@ -145,7 +145,7 @@
 
 		setEditable: function() {
 			webNoted
-				.removeAttr('disabled')
+				.removeAttr('readonly')
 				.focus();
 			return this;
 		},
