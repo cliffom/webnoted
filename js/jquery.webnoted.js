@@ -93,7 +93,7 @@
 				},
 				crossDomain: true,
 				dataType: 'json',
-				error: function(msg) {
+				error: function(jqXHR, textStatus, msg) {
 					console.log(msg);
 					webNoted.trigger('shareLinkError');
 				}
