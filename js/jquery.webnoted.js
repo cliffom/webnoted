@@ -19,6 +19,7 @@
 
 	var methods = {
 		init: function(options) {
+			$.support.cors = true;
 			webNoted = this;
 
 			settings = $.extend({
