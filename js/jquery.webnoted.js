@@ -14,12 +14,11 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0.4-debug';
+	var version = '1.0.5';
 	var webNoted;
 
 	var methods = {
 		init: function(options) {
-			$.support.cors = true;
 			webNoted = this;
 
 			settings = $.extend({
@@ -92,10 +91,8 @@
 				data: {
 					note: webNoted.webNoted('getContents')
 				},
-				crossDomain: true,
 				dataType: 'json',
-				error: function(jqXHR, textStatus, msg) {
-					console.log(msg);
+				error: function(jqXHR, textStatus, errorThrown) {
 					webNoted.trigger('shareLinkError');
 				}
 			}).done(function(msg) {
