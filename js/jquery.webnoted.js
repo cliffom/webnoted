@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0b15';
+	var version = '1.0';
 	var webNoted;
 
 	var methods = {
@@ -171,7 +171,6 @@
 
 	$.fn.webNoted = function(method) {
 		if (methods[method]) {
-			console.log('webNoted: ' + method);
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
