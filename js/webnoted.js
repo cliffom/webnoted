@@ -53,6 +53,12 @@ $(function() {
 				.find("#processing").hide();
 		})
 		.on('contentChanged', function() {
+			var webNotedElement = webNoted.get(0);
+			if (webNotedElement.scrollHeight > webNotedElement.clientHeight) {
+				webNoted.css("border-radius", "4px 0 0 4px");
+			} else {
+				webNoted.css("border-radius", "4px");
+			}			
 			setTimeout(function () {
 				counterElement.html(webNoted.webNoted("count"));
 			}, 0);
@@ -116,6 +122,4 @@ $(function() {
 			webNoted.webNoted("save");
 		})
 	;
-
-	$("body").show();
 });
