@@ -20,7 +20,7 @@ $(function() {
 
 	webNoted
 		.webNoted({
-			"apiURL": "http://api.webnoted.com/",
+			"apiURL": "/share.php",
 			"dataStore": localStorage,
 			"noteId": noteId
 		})
