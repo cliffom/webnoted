@@ -14,7 +14,7 @@
 	var noteId;
 	var settings;
 	var sharedUrl;
-	var version = '1.0.1';
+	var version = '1.0.2';
 	var webNoted;
 
 	var methods = {
@@ -91,6 +91,7 @@
 				data: ({
 					note: webNoted.webNoted('getContents')
 				}),
+				crossDomain: true,
 				dataType: 'json',
 				error: function() {
 					webNoted.trigger('shareLinkError');
