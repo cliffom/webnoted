@@ -8,14 +8,14 @@
  *
  */
 (function ($) {
-    var apiURL;
-    var dataStore;
-    var canSave = true;
-    var noteId;
-    var settings;
-    var sharedUrl;
-    var version = '1.0.11';
-    var webNoted;
+    var apiURL,
+        dataStore,
+        canSave = true,
+        noteId,
+        settings,
+        sharedUrl,
+        version = '1.0.11',
+        webNoted;
 
     var methods = {
         init:function (options) {

@@ -25,10 +25,10 @@ $(function () {
     }
 
     shareDialogElement.dialog({
-        autoOpen:false,
-        modal:true,
-        resizable:false,
-        draggable:false
+        autoOpen:   false,
+        modal:      true,
+        resizable:  false,
+        draggable:  false
     });
 
     webNoted
@@ -94,11 +94,11 @@ $(function () {
     });
 
     sideBarElement.find(".jsManageContents").click(function () {
-        var e = $(this);
-        var status = $("#status-message");
-        var statusText = '';
-        var action = e.attr("id");
-        var timeout = 1000;
+        var e = $(this),
+            status = $("#status-message"),
+            statusText = '',
+            action = e.attr("id"),
+            timeout = 1000;
 
         if (action === "create") {
             statusText = "New note created";
