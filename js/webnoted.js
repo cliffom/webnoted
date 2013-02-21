@@ -4,6 +4,11 @@ $(function () {
     var sideBarElement = $("#sidebar");
     var historyElement = $("#history");
     var shareDialogElement = $("#share-dialog");
+    var noteStorage = (localStorage === undefined) ? undefined : localStorage;
+
+    if (noteStorage === undefined) {
+        window.location = 'http://abetterbrowser.org/';
+    }
 
     if (noteId == '') {
         sideBarElement.find(".shared").hide();
