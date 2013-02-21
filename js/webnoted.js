@@ -26,7 +26,7 @@ $(function () {
     webNoted
         .webNoted({
             "apiURL":"/share.php",
-            "dataStore":noteStorage,
+            "dataStore":'',
             "noteId":noteId
         })
         .on('resizeWebNoted', function () {
