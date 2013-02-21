@@ -1,117 +1,117 @@
 body {
-	font-size: 14px;
-	font-family: Verdana, "Bitstream Vera Sans", sans-serif;
-	background-color: #d1d1d1;
-	color: #000;
-	margin: 0 0 0 15px;
-	padding: 0;
+    font-size: 14px;
+    font-family: Verdana, "Bitstream Vera Sans", sans-serif;
+    background-color: #d1d1d1;
+    color: #000;
+    margin: 0 0 0 15px;
+    padding: 0;
 }
 
 div#header {
-	height: 63px;
+    height: 63px;
 }
 
 h1, h2 {
-	margin: 0;
-	padding: 0;
-	color: #7f7373;
-	font-family: "Helvetica Neue",Helvetica,Arial,Sans-Serif;
-	font-size: 24px;
-	text-shadow: #f4f4f4 0px 1px 0px;
+    margin: 0;
+    padding: 0;
+    color: #7f7373;
+    font-family: "Helvetica Neue",Helvetica,Arial,Sans-Serif;
+    font-size: 24px;
+    text-shadow: #f4f4f4 0px 1px 0px;
 }
 
 h1 {
-	line-height: 63px;
+    line-height: 63px;
 }
 
 h2 {
-	font-size: 15px;
-	margin: 5px;
+    font-size: 15px;
+    margin: 5px;
 }
 
 a, a:link, a:visited {
-	color: #7f7373;
-	text-decoration: none;
-	border-bottom: 1px dotted;
+    color: #7f7373;
+    text-decoration: none;
+    border-bottom: 1px dotted;
 }
 
 a:hover {
-	border-bottom: 1px solid;
+    border-bottom: 1px solid;
 }
 
 p {
-	margin: 5px;
+    margin: 5px;
 }
 
 #webpad {
-	color: #000;
-	padding: 4px;
-	border: 1px solid #aaa;
-	border-radius: 4px 0 0 4px;
-	overflow-y: auto;
-	position: relative;
-	background-color: #fff;
-	float: left;
-	font-size: 14px;
-	resize: none;
+    color: #000;
+    padding: 4px;
+    border: 1px solid #aaa;
+    border-radius: 4px 0 0 4px;
+    overflow-y: auto;
+    position: relative;
+    background-color: #fff;
+    float: left;
+    font-size: 14px;
+    resize: none;
 }
 
 div#sidebar {
-	width: 260px;
-	float: right;
+    width: 260px;
+    float: right;
 }
 
 div.sidebarBox {
-	background: #eee;
-	padding: 4px;
-	margin-bottom: 5px;
-	border: 1px solid #aaa;
-	border-right: 0;
-	border-radius: 4px 0 0 4px;
+    background: #eee;
+    padding: 4px;
+    margin-bottom: 5px;
+    border: 1px solid #aaa;
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
 }
 
 hr {
-	border: 0;
-	color: #7f7373;
-	background-color: #7f7373;
-	height: 1px;
+    border: 0;
+    color: #7f7373;
+    background-color: #7f7373;
+    height: 1px;
 }
 
 #status-message {
-	display: none;
+    display: none;
 }
 
 div#share-dialog p {
-	margin-left: 0;
+    margin-left: 0;
 }
 
 div#share-dialog div {
-	display: none;
+    display: none;
 }
 
 input#shared-url {
-	width: 100%;
+    width: 100%;
 }
 
 div#share-dialog p.foot-note {
-	font-size: 11px;
+    font-size: 11px;
 }
 
 #webpad:focus, #history, input:focus {
-	outline: 0;
+    outline: 0;
 }
 
 #history {
-	width: 100%;
+    width: 100%;
 }
 
 div#footer {
-	clear: both;
-	color: #666;
-	margin-top: 15px;
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-	font-size: 12px;
+    clear: both;
+    color: #666;
+    margin-top: 15px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 12px;
 }

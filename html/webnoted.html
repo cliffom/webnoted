@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8"/>
-	<meta name="description" content="Turn your browser into a notepad."/>
-	<title>Notes in your browser</title>
-	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css" />
-	<link rel="stylesheet" type="text/css" href="/css/webnoted.css">
+    <meta charset="utf-8"/>
+    <meta name="description" content="Turn your browser into a notepad."/>
+    <title>Notes in your browser</title>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/css/webnoted.css">
 </head>
 <body>
-	<div id="header">
-		<h1>Take a quick note. Share a quick thought.</h1>
-	</div>
+    <div id="header">
+        <h1>Take a quick note. Share a quick thought.</h1>
+    </div>
 
-	<div id="sidebar">
-		<div id="about" class="sidebarBox">
-			<h2>About</h2>
-			<p>WebNoted turns your browser into a notepad.</p>
-			<h2>Usage</h2>
-			<p>Simply start typing. Your notes are saved automatically.</p>
+    <div id="sidebar">
+        <div id="about" class="sidebarBox">
+            <h2>About</h2>
+            <p>WebNoted turns your browser into a notepad.</p>
+            <h2>Usage</h2>
+            <p>Simply start typing. Your notes are saved automatically.</p>
 
-			<hr />
+            <hr />
 
-			<h2>Status</h2>
-			<p id="char-count">Characters: <span>0</span></p>
-			<p id="status-message"></p>
-			<h2>Options</h2>
-			<p class="not-shared">
-				<span><a href="#" id="create" class="jsManageContents">Create</a> |</span>
-				<span><a href="#" id="save" class="jsManageContents">Save</a> |</span>
-				<span><a href="#" id="clear" class="jsManageContents">Clear</a> |</span>
-				<span><a href="#" id="share" class="jsManageContents">Share</a></span>
-			</p>
-			<p class="shared">
-				<span><a href="/" id="edit" class="jsManageContents">Edit as new</a> |</span>
-				<span><a href="/" id="home">Return to notes</a></span>
-			</p>
+            <h2>Status</h2>
+            <p id="char-count">Characters: <span>0</span></p>
+            <p id="status-message"></p>
+            <h2>Options</h2>
+            <p class="not-shared">
+                <span><a href="#" id="create" class="jsManageContents">Create</a> |</span>
+                <span><a href="#" id="save" class="jsManageContents">Save</a> |</span>
+                <span><a href="#" id="clear" class="jsManageContents">Clear</a> |</span>
+                <span><a href="#" id="share" class="jsManageContents">Share</a></span>
+            </p>
+            <p class="shared">
+                <span><a href="/" id="edit" class="jsManageContents">Edit as new</a> |</span>
+                <span><a href="/" id="home">Return to notes</a></span>
+            </p>
 
-			<div id="history-container" class="not-shared">
-				<h2>History</h2>
-				<select id="history"></select>
-			</div>
-		</div>
-	</div>
-	<textarea readonly="readonly" id="webpad"><?php echo $note; ?></textarea>
+            <div id="history-container" class="not-shared">
+                <h2>History</h2>
+                <select id="history"></select>
+            </div>
+        </div>
+    </div>
+    <textarea readonly="readonly" id="webpad"><?php echo $note; ?></textarea>
 
-	<div id="share-dialog" title="Share">
-		<div id="processing">
-			<p>Generating your link...</p>
-		</div>
-		<div id="error">
-			<p>Your note could not be shared.</p>
-			<p class="foot-note">* Blank notes cannot be shared.</p>
-		</div>
-		<div id="success">
-			<p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
-			<input id="shared-url" type="text" />
-			<p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
-		</div>
-	</div>
+    <div id="share-dialog" title="Share">
+        <div id="processing">
+            <p>Generating your link...</p>
+        </div>
+        <div id="error">
+            <p>Your note could not be shared.</p>
+            <p class="foot-note">* Blank notes cannot be shared.</p>
+        </div>
+        <div id="success">
+            <p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
+            <input id="shared-url" type="text" />
+            <p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
+        </div>
+    </div>
 
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/js/jquery.webnoted.js"></script>
-	<script type="text/javascript">
-		var noteId = "<?php echo $noteId ?>";
-		$(function(){var a=$("#webpad"),e=$("#char-count").find("span"),h=$("#sidebar"),f=$("#history"),g=$("#share-dialog");""==noteId?h.find(".shared").hide():h.find(".not-shared").hide();g.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});a.webNoted({apiURL:"/share.php",dataStore:localStorage,noteId:noteId}).on("resizeWebNoted",function(){a.height($(window).height()-88);a.width($(window).width()-298);roundedEdge(a)}).on("shareLinkGenerated",function(){var b=a.webNoted("getSharedUrl");g.find("#success").show().end().find("#processing").hide().end().find("#error").hide().end().find("#shared-url").attr("readonly", !1).val(b).focus(function(){this.select()}).select().attr("readonly",!0)}).on("shareLinkError",function(){g.find("#error").show().end().find("#success").hide().end().find("#processing").hide()}).on("contentChanged",function(){roundedEdge(a);setTimeout(function(){e.html(a.webNoted("count"))},0)}).on("noteCreated",function(){var b=a.webNoted("getCurrentDocument");f.append('<option value="'+b+'" selected="selected">'+b.substring(5)+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(a.webNoted("getSavedNotes"), function(b,c){var d=a.webNoted("getCurrentDocument");f.append('<option value="'+c+'">'+c.substring(5)+"</option>");d===c&&f.val(c).attr("selected",!0)});f.on("change",function(){a.webNoted("switchDocument",$(this).val())});h.find(".jsManageContents").click(function(){var b=$(this),c=$("#status-message"),d="",b=b.attr("id");"create"===b?d="New note created":"save"===b?d="Contents saved":"clear"===b?d="Contents cleared":"share"===b&&(d="Generating Link",g.dialog("open").find("#processing").show().end().find("#success").hide().end().find("#error").hide()); a.webNoted(b);c.text(d).show("fast");setTimeout(function(){c.hide("fast")},1E3)});$(window).resize(function(){a.trigger("resizeWebNoted")}).on("blur unload",function(){a.webNoted("save")})});function roundedEdge(a){var e=a.get(0);e.scrollHeight>e.clientHeight?a.css("border-radius","4px 0 0 4px"):a.css("border-radius","4px")};
-	</script>
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-947207-15']);
-		_gaq.push(['_trackPageview']);
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.webnoted.js"></script>
+    <script type="text/javascript">
+        var noteId = "<?php echo $noteId ?>";
+        $(function(){var a=$("#webpad"),e=$("#char-count").find("span"),h=$("#sidebar"),f=$("#history"),g=$("#share-dialog");""==noteId?h.find(".shared").hide():h.find(".not-shared").hide();g.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});a.webNoted({apiURL:"/share.php",dataStore:localStorage,noteId:noteId}).on("resizeWebNoted",function(){a.height($(window).height()-88);a.width($(window).width()-298);roundedEdge(a)}).on("shareLinkGenerated",function(){var b=a.webNoted("getSharedUrl");g.find("#success").show().end().find("#processing").hide().end().find("#error").hide().end().find("#shared-url").attr("readonly", !1).val(b).focus(function(){this.select()}).select().attr("readonly",!0)}).on("shareLinkError",function(){g.find("#error").show().end().find("#success").hide().end().find("#processing").hide()}).on("contentChanged",function(){roundedEdge(a);setTimeout(function(){e.html(a.webNoted("count"))},0)}).on("noteCreated",function(){var b=a.webNoted("getCurrentDocument");f.append('<option value="'+b+'" selected="selected">'+b.substring(5)+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(a.webNoted("getSavedNotes"), function(b,c){var d=a.webNoted("getCurrentDocument");f.append('<option value="'+c+'">'+c.substring(5)+"</option>");d===c&&f.val(c).attr("selected",!0)});f.on("change",function(){a.webNoted("switchDocument",$(this).val())});h.find(".jsManageContents").click(function(){var b=$(this),c=$("#status-message"),d="",b=b.attr("id");"create"===b?d="New note created":"save"===b?d="Contents saved":"clear"===b?d="Contents cleared":"share"===b&&(d="Generating Link",g.dialog("open").find("#processing").show().end().find("#success").hide().end().find("#error").hide()); a.webNoted(b);c.text(d).show("fast");setTimeout(function(){c.hide("fast")},1E3)});$(window).resize(function(){a.trigger("resizeWebNoted")}).on("blur unload",function(){a.webNoted("save")})});function roundedEdge(a){var e=a.get(0);e.scrollHeight>e.clientHeight?a.css("border-radius","4px 0 0 4px"):a.css("border-radius","4px")};
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-947207-15']);
+        _gaq.push(['_trackPageview']);
 
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </body>
 </html>
