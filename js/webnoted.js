@@ -1,14 +1,22 @@
 $(function () {
-    var webNoted = $("#webpad");
-    var counterElement = $("#char-count").find("span");
-    var sideBarElement = $("#sidebar");
-    var historyElement = $("#history");
-    var shareDialogElement = $("#share-dialog");
-    var noteStorage = (localStorage === undefined) ? undefined : localStorage;
-
-    if (noteStorage === undefined) {
-        window.location = 'http://abetterbrowser.org/';
-    }
+    var webNoted = $("#webpad"),
+        counterElement = $("#char-count").find("span"),
+        sideBarElement = $("#sidebar"),
+        historyElement = $("#history"),
+        shareDialogElement = $("#share-dialog"),
+        storage = (function() {
+            var uid = new Date,
+                storage,
+                result;
+            try {
+                (storage = window.localStorage).setItem(uid, uid);
+                result = storage.getItem(uid) == uid;
+                storage.removeItem(uid);
+                return result && storage;
+            } catch(e) {
+                window.location = 'http://abetterbrowser.org/';
+            }
+        }());
 
     if (noteId == '') {
         sideBarElement.find(".shared").hide();
@@ -25,9 +33,9 @@ $(function () {
 
     webNoted
         .webNoted({
-            "apiURL":"/share.php",
-            "dataStore":'',
-            "noteId":noteId
+            "apiURL":       "/share.php",
+            "dataStore":    storage,
+            "noteId":       noteId
         })
         .on('resizeWebNoted', function () {
             webNoted.height($(window).height() - 88);

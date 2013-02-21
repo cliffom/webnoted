@@ -14,7 +14,7 @@
     var noteId;
     var settings;
     var sharedUrl;
-    var version = '1.0.10';
+    var version = '1.0.11';
     var webNoted;
 
     var methods = {
@@ -22,7 +22,7 @@
             webNoted = this;
 
             settings = $.extend({
-                'apiURL':       '/api/',
+                'apiURL':       '',
                 'dataStore':    '',
                 'noteId':       ''
             }, options);
