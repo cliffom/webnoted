@@ -9,3 +9,5 @@ api/config.php
 api/aws.phar
 
 .idea/*
+
+.c9revisions/*
