@@ -89,8 +89,8 @@ $(function () {
             historyElement.val(value).attr("selected", true);
         }
     });
-    historyElement.on("change", function () {
-        webNoted.webNoted("switchDocument", $(this).val());
+    historyElement.on("change", function (e) {
+        webNoted.webNoted("switchDocument", $(e.target).val());
     });
 
     sideBarElement.find(".jsManageContents").click(function () {
