@@ -27,9 +27,9 @@
                 'noteId':       ''
             }, options);
 
-            apiURL = options['apiURL'];
-            dataStore = options['dataStore'];
-            noteId = options['noteId'];
+            apiURL      = options.apiURL;
+            dataStore   = options.dataStore;
+            noteId      = options.noteId;
 
             if (noteId !== '') {
                 canSave = false;
@@ -124,7 +124,7 @@
         },
 
         getNewNoteName:function () {
-            var now = new Date;
+            var now = new Date();
 
             return 'note-' + now;
         },

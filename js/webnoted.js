@@ -5,7 +5,7 @@ $(function () {
         historyElement = $("#history"),
         shareDialogElement = $("#share-dialog"),
         storage = (function() {
-            var uid = new Date,
+            var uid = new Date(),
                 storage,
                 result;
             try {
@@ -18,7 +18,7 @@ $(function () {
             }
         }());
 
-    if (noteId == '') {
+    if (noteId === '') {
         sideBarElement.find(".shared").hide();
     } else {
         sideBarElement.find(".not-shared").hide();
