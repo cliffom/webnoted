@@ -21,8 +21,8 @@
             var webNoted = this;
 
             settings = $.extend({
-                'apiURL':       '',
-                'noteId':       ''
+                'apiURL': '',
+                'noteId': ''
             }, options);
 
             apiURL      = options.apiURL;
