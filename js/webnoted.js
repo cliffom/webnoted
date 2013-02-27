@@ -1,5 +1,6 @@
 $(function () {
-    var webNoted = $("#webpad"),
+    var noteId = getCookie("noteId"),
+        webNoted = $("#webpad"),
         counterElement = $("#char-count").find("span"),
         sideBarElement = $("#sidebar"),
         historyElement = $("#history"),
@@ -18,7 +19,7 @@ $(function () {
             }
         }());
 
-    if (noteId === '') {
+    if (noteId === null) {
         sideBarElement.find(".shared").hide();
     } else {
         sideBarElement.find(".not-shared").hide();
@@ -141,4 +142,9 @@ function roundedEdge(e) {
     } else {
         e.css("border-radius", "4px");
     }
+}
+function getCookie(name)  {
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value !== null) ? unescape(value[1]) : null;
 }

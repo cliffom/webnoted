@@ -7,7 +7,7 @@ body {
     padding: 0;
 }
 
-div#header {
+#header {
     height: 63px;
 }
 
@@ -17,7 +17,7 @@ h1, h2 {
     color: #7f7373;
     font-family: "Helvetica Neue",Helvetica,Arial,Sans-Serif;
     font-size: 24px;
-    text-shadow: #f4f4f4 0px 1px 0px;
+    text-shadow: #f4f4f4 0 1px 0;
 }
 
 h1 {
@@ -56,12 +56,12 @@ p {
     resize: none;
 }
 
-div#sidebar {
+#sidebar {
     width: 260px;
     float: right;
 }
 
-div.sidebarBox {
+.sidebarBox {
     background: #eee;
     padding: 4px;
     margin-bottom: 5px;
@@ -81,19 +81,19 @@ hr {
     display: none;
 }
 
-div#share-dialog p {
+#share-dialog p {
     margin-left: 0;
 }
 
-div#share-dialog div {
+#share-dialog div {
     display: none;
 }
 
-input#shared-url {
+#shared-url {
     width: 100%;
 }
 
-div#share-dialog p.foot-note {
+#share-dialog .foot-note {
     font-size: 11px;
 }
 
@@ -105,7 +105,7 @@ div#share-dialog p.foot-note {
     width: 100%;
 }
 
-div#footer {
+#footer {
     clear: both;
     color: #666;
     margin-top: 15px;
@@ -114,4 +114,13 @@ div#footer {
     margin-right: auto;
     text-align: center;
     font-size: 12px;
+}
+
+.ui-corner-all {
+    border-radius: 0;
+}
+
+.ui-widget-header {
+    border: 0;
+    background: none;
 }

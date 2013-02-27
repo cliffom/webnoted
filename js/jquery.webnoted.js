@@ -30,7 +30,7 @@
             dataStore   = options.dataStore;
             noteId      = options.noteId;
 
-            if (noteId !== '') {
+            if (noteId !== null) {
                 canSave = false;
             } else {
                 this
