@@ -14,12 +14,11 @@
         noteId,
         settings,
         sharedUrl,
-        version = '1.0.11',
-        webNoted;
+        version = '1.0.11';
 
     var methods = {
         init:function (options) {
-            webNoted = this;
+            var webNoted = this;
 
             settings = $.extend({
                 'apiURL':       '',
@@ -34,9 +33,10 @@
             if (noteId !== '') {
                 canSave = false;
             } else {
-                this.webNoted('open');
-                this.webNoted('setEditable');
-                this.webNoted('save');
+                this
+                    .webNoted('open')
+                    .webNoted('setEditable')
+                    .webNoted('save');
             }
 
             this.on('keyup paste', function () {
@@ -48,43 +48,49 @@
 
         save:function () {
             if (canSave) {
-                dataStore.setItem(webNoted.webNoted('getCurrentDocument'), webNoted.webNoted('getContents'));
+                dataStore.setItem(this.webNoted('getCurrentDocument'), this.webNoted('getContents'));
             }
             return this;
         },
 
         open:function () {
-            webNoted.webNoted('setContents', dataStore.getItem(webNoted.webNoted('getCurrentDocument')));
+            this.webNoted('setContents', dataStore.getItem(this.webNoted('getCurrentDocument')));
             return this;
         },
 
         edit:function () {
-            webNoted.webNoted('setCurrentDocument', webNoted.webNoted('getNewNoteName'));
             canSave = true;
-            webNoted.webNoted('save');
+            this
+                .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
+                .webNoted('save');
             window.location = '/';
         },
 
         create:function () {
-            webNoted.webNoted('save');
-            webNoted.webNoted('clear');
-            webNoted.webNoted('setCurrentDocument', webNoted.webNoted('getNewNoteName'));
-            webNoted.webNoted('save');
-            webNoted.trigger('noteCreated');
+            this
+                .webNoted('save')
+                .webNoted('clear')
+                .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
+                .webNoted('save')
+                .trigger('noteCreated');
+            return this;
         },
 
         switchDocument:function (documentName) {
-            webNoted.webNoted('save');
-            webNoted.webNoted('setCurrentDocument', documentName);
-            webNoted.webNoted('open');
+            this
+                .webNoted('save')
+                .webNoted('setCurrentDocument', documentName)
+                .webNoted('open');
+            return this;
         },
 
         clear:function () {
-            webNoted.webNoted('setContents', '');
+            this.webNoted('setContents', '');
             return this;
         },
 
         share:function () {
+            var webNoted = this;
             $.ajax({
                 url:apiURL,
                 type:'post',
@@ -96,31 +102,32 @@
                     webNoted.trigger('shareLinkError');
                 }
             }).done(function (msg) {
-                    try {
-                        if (msg.status === 'success') {
-                            sharedUrl = msg.sharedUrl;
-                            webNoted.trigger('shareLinkGenerated');
-                        } else {
-                            webNoted.trigger('shareLinkError');
-                        }
-                    } catch (e) {
+                try {
+                    if (msg.status === 'success') {
+                        sharedUrl = msg.sharedUrl;
+                        webNoted.trigger('shareLinkGenerated');
+                    } else {
                         webNoted.trigger('shareLinkError');
                     }
-                });
+                } catch (e) {
+                    webNoted.trigger('shareLinkError');
+                }
+            });
             return this;
         },
 
         getCurrentDocument:function () {
             var currentDocument = dataStore.getItem('currentDocument');
             if (currentDocument === null) {
-                currentDocument = webNoted.webNoted('getNewNoteName');
-                webNoted.webNoted('setCurrentDocument', currentDocument);
+                currentDocument = this.webNoted('getNewNoteName');
+                this.webNoted('setCurrentDocument', currentDocument);
             }
             return currentDocument;
         },
 
         setCurrentDocument:function (documentName) {
             dataStore.setItem('currentDocument', documentName);
+            return this;
         },
 
         getNewNoteName:function () {
@@ -134,16 +141,18 @@
         },
 
         getContents:function () {
-            return webNoted.val();
+            return this.val();
         },
 
         setContents:function (contents) {
-            webNoted.val(contents).trigger('contentChanged');
+            this
+                .val(contents)
+                .trigger('contentChanged');
             return this;
         },
 
         setEditable:function () {
-            webNoted
+            this
                 .removeAttr('readonly')
                 .focus();
             return this;
@@ -160,7 +169,7 @@
         },
 
         count:function () {
-            return webNoted.val().length;
+            return this.val().length;
         },
 
         version:function () {
