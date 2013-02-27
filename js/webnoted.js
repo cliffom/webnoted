@@ -15,7 +15,8 @@ $(function () {
                 storage.removeItem(uid);
                 return result && storage;
             } catch(e) {
-                window.location = 'http://whatbrowser.org/';
+                //window.location = 'http://whatbrowser.org/';
+                return false;
             }
         }());
 
@@ -35,7 +36,7 @@ $(function () {
     webNoted
         .webNoted({
             "apiURL":       "/share.php",
-            "dataStore":    storage,
+            "storage":      storage,
             "noteId":       noteId
         })
         .on('resizeWebNoted', function () {

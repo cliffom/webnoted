@@ -9,12 +9,12 @@
  */
 (function ($) {
     var apiURL,
-        dataStore,
+        storage,
         canSave = true,
         noteId,
         settings,
         sharedUrl,
-        version = '1.0.11';
+        version = '1.0.12';
 
     var methods = {
         init:function (options) {
@@ -22,12 +22,12 @@
 
             settings = $.extend({
                 'apiURL':       '',
-                'dataStore':    '',
+                'storage':      '',
                 'noteId':       ''
             }, options);
 
             apiURL      = options.apiURL;
-            dataStore   = options.dataStore;
+            storage     = options.storage;
             noteId      = options.noteId;
 
             if (noteId !== null) {
@@ -47,14 +47,16 @@
         },
 
         save:function () {
-            if (canSave) {
-                dataStore.setItem(this.webNoted('getCurrentDocument'), this.webNoted('getContents'));
+            if (canSave && storage !== false) {
+                storage.setItem(this.webNoted('getCurrentDocument'), this.webNoted('getContents'));
             }
             return this;
         },
 
         open:function () {
-            this.webNoted('setContents', dataStore.getItem(this.webNoted('getCurrentDocument')));
+            if (storage !== false) {
+                this.webNoted('setContents', storage.getItem(this.webNoted('getCurrentDocument')));
+            }
             return this;
         },
 
@@ -117,16 +119,22 @@
         },
 
         getCurrentDocument:function () {
-            var currentDocument = dataStore.getItem('currentDocument');
-            if (currentDocument === null) {
-                currentDocument = this.webNoted('getNewNoteName');
-                this.webNoted('setCurrentDocument', currentDocument);
+            if (!storage) {
+                return false;
+            } else {
+                var currentDocument = storage.getItem('currentDocument');
+                if (currentDocument === null) {
+                    currentDocument = this.webNoted('getNewNoteName');
+                    this.webNoted('setCurrentDocument', currentDocument);
+                }
+                return currentDocument;
             }
-            return currentDocument;
         },
 
         setCurrentDocument:function (documentName) {
-            dataStore.setItem('currentDocument', documentName);
+            if (storage !== false) {
+                storage.setItem('currentDocument', documentName);
+            }
             return this;
         },
 
@@ -159,13 +167,17 @@
         },
 
         getSavedNotes:function () {
-            var savedNotes = [];
-            for (var i = 0; i < dataStore.length; i++) {
-                if (dataStore.key(i) !== null && dataStore.key(i).substring(0, 4) === 'note') {
-                    savedNotes.push(dataStore.key(i));
+            if (!storage) {
+                return false;
+            } else {
+                var savedNotes = [];
+                for (var i = 0; i < storage.length; i++) {
+                    if (storage.key(i) !== null && storage.key(i).substring(0, 4) === 'note') {
+                        savedNotes.push(storage.key(i));
+                    }
                 }
+                return savedNotes;
             }
-            return savedNotes;
         },
 
         count:function () {
