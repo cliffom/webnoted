@@ -27,7 +27,7 @@
 
             apiURL      = options.apiURL;
             noteId      = options.noteId;
-            
+
             storage = (function() {
                 var uid = new Date(),
                     storage,
