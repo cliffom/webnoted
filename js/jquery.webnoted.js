@@ -14,7 +14,7 @@
         noteId,
         settings,
         sharedUrl,
-        version = '1.0.12';
+        version = '1.0.13';
 
     var methods = {
         init:function (options) {
@@ -22,13 +22,25 @@
 
             settings = $.extend({
                 'apiURL':       '',
-                'storage':      '',
                 'noteId':       ''
             }, options);
 
             apiURL      = options.apiURL;
-            storage     = options.storage;
             noteId      = options.noteId;
+            
+            storage = (function() {
+                var uid = new Date(),
+                    storage,
+                    result;
+                try {
+                    (storage = window.localStorage).setItem(uid, uid);
+                    result = storage.getItem(uid) == uid;
+                    storage.removeItem(uid);
+                    return result && storage;
+                } catch(e) {
+                    return false;
+                }
+            }());
 
             if (noteId !== null) {
                 canSave = false;

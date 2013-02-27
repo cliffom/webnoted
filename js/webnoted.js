@@ -4,21 +4,7 @@ $(function () {
         counterElement = $("#char-count").find("span"),
         sideBarElement = $("#sidebar"),
         historyElement = $("#history"),
-        shareDialogElement = $("#share-dialog"),
-        storage = (function() {
-            var uid = new Date(),
-                storage,
-                result;
-            try {
-                (storage = window.localStorage).setItem(uid, uid);
-                result = storage.getItem(uid) == uid;
-                storage.removeItem(uid);
-                return result && storage;
-            } catch(e) {
-                //window.location = 'http://whatbrowser.org/';
-                return false;
-            }
-        }());
+        shareDialogElement = $("#share-dialog");
 
     if (noteId === null) {
         sideBarElement.find(".shared").hide();
@@ -36,7 +22,6 @@ $(function () {
     webNoted
         .webNoted({
             "apiURL":       "/share.php",
-            "storage":      storage,
             "noteId":       noteId
         })
         .on('resizeWebNoted', function () {
