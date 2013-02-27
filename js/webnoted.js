@@ -15,7 +15,7 @@ $(function () {
                 storage.removeItem(uid);
                 return result && storage;
             } catch(e) {
-                window.location = 'http://abetterbrowser.org/';
+                window.location = 'http://whatbrowser.org/';
             }
         }());
 
