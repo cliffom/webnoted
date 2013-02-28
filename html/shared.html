@@ -2,22 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="description" content="Turn your browser into a notepad."/>
-    <title>WebNoted | Notes in your browser</title>
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css" />
+    <meta name="description" content="View a shared note."/>
+    <title>WebNoted | Shared Note</title>
     <link rel="stylesheet" type="text/css" href="/css/webnoted.css">
 </head>
 <body>
     <div id="header">
-        <h1>Take a quick note. Share a quick thought.</h1>
+        <h1>WebNoted | Shared Note</h1>
     </div>
 
     <div id="sidebar">
         <div id="about" class="sidebarBox">
             <h2>About</h2>
             <p>WebNoted turns your browser into a notepad.</p>
-            <h2>Usage</h2>
-            <p>Simply start typing. Your notes are saved automatically.</p>
 
             <hr />
 
@@ -25,45 +22,18 @@
             <p id="char-count">Characters: <span>0</span></p>
             <p id="status-message"></p>
             <h2>Options</h2>
-            <p class="not-shared">
-                <span><a href="#" id="create" class="jsManageContents">Create</a> |</span>
-                <span><a href="#" id="save" class="jsManageContents">Save</a> |</span>
-                <span><a href="#" id="clear" class="jsManageContents">Clear</a> |</span>
-                <span><a href="#" id="share" class="jsManageContents">Share</a></span>
-            </p>
-            <p class="shared">
+            <p>
                 <span><a href="/" id="edit" class="jsManageContents">Edit as new</a> |</span>
                 <span><a href="/" id="home">Return to notes</a></span>
             </p>
-
-            <div id="history-container" class="not-shared">
-                <h2>History</h2>
-                <select id="history"></select>
-            </div>
         </div>
     </div>
     <textarea readonly="readonly" id="webpad"><?php echo $note; ?></textarea>
 
-    <div id="share-dialog" title="Share">
-        <div id="processing">
-            <p>Generating your link...</p>
-        </div>
-        <div id="error">
-            <p>Your note could not be shared.</p>
-            <p class="foot-note">* Blank notes cannot be shared.</p>
-        </div>
-        <div id="success">
-            <p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
-            <input id="shared-url" type="text" />
-            <p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
-        </div>
-    </div>
-
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>
-    <script type="text/javascript" src="/js/jquery-ui-1.10.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery.webnoted.js"></script>
     <script type="text/javascript">
-        $(function(){var a=getCookie("noteId"),b=$("#webpad"),h=$("#char-count").find("span"),g=$("#sidebar"),c=$("#history"),f=$("#share-dialog");null===a?g.find(".shared").hide():g.find(".not-shared").hide();f.dialog({autoOpen:!1,modal:!0,resizable:!1,draggable:!1});b.webNoted({apiURL:"/share.php",noteId:a}).on("resizeWebNoted",function(){b.height($(window).height()-88);b.width($(window).width()-298);roundedEdge(b)}).on("shareLinkGenerated",function(){var e=b.webNoted("getSharedUrl");f.find("#success").show().end().find("#processing").hide().end().find("#error").hide().end().find("#shared-url").attr("readonly", !1).val(e).focus(function(){this.select()}).select().attr("readonly",!0)}).on("shareLinkError",function(){f.find("#error").show().end().find("#success").hide().end().find("#processing").hide()}).on("contentChanged",function(){roundedEdge(b);setTimeout(function(){h.html(b.webNoted("count"))},0)}).on("noteCreated",function(){var e=b.webNoted("getCurrentDocument");c.append('<option value="'+e+'" selected="selected">'+e.substring(5)+"</option>")}).trigger("resizeWebNoted").trigger("contentChanged");$.each(b.webNoted("getSavedNotes"), function(e,a){var d=b.webNoted("getCurrentDocument");c.append('<option value="'+a+'">'+a.substring(5)+"</option>");d===a&&c.val(a).attr("selected",!0)});c.on("change",function(a){b.webNoted("switchDocument",$(a.target).val())});g.find(".jsManageContents").click(function(){var a=$(this),c=$("#status-message"),d="",a=a.attr("id");"create"===a?d="New note created":"save"===a?d="Contents saved":"clear"===a?d="Contents cleared":"share"===a&&(d="Generating Link",f.dialog("open").find("#processing").show().end().find("#success").hide().end().find("#error").hide()); b.webNoted(a);c.text(d).show("fast");setTimeout(function(){c.hide("fast")},1E3)});$(window).resize(function(){b.trigger("resizeWebNoted")}).on("blur unload",function(){b.webNoted("save")})});function roundedEdge(a){var b=a.get(0);b.scrollHeight>b.clientHeight?a.css("border-radius","4px 0 0 4px"):a.css("border-radius","4px")}function getCookie(a){a=RegExp(a+"=([^;]+)").exec(document.cookie);return null!==a?unescape(a[1]):null};
+        $(function(){var a=getCookie("noteId"),b=$("#webpad");$("#char-count").find("span");$("#sidebar");b.webNoted({apiURL:"/share.php",noteId:a}).on("resizeWebNoted",function(){b.height($(window).height()-88);b.width($(window).width()-298);roundedEdge(b)}).trigger("resizeWebNoted").trigger("contentChanged");$("#edit").on("click",function(){b.webNoted("edit")});$(window).resize(function(){b.trigger("resizeWebNoted")})}); function roundedEdge(a){var b=a.get(0);b.scrollHeight>b.clientHeight?a.css("border-radius","4px 0 0 4px"):a.css("border-radius","4px")}function getCookie(a){a=RegExp(a+"=([^;]+)").exec(document.cookie);return null!==a?unescape(a[1]):null};
     </script>
     <script type="text/javascript">
         var _gaq = _gaq || [];

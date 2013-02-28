@@ -19,11 +19,11 @@
 
             settings = $.extend({
                 'apiURL': '',
-                'noteId': ''
+                'noteId': null
             }, options);
 
-            apiURL      = options.apiURL;
-            noteId      = options.noteId;
+            apiURL      = settings.apiURL;
+            noteId      = settings.noteId;
 
             storage = (function() {
                 var uid = new Date(),

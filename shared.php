@@ -12,7 +12,7 @@ if ($noteId !== null) {
         if (isset($apiData->status)) {
 
             if ($apiData->status === 'success') {
-                setcookie('noteId', $noteId, time() + 2);
+                setcookie('noteId', $noteId, time() + 1);
                 $note = $apiData->result;
             } else {
                 header("Location: /");
