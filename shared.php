@@ -13,7 +13,8 @@ if ($noteId !== null) {
 
             if ($apiData->status === 'success') {
                 setcookie('noteId', $noteId, time() + 1);
-                $note = $apiData->result;
+                $note = $apiData->note;
+                $title = (isset($apiData->title)) ? $apiData->title : 'Shared Note';
             } else {
                 header("Location: /");
                 die();
