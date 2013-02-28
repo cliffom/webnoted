@@ -57,6 +57,9 @@ $(function () {
             var documentName = webNoted.webNoted("getCurrentDocument");
             historyElement.append('<option value="' + documentName + '" selected="selected">' + documentName.substring(5) + '</option>');
         })
+        .on('wnEdited', function () {
+            window.location = "/";
+        })
         .trigger("resizeWebNoted")
         .trigger("contentChanged")
     ;

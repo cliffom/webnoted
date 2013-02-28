@@ -11,7 +11,7 @@
         noteId,
         settings,
         sharedUrl,
-        version = '1.0.14';
+        version = '1.0.15';
 
     var methods = {
         init:function (options) {
@@ -73,8 +73,8 @@
             canSave = true;
             this
                 .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
-                .webNoted('save');
-            window.location = '/';
+                .webNoted('save')
+                .trigger('wnEdited');
         },
 
         create:function () {
