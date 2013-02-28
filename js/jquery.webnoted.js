@@ -3,9 +3,6 @@
  * http://www.webnoted.com
  *
  * Copyright 2012, Michael Clifford
- * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
- * or GPL Version 2 (http://www.opensource.org/licenses/gpl-2.0.php) licenses.
- *
  */
 (function ($) {
     var apiURL,
@@ -14,7 +11,7 @@
         noteId,
         settings,
         sharedUrl,
-        version = '1.0.13';
+        version = '1.0.14';
 
     var methods = {
         init:function (options) {
