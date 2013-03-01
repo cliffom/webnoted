@@ -1,8 +1,7 @@
 $(function () {
     var noteId = getCookie("noteId"),
         webNoted = $("#webpad"),
-        counterElement = $("#char-count").find("span"),
-        sideBarElement = $("#sidebar");
+        counterElement = $("#char-count").find("span");
 
     webNoted
         .webNoted({

@@ -35,6 +35,7 @@
                     storage.removeItem(uid);
                     return result && storage;
                 } catch(e) {
+                    webNoted.trigger('wnNoStorage');
                     return false;
                 }
             }());

@@ -60,6 +60,9 @@ $(function () {
         .on('wnEdited', function () {
             window.location = "/";
         })
+        .on('wnNoStorage', function () {
+            window.location = 'http://www.whatbrowser.org/';
+        })
         .trigger("resizeWebNoted")
         .trigger("contentChanged")
     ;

@@ -32,7 +32,7 @@
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery.webnoted.js"></script>
     <script type="text/javascript">
-        $(function(){var a=getCookie("noteId"),b=$("#webpad"),c=$("#char-count").find("span");$("#sidebar");b.webNoted({apiURL:"/share.php",noteId:a}).on("resizeWebNoted",function(){b.height($(window).height()-88);b.width($(window).width()-298);roundedEdge(b)}).trigger("resizeWebNoted");c.html(b.webNoted("count"));$("#edit").on("click",function(){b.webNoted("edit")});$(window).resize(function(){b.trigger("resizeWebNoted")})}); function roundedEdge(a){var b=a.get(0);b.scrollHeight>b.clientHeight?a.css("border-radius","4px 0 0 4px"):a.css("border-radius","4px")}function getCookie(a){a=RegExp(a+"=([^;]+)").exec(document.cookie);return null!==a?unescape(a[1]):null};
+        $(function(){var a=getCookie("noteId"),b=$("#webpad"),c=$("#char-count").find("span");b.webNoted({apiURL:"/share.php",noteId:a}).on("resizeWebNoted",function(){b.height($(window).height()-88);b.width($(window).width()-298);roundedEdge(b)}).trigger("resizeWebNoted");c.html(b.webNoted("count"));$("#edit").on("click",function(){b.webNoted("edit")});$(window).resize(function(){b.trigger("resizeWebNoted")})}); function roundedEdge(a){var b=a.get(0);b.scrollHeight>b.clientHeight?a.css("border-radius","4px 0 0 4px"):a.css("border-radius","4px")}function getCookie(a){a=RegExp(a+"=([^;]+)").exec(document.cookie);return null!==a?unescape(a[1]):null};
     </script>
     <script type="text/javascript">
         var _gaq = _gaq || [];
