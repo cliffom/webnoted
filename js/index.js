@@ -13,9 +13,6 @@ $(function () {
     });
 
     webNoted
-        .webNoted({
-            "apiURL":   "/share.php"
-        })
         .on('resizeWebNoted', function () {
             webNoted.height($(window).height() - 88);
             webNoted.width($(window).width() - 298);
@@ -62,6 +59,9 @@ $(function () {
         })
         .on('wnNoStorage', function () {
             window.location = 'http://www.whatbrowser.org/';
+        })
+        .webNoted({
+            "apiURL":   "/share.php"
         })
         .trigger("resizeWebNoted")
         .trigger("contentChanged")
