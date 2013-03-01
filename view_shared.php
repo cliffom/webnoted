@@ -2,6 +2,7 @@
 $apiURL = "http://api.webnoted.com/?noteId=";
 $noteId = (isset($_GET['noteId'])) ? $_GET['noteId'] : null;
 $note = '';
+setcookie('noteId', '', time() - 3600);
 
 if ($noteId !== null) {
     $apiData = @file_get_contents($apiURL . $noteId);
@@ -12,7 +13,7 @@ if ($noteId !== null) {
         if (isset($apiData->status)) {
 
             if ($apiData->status === 'success') {
-                setcookie('noteId', $noteId, time() + 1);
+                setcookie('noteId', $noteId);
                 $note = $apiData->note;
                 $title = (isset($apiData->title)) ? $apiData->title : 'Shared Note';
             } else {
