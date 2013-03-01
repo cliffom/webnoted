@@ -14,9 +14,9 @@ $(function () {
             webNoted.width($(window).width() - 298);
             roundedEdge(webNoted);
         })
-        .trigger("resizeWebNoted")
-        .trigger("contentChanged")
-    ;
+        .trigger("resizeWebNoted");
+
+    counterElement.html(webNoted.webNoted("count"));
 
     $("#edit").on("click", function() {
        webNoted.webNoted("edit"); 
