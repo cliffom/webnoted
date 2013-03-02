@@ -34,4 +34,4 @@ if ($noteId !== null) {
 
 }
 
-require 'html/view_shared.html';
+require 'html/shared.html';

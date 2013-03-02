@@ -7,11 +7,10 @@
 (function ($) {
     var apiURL,
         storage,
-        canSave = true,
-        noteId,
+        canSave,
         settings,
         sharedUrl,
-        version = '1.0.16';
+        version = '1.0.17';
 
     var methods = {
         init:function (options) {
@@ -19,11 +18,11 @@
 
             settings = $.extend({
                 'apiURL': '',
-                'noteId': null
+                'canSave': true
             }, options);
 
-            apiURL      = settings.apiURL;
-            noteId      = settings.noteId;
+            apiURL  = settings.apiURL;
+            canSave = settings.canSave;
 
             storage = (function() {
                 var uid = new Date(),
@@ -40,9 +39,7 @@
                 }
             }());
 
-            if (noteId !== null) {
-                canSave = false;
-            } else {
+            if (canSave) {
                 this
                     .webNoted('open')
                     .webNoted('setEditable')

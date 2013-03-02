@@ -61,7 +61,7 @@ $(function () {
             window.location = 'http://www.whatbrowser.org/';
         })
         .webNoted({
-            "apiURL":   "/share.php"
+            "apiURL":   "/php/share.php"
         })
         .trigger("resizeWebNoted")
         .trigger("contentChanged")

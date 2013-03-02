@@ -1,12 +1,11 @@
 $(function () {
-    var noteId = getCookie("noteId"),
-        webNoted = $("#webpad"),
+    var webNoted = $("#webpad"),
         counterElement = $("#char-count").find("span");
 
     webNoted
         .webNoted({
-            "apiURL":       "/share.php",
-            "noteId":       noteId
+            "apiURL":   "/php/share.php",
+            "canSave":  false
         })
         .on('resizeWebNoted', function () {
             webNoted.height($(window).height() - 88);
@@ -32,9 +31,4 @@ function roundedEdge(e) {
     } else {
         e.css("border-radius", "4px");
     }
-}
-function getCookie(name)  {
-    var re = new RegExp(name + "=([^;]+)");
-    var value = re.exec(document.cookie);
-    return (value !== null) ? unescape(value[1]) : null;
 }

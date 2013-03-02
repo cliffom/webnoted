@@ -1,4 +1,4 @@
 RewriteEngine On
 # RewriteRule ^([A-Za-z0-9]+)([A-Za-z0-9])?$ /?noteId=$1 [R]
-RewriteRule ^([A-Za-z0-9]+)([A-Za-z0-9])?$ /view_shared.php?noteId=$1
-RewriteRule ^shared/(.*)?$ /view_shared.php?noteId=$1
+# RewriteRule ^([A-Za-z0-9]+)([A-Za-z0-9])?$ /php/shared.php?noteId=$1
+RewriteRule ^shared/(.*)?$ /php/shared.php?noteId=$1
