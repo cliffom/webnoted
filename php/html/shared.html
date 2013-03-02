@@ -11,6 +11,22 @@
         <h1>Shared Note</h1>
     </div>
 
+    <div id="sidebar">
+        <div id="about" class="sidebarBox">
+            <h2>About</h2>
+            <p>WebNoted turns your browser into a notepad.</p>
+
+            <hr />
+
+            <h2>Status</h2>
+            <p id="char-count">Characters: <span>0</span></p>
+            <h2>Options</h2>
+            <p>
+                <span><a href="/" id="edit" class="jsManageContents">Edit as new</a> |</span>
+                <span><a href="/" id="home">Return to notes</a></span>
+            </p>
+        </div>
+    </div>
     <textarea readonly="readonly" id="webpad"><?php echo $note; ?></textarea>
 
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>
