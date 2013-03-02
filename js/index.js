@@ -18,7 +18,7 @@ $(function () {
             webNoted.width($(window).width() - 298);
             roundedEdge(webNoted);
         })
-        .on('shareLinkGenerated', function () {
+        .on('wnShareLinkGenerated', function () {
             var url = webNoted.webNoted("getSharedUrl");
             shareDialogElement
                 .find("#success").show()
@@ -36,7 +36,7 @@ $(function () {
                 .select()
                 .attr("readonly", true);
         })
-        .on('shareLinkError', function () {
+        .on('wnShareLinkError', function () {
             shareDialogElement
                 .find("#error").show()
                 .end()
@@ -44,13 +44,13 @@ $(function () {
                 .end()
                 .find("#processing").hide();
         })
-        .on('contentChanged', function () {
+        .on('wnContentChanged', function () {
             roundedEdge(webNoted);
             setTimeout(function () {
                 counterElement.html(webNoted.webNoted("count"));
             }, 0);
         })
-        .on('noteCreated', function () {
+        .on('wnNoteCreated', function () {
             var documentName = webNoted.webNoted("getCurrentDocument");
             historyElement.append('<option value="' + documentName + '" selected="selected">' + documentName.substring(5) + '</option>');
         })

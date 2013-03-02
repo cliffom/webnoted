@@ -11,7 +11,7 @@
         noteId,
         settings,
         sharedUrl,
-        version = '1.0.15';
+        version = '1.0.16';
 
     var methods = {
         init:function (options) {
@@ -50,7 +50,7 @@
             }
 
             this.on('keyup paste', function () {
-                webNoted.trigger('contentChanged');
+                webNoted.trigger('wnContentChanged');
             });
 
             return this;
@@ -84,7 +84,7 @@
                 .webNoted('clear')
                 .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
                 .webNoted('save')
-                .trigger('noteCreated');
+                .trigger('wnNoteCreated');
             return this;
         },
 
@@ -111,18 +111,18 @@
                 },
                 dataType:'json',
                 error:function (jqXHR, textStatus, errorThrown) {
-                    webNoted.trigger('shareLinkError');
+                    webNoted.trigger('wnShareLinkError');
                 }
             }).done(function (msg) {
                 try {
                     if (msg.status === 'success') {
                         sharedUrl = msg.sharedUrl;
-                        webNoted.trigger('shareLinkGenerated');
+                        webNoted.trigger('wnShareLinkGenerated');
                     } else {
-                        webNoted.trigger('shareLinkError');
+                        webNoted.trigger('wnShareLinkError');
                     }
                 } catch (e) {
-                    webNoted.trigger('shareLinkError');
+                    webNoted.trigger('wnShareLinkError');
                 }
             });
             return this;
@@ -165,7 +165,7 @@
         setContents:function (contents) {
             this
                 .val(contents)
-                .trigger('contentChanged');
+                .trigger('wnContentChanged');
             return this;
         },
 
