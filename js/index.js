@@ -14,7 +14,7 @@ $(function () {
 
     webNoted
         .on('resizeWebNoted', function () {
-            webNoted.height($(window).height() - 88);
+            webNoted.height($(window).height() - 88 - 25);
             webNoted.width($(window).width() - 298);
             roundedEdge(webNoted);
         })
