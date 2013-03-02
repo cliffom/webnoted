@@ -8,18 +8,16 @@
     var apiURL,
         storage,
         canSave,
-        settings,
         sharedUrl,
-        version = '1.0.17';
+        version = '1.0.18';
 
     var methods = {
         init:function (options) {
-            var webNoted = this;
-
-            settings = $.extend({
-                'apiURL': '',
-                'canSave': true
-            }, options);
+            var webNoted = this,
+                settings = $.extend({
+                    'apiURL': '',
+                    'canSave': true
+                }, options);
 
             apiURL  = settings.apiURL;
             canSave = settings.canSave;
