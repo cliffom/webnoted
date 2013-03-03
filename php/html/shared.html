@@ -29,10 +29,14 @@
     </div>
     <textarea readonly="readonly" id="webpad"><?php echo $note; ?></textarea>
 
+    <div id="footer">
+        WebNoted.com is a <a href="http://www.suitepotato.com">Suite Potato</a> spud. Follow on <a href="http://www.twitter.com/webnoted">Twitter</a>.
+    </div>
+
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery.webnoted.js"></script>
     <script type="text/javascript">
-        $(function(){var a=$("#webpad"),b=$("#char-count").find("span");a.webNoted({apiURL:"/php/share.php",canSave:!1}).on("resizeWebNoted",function(){a.height($(window).height()-88);a.width($(window).width()-298);roundedEdge(a)}).trigger("resizeWebNoted");b.html(a.webNoted("count"));$("#edit").on("click",function(){a.webNoted("edit")});$(window).resize(function(){a.trigger("resizeWebNoted")})}); function roundedEdge(a){var b=a.get(0);b.scrollHeight>b.clientHeight?a.css("border-radius","4px 0 0 4px"):a.css("border-radius","4px")};
+        $(function(){var a=$("#webpad"),b=$("#char-count").find("span"),c=$("#footer");a.webNoted({apiURL:"/php/share.php",canSave:!1}).on("resizeWebNoted",function(){a.width($(window).width()-298);a.height($(window).height()-c.height()-88)}).trigger("resizeWebNoted");b.html(a.webNoted("count"));$("#edit").on("click",function(){a.webNoted("edit")});$(window).resize(function(){a.trigger("resizeWebNoted")})});
     </script>
     <script type="text/javascript">
         var _gaq = _gaq || [];

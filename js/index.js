@@ -3,6 +3,7 @@ $(function () {
         counterElement = $("#char-count").find("span"),
         sideBarElement = $("#sidebar"),
         historyElement = $("#history"),
+        footerElement = $("#footer"),
         shareDialogElement = $("#share-dialog");
 
     shareDialogElement.dialog({
@@ -14,9 +15,8 @@ $(function () {
 
     webNoted
         .on('resizeWebNoted', function () {
-            webNoted.height($(window).height() - 88 - 25);
+            webNoted.height($(window).height() - footerElement.height() - 88);
             webNoted.width($(window).width() - 298);
-            roundedEdge(webNoted);
         })
         .on('wnShareLinkGenerated', function () {
             var url = webNoted.webNoted("getSharedUrl");
@@ -45,7 +45,6 @@ $(function () {
                 .find("#processing").hide();
         })
         .on('wnContentChanged', function () {
-            roundedEdge(webNoted);
             setTimeout(function () {
                 counterElement.html(webNoted.webNoted("count"));
             }, 0);
@@ -119,11 +118,3 @@ $(function () {
         })
     ;
 });
-function roundedEdge(e) {
-    var webNotedElement = e.get(0);
-    if (webNotedElement.scrollHeight > webNotedElement.clientHeight) {
-        e.css("border-radius", "4px 0 0 4px");
-    } else {
-        e.css("border-radius", "4px");
-    }
-}

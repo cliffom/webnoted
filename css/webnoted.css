@@ -47,7 +47,6 @@ p {
     color: #000;
     padding: 4px;
     border: 1px solid #aaa;
-    border-radius: 4px 0 0 4px;
     overflow-y: auto;
     position: relative;
     background-color: #fff;
@@ -108,16 +107,13 @@ hr {
 #footer {
     clear: both;
     color: #666;
-    margin-top: 15px;
+    background-color: #eee;
     width: 100%;
     position:absolute;
     left: 0;
     bottom: 0;
-    height: 25px;
-    line-height: 25px;
+    line-height: 34px;
     text-align: center;
-    font-size: 12px;
-    background-color: #eee;
 }
 
 .ui-corner-all {

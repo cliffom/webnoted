@@ -1,6 +1,7 @@
 $(function () {
     var webNoted = $("#webpad"),
-        counterElement = $("#char-count").find("span");
+        counterElement = $("#char-count").find("span"),
+        footerElement = $("#footer");
 
     webNoted
         .webNoted({
@@ -8,9 +9,8 @@ $(function () {
             "canSave":  false
         })
         .on('resizeWebNoted', function () {
-            webNoted.height($(window).height() - 88);
             webNoted.width($(window).width() - 298);
-            roundedEdge(webNoted);
+            webNoted.height($(window).height() - footerElement.height() - 88);
         })
         .trigger("resizeWebNoted");
 
@@ -24,11 +24,3 @@ $(function () {
         webNoted.trigger("resizeWebNoted");
     });
 });
-function roundedEdge(e) {
-    var webNotedElement = e.get(0);
-    if (webNotedElement.scrollHeight > webNotedElement.clientHeight) {
-        e.css("border-radius", "4px 0 0 4px");
-    } else {
-        e.css("border-radius", "4px");
-    }
-}
