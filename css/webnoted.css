@@ -89,7 +89,12 @@ hr {
 }
 
 #shared-url {
-    width: 97%;
+    width: 202px;
+}
+
+#share-dialog .tweet-link {
+    position: relative;
+    top: 4px;
 }
 
 #share-dialog .foot-note {

@@ -20,7 +20,11 @@ $(function () {
         })
         .on('wnShareLinkGenerated', function () {
             var url = webNoted.webNoted("getSharedUrl");
+
             shareDialogElement
+                .find('.tweet-link')
+                .html('<a href="https://twitter.com/share" class="twitter-share-button" data-url="' + url + '" data-text="I shared a note:" data-count="none" data-hashtags="webnoted"></a>')
+                .end()
                 .find("#success").show()
                 .end()
                 .find("#processing").hide()
@@ -30,11 +34,13 @@ $(function () {
                 .find("#shared-url")
                 .attr("readonly", false)
                 .val(url)
-                .focus(function () {
+                .attr("readonly", true)
+                .click(function() {
                     this.select();
                 })
-                .select()
-                .attr("readonly", true);
+                .select();
+
+            twttr.widgets.load();
         })
         .on('wnShareLinkError', function () {
             shareDialogElement
@@ -117,4 +123,5 @@ $(function () {
             webNoted.webNoted("save");
         })
     ;
+    $.getScript("//platform.twitter.com/widgets.js");
 });
