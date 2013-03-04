@@ -41,7 +41,9 @@ $(function () {
                 })
                 .select();
 
-            twttr.widgets.load();
+            if (typeof twttr !== undefined) {
+                twttr.widgets.load();
+            }
         })
         .on('wnShareLinkError', function () {
             shareDialogElement
