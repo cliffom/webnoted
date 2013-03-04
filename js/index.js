@@ -10,7 +10,8 @@ $(function () {
         autoOpen:   false,
         modal:      true,
         resizable:  false,
-        draggable:  false
+        draggable:  false,
+        width:      315
     });
 
     webNoted
