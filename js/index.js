@@ -25,12 +25,9 @@ $(function () {
             shareDialogElement
                 .find('.tweet-link')
                 .html('<a href="https://twitter.com/share" class="twitter-share-button" data-url="' + url + '" data-text="I shared a note:" data-count="none" data-hashtags="webnoted"></a>')
-                .end()
-                .find("#success").show()
-                .end()
-                .find("#processing").hide()
-                .end()
-                .find("#error").hide()
+                .end().find("#success").show()
+                .end().find("#processing").hide()
+                .end().find("#error").hide()
                 .end()
                 .find("#shared-url")
                 .attr("readonly", false)
@@ -48,10 +45,8 @@ $(function () {
         .on('wnShareLinkError', function () {
             shareDialogElement
                 .find("#error").show()
-                .end()
-                .find("#success").hide()
-                .end()
-                .find("#processing").hide();
+                .end().find("#success").hide()
+                .end().find("#processing").hide();
         })
         .on('wnContentChanged', function () {
             setTimeout(function () {
@@ -104,10 +99,8 @@ $(function () {
             shareDialogElement
                 .dialog("open")
                 .find("#processing").show()
-                .end()
-                .find("#success").hide()
-                .end()
-                .find("#error").hide();
+                .end().find("#success").hide()
+                .end().find("#error").hide();
         }
 
         webNoted.webNoted(action);
