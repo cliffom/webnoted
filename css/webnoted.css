@@ -121,6 +121,33 @@ hr {
     text-align: center;
 }
 
+#footer div {
+    float: left;
+}
+
+#footer-left {
+    width: 5%;
+    text-align: left;
+}
+
+#footer-middle {
+    width: 90%;
+}
+
+#footer-right {
+    width: 5%;
+    text-align: right;
+}
+
+#footer-right span {
+    margin-right: 9px;
+}
+
+#footer-right a {
+    text-decoration: none;
+    border-bottom: none;
+}
+
 .ui-corner-all {
     border-radius: 0;
 }
