@@ -57,6 +57,9 @@ $(function () {
             var documentName = webNoted.webNoted("getCurrentDocument");
             historyElement.append('<option value="' + documentName + '" selected="selected">' + documentName.substring(5) + '</option>');
         })
+        .on('wnNoteRenamed', function () {
+            buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
+        })
         .on('wnEdited', function () {
             window.location = "/";
         })
@@ -70,13 +73,6 @@ $(function () {
         .trigger("contentChanged")
     ;
 
-    $.each(webNoted.webNoted("getSavedNotes"), function (key, value) {
-        var currentDocument = webNoted.webNoted("getCurrentDocument");
-        historyElement.append('<option value="' + value + '">' + value.substring(5) + '</option>');
-        if (currentDocument === value) {
-            historyElement.val(value).attr("selected", true);
-        }
-    });
     historyElement.on("change", function (e) {
         webNoted.webNoted("switchDocument", $(e.target).val());
     });
@@ -119,5 +115,17 @@ $(function () {
             webNoted.webNoted("save");
         })
     ;
+
+    buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
     $.getScript("//platform.twitter.com/widgets.js");
 });
+
+function buildHistory(notes, currentDocument, historyElement) {
+    historyElement.html('');
+    $.each(notes, function (key, value) {
+        historyElement.append('<option value="' + value + '">' + value.substring(5) + '</option>');
+        if (currentDocument === value) {
+            historyElement.val(value).attr("selected", true);
+        }
+    });
+}

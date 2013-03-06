@@ -9,7 +9,7 @@
         storage,
         canSave,
         sharedUrl,
-        version = '1.0.18';
+        version = '1.0.19';
 
     var methods = {
         init:function (options) {
@@ -80,6 +80,29 @@
                 .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
                 .webNoted('save')
                 .trigger('wnNoteCreated');
+            return this;
+        },
+
+        rename:function (newDocumentName) {
+            var oldDocumentName = this.webNoted('getCurrentDocument');
+            newDocumentName = 'note-' + newDocumentName;
+            if (oldDocumentName !== newDocumentName) {
+                this
+                    .webNoted('save')
+                    .webNoted('setCurrentDocument', newDocumentName)
+                    .webNoted('setContents', storage.getItem(oldDocumentName))
+                    .webNoted('save')
+                    .webNoted('delete', oldDocumentName, false)
+                    .trigger('wnNoteRenamed');
+            }
+            return this;
+        },
+
+        delete:function (documentName, trigger) {
+            storage.removeItem(documentName);
+            if (trigger !== false) {
+                this.trigger('wnNoteDeleted');
+            }
             return this;
         },
 
