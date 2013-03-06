@@ -9,17 +9,20 @@
         storage,
         canSave,
         sharedUrl,
-        version = '1.0.19';
+        documentPrefix,
+        version = '1.0.20';
 
     var methods = {
         init:function (options) {
             var webNoted = this,
                 settings = $.extend({
                     'apiURL': '',
+                    'documentPrefix': 'note-',
                     'canSave': true
                 }, options);
 
             apiURL  = settings.apiURL;
+            documentPrefix = settings.documentPrefix;
             canSave = settings.canSave;
 
             storage = (function() {
@@ -48,6 +51,7 @@
                 webNoted.trigger('wnContentChanged');
             });
 
+            this.trigger('wnReady');
             return this;
         },
 
@@ -85,7 +89,7 @@
 
         rename:function (newDocumentName) {
             var oldDocumentName = this.webNoted('getCurrentDocument');
-            newDocumentName = 'note-' + newDocumentName;
+            newDocumentName = documentPrefix + newDocumentName;
             if (oldDocumentName !== newDocumentName) {
                 this
                     .webNoted('save')
@@ -109,7 +113,7 @@
         switchDocument:function (documentName) {
             this
                 .webNoted('save')
-                .webNoted('setCurrentDocument', documentName)
+                .webNoted('setCurrentDocument', documentPrefix + documentName)
                 .webNoted('open');
             return this;
         },
@@ -169,7 +173,7 @@
         getNewNoteName:function () {
             var now = new Date();
 
-            return 'note-' + now;
+            return documentPrefix + now;
         },
 
         getSharedUrl:function () {
@@ -200,7 +204,7 @@
             } else {
                 var savedNotes = [];
                 for (var i = 0; i < storage.length; i++) {
-                    if (storage.key(i) !== null && storage.key(i).substring(0, 4) === 'note') {
+                    if (storage.key(i) !== null && storage.key(i).substring(0, documentPrefix.length) === documentPrefix) {
                         savedNotes.push(storage.key(i));
                     }
                 }
