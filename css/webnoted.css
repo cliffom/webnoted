@@ -114,9 +114,12 @@ hr {
 }
 
 #history-container a {
-    border: 0;
     border-bottom: none;
     text-decoration: none;
+}
+
+#history-container a img {
+    border: 0;
 }
 
 #history-container span {
