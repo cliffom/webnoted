@@ -53,14 +53,13 @@ $(function () {
                 counterElement.html(webNoted.webNoted("count"));
             }, 0);
         })
-        .on('wnNoteRenamed wnNoteCreated wnReady', function () {
+        .on('wnNoteRenamed wnNoteCreated wnReady wnNoteDeleted', function (e) {
             buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
-        })
-        .on('wnNoteDeleted', function () {
-            buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
-            webNoted.webNoted('canSave', false);
-            historyElement.trigger('change');
-            webNoted.webNoted('canSave', true);
+            if (e.type === 'wnNoteDeleted') {
+                webNoted.webNoted('canSave', false);
+                historyElement.trigger('change');
+                webNoted.webNoted('canSave', true);
+            }
         })
         .on('wnEdited', function () {
             window.location = "/";
