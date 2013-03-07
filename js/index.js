@@ -1,6 +1,5 @@
 $(function () {
     var webNoted = $("#webpad"),
-        counterElement = $("#char-count").find("span"),
         sideBarElement = $("#sidebar"),
         historyElement = $("#history"),
         footerElement = $("#footer"),
@@ -64,11 +63,6 @@ $(function () {
                 .find("#error").show()
                 .end().find("#success").hide()
                 .end().find("#processing").hide();
-        })
-        .on('wnContentChanged', function () {
-            setTimeout(function () {
-                counterElement.html(webNoted.webNoted("count"));
-            }, 0);
         })
         .on('wnNoteRenamed wnNoteCreated wnReady wnNoteDeleted', function (e) {
             buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
