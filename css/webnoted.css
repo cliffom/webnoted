@@ -120,11 +120,7 @@ hr {
 
 #history-container a img {
     border: 0;
-}
-
-#history-container span {
-    position: relative;
-    top: 4px;
+    vertical-align: middle
 }
 
 #footer {
@@ -155,6 +151,7 @@ hr {
 #footer-right {
     width: 5%;
     text-align: right;
+    display: none;
 }
 
 #footer-right span {
@@ -164,6 +161,11 @@ hr {
 #footer-right a {
     text-decoration: none;
     border-bottom: none;
+}
+
+#footer-right a img {
+    vertical-align: middle;
+    border: 0;
 }
 
 .ui-widget-header {
