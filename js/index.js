@@ -4,7 +4,8 @@ $(function () {
         sideBarElement = $("#sidebar"),
         historyElement = $("#history"),
         footerElement = $("#footer"),
-        shareDialogElement = $("#share-dialog");
+        shareDialogElement = $("#share-dialog"),
+        deleteDialogElement = $("#delete-dialog");
 
     shareDialogElement.dialog({
         autoOpen:   false,
@@ -12,6 +13,22 @@ $(function () {
         resizable:  false,
         draggable:  false,
         width:      315
+    });
+
+    deleteDialogElement.dialog({
+        autoOpen:   false,
+        modal:      true,
+        resizable:  false,
+        draggable:  false,
+        buttons: {
+            "Delete this note": function() {
+                webNoted.webNoted("delete", webNoted.webNoted('getCurrentDocument'), true);
+                $(this).dialog('close');
+            },
+            Cancel: function() {
+                $(this).dialog('close');
+            }
+        }
     });
 
     webNoted
@@ -107,6 +124,11 @@ $(function () {
         setTimeout(function () {
             status.hide("fast");
         }, timeout);
+    });
+
+    $("#delete").on("click", function(e) {
+        e.preventDefault();
+        deleteDialogElement.dialog("open");
     });
 
     $(window)

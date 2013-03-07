@@ -80,6 +80,10 @@ hr {
     display: none;
 }
 
+.dialog p {
+    font-size: 12px;
+}
+
 #share-dialog p {
     margin-left: 0;
 }
@@ -106,7 +110,12 @@ hr {
 }
 
 #history {
-    width: 100%;
+    width: 234px;
+}
+
+#history-container a {
+    border-bottom: none;
+    text-decoration: none;
 }
 
 #footer {
@@ -148,11 +157,11 @@ hr {
     border-bottom: none;
 }
 
-.ui-corner-all {
-    border-radius: 0;
-}
-
 .ui-widget-header {
     border: 0;
     background: none;
+}
+
+.ui-button-text { 
+    font-size: 12px;
 }

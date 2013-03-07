@@ -26,15 +26,15 @@
             <p id="status-message"></p>
             <h2>Options</h2>
             <p>
-                <span><a href="#" id="create" class="jsManageContents">Create</a> |</span>
-                <span><a href="#" id="save" class="jsManageContents">Save</a> |</span>
-                <span><a href="#" id="clear" class="jsManageContents">Clear</a> |</span>
-                <span><a href="#" id="share" class="jsManageContents">Share</a></span>
+                <span><a href="#" id="create" class="jsManageContents" alt="Create a new note">Create</a> |</span>
+                <span><a href="#" id="save" class="jsManageContents" alt="Save this note">Save</a> |</span>
+                <span><a href="#" id="clear" class="jsManageContents" alt="Clear this note">Clear</a> |</span>
+                <span><a href="#" id="share" class="jsManageContents" alt="Share this note">Share</a></span>
             </p>
 
             <div id="history-container">
                 <h2>History</h2>
-                <select id="history"></select>
+                <select id="history"></select> <a href="#" id="delete" alt="Delete this note">x</a>
             </div>
         </div>
     </div>
@@ -60,6 +60,10 @@
             <span class="tweet-link"></span>
             <p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
         </div>
+    </div>
+    
+    <div id="delete-dialog" class="dialog" title="Delete this note?">
+        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This note will be permanently deleted and cannot be recovered. Are you sure?</p>
     </div>
 
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>
