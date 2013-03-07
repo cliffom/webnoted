@@ -10,7 +10,7 @@
         canSave,
         sharedUrl,
         documentPrefix,
-        version = '1.0.20';
+        version = '1.0.21';
 
     var methods = {
         init:function (options) {
@@ -23,7 +23,7 @@
 
             apiURL  = settings.apiURL;
             documentPrefix = settings.documentPrefix;
-            canSave = settings.canSave;
+            this.webNoted('canSave', settings.canSave);
 
             storage = (function() {
                 var uid = new Date(),
@@ -70,8 +70,8 @@
         },
 
         edit:function () {
-            canSave = true;
             this
+                .webNoted('canSave', true)
                 .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
                 .webNoted('save')
                 .trigger('wnEdited');
@@ -195,6 +195,11 @@
             this
                 .removeAttr('readonly')
                 .focus();
+            return this;
+        },
+
+        canSave:function (canSaveFlag) {
+            canSave = (canSaveFlag === true);
             return this;
         },
 

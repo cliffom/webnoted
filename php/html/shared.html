@@ -37,9 +37,7 @@
 
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery.webnoted.js"></script>
-    <script type="text/javascript">
-        $(function(){var a=$("#webpad"),b=$("#char-count").find("span"),c=$("#footer");a.webNoted({apiURL:"/php/share.php",canSave:!1}).on("resizeWebNoted",function(){a.width($(window).width()-298);a.height($(window).height()-c.height()-88)}).trigger("resizeWebNoted");b.html(a.webNoted("count"));$("#edit").on("click",function(){a.webNoted("edit")});$(window).resize(function(){a.trigger("resizeWebNoted")})});
-    </script>
+    <script type="text/javascript" src="/js/shared.js"></script>
     <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-947207-15']);

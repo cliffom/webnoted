@@ -56,6 +56,12 @@ $(function () {
         .on('wnNoteRenamed wnNoteCreated wnReady', function () {
             buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
         })
+        .on('wnNoteDeleted', function () {
+            buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
+            webNoted.webNoted('canSave', false);
+            historyElement.trigger('change');
+            webNoted.webNoted('canSave', true);
+        })
         .on('wnEdited', function () {
             window.location = "/";
         })
