@@ -110,12 +110,17 @@ hr {
 }
 
 #history {
-    width: 234px;
+    width: 208px;
 }
 
 #history-container a {
     border-bottom: none;
     text-decoration: none;
+}
+
+#history-container span {
+    position: relative;
+    top: 4px;
 }
 
 #footer {
