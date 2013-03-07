@@ -114,6 +114,7 @@ hr {
 }
 
 #history-container a {
+    border: 0;
     border-bottom: none;
     text-decoration: none;
 }
