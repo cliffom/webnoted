@@ -90,39 +90,22 @@ $(function () {
         webNoted.webNoted("switchDocument", documentName);
     });
 
-    sideBarElement.find(".jsManageContents").click(function () {
-        var e = $(this),
-            status = $("#status-message"),
-            statusText = '',
-            action = e.attr("id"),
-            timeout = 1000;
+    sideBarElement.find(".jsManageContents").click(function (e) {
+        var action = e.currentTarget.id;
+        e.preventDefault();
 
-        if (action === "create") {
-            statusText = "New note created";
-        } else if (action === "save") {
-            statusText = "Contents saved";
-        } else if (action === "clear") {
-            statusText = "Contents cleared";
+        if (action === "delete") {
+            deleteDialogElement.dialog("open");
+        } else if (action === "create") {
+            webNoted.webNoted(action);
         } else if (action === "share") {
-            statusText = "Generating Link";
             shareDialogElement
                 .dialog("open")
                 .find("#processing").show()
                 .end().find("#success").hide()
                 .end().find("#error").hide();
+            webNoted.webNoted(action);
         }
-
-        webNoted.webNoted(action);
-        status.text(statusText).show("fast");
-
-        setTimeout(function () {
-            status.hide("fast");
-        }, timeout);
-    });
-
-    $("#delete").on("click", function(e) {
-        e.preventDefault();
-        deleteDialogElement.dialog("open");
     });
 
     $(window)
