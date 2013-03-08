@@ -84,6 +84,10 @@ hr {
     font-size: 12px;
 }
 
+#delete-dialog {
+    display: none;
+}
+
 #share-dialog p {
     margin-left: 0;
 }
