@@ -110,7 +110,8 @@ hr {
 }
 
 #history {
-    width: 178px;
+    width: 174px;
+    margin: 0 0 6px 4px;
 }
 
 #history-container a {
