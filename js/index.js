@@ -12,7 +12,27 @@ $(function () {
         modal:      true,
         resizable:  false,
         draggable:  false,
-        width:      315
+        width:      315,
+        buttons: {
+            "OK": function() {
+                $(this)
+                    .find("div").hide()
+                    .end().next().hide()
+                    .end().find("#processing").show()
+                webNoted.webNoted("share");
+            },
+            Cancel: function() {
+                $(this).dialog("close");
+            }
+        },
+        open: function() {
+          $(this).find("#share-default-text").show();  
+        },
+        close: function() {
+            $(this)
+                .find("div").hide()
+                .end().next().show()
+        }
     });
 
     deleteDialogElement.dialog({
@@ -70,9 +90,8 @@ $(function () {
             shareDialogElement
                 .find('.tweet-link')
                 .html('<a href="https://twitter.com/share" class="twitter-share-button" data-url="' + url + '" data-text="I shared a note:" data-count="none" data-hashtags="webnoted"></a>')
+                .end().find("div").hide()
                 .end().find("#success").show()
-                .end().find("#processing").hide()
-                .end().find("#error").hide()
                 .end()
                 .find("#shared-url")
                 .attr("readonly", false)
@@ -89,9 +108,8 @@ $(function () {
         })
         .on('wnShareLinkError', function () {
             shareDialogElement
-                .find("#error").show()
-                .end().find("#success").hide()
-                .end().find("#processing").hide();
+                .find("div").hide()
+                .end().find("#error").show()
         })
         .on('wnNoteRenamed wnNoteCreated wnReady wnNoteDeleted', function (e) {
             buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
@@ -130,12 +148,7 @@ $(function () {
         } else if (action === "rename") {
             renameDialogElement.dialog("open");
         } else if (action === "share") {
-            shareDialogElement
-                .dialog("open")
-                .find("#processing").show()
-                .end().find("#success").hide()
-                .end().find("#error").hide();
-            webNoted.webNoted(action);
+            shareDialogElement.dialog("open");
         }
     });
 
