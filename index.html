@@ -26,6 +26,7 @@
                 <select id="history"></select>
                 <span><a href="#" id="delete" class="jsManageContents"><img src="/img/glyphicons_191_circle_minus.png" alt="Delete" title="Delete this note" width="16" height="16"></a></span>
                 <span><a href="#" id="create" class="jsManageContents"><img src="/img/glyphicons_190_circle_plus.png" alt="Create" title="Create a new note" width="16" height="16"></a></span>
+                <span><a href="#" id="rename" class="jsManageContents"><img src="/img/glyphicons_030_pencil.png" alt="Rename" title="Rename this note" width="16" height="16"></a></span>
                 <span><a href="#" id="share" class="jsManageContents"><img src="/img/glyphicons_363_cloud_upload.png" alt="Share" title="Share this note" width="22" height="16"></a></span>
             </div>
 
@@ -40,7 +41,7 @@
         <div id="footer-right"><span><a href="#"><img src="/img/glyphicons_194_circle_question_mark.png" alt="glyphicons_194_circle_question_mark" width="16" height="16"></a></span></div>
     </div>
 
-    <div id="share-dialog" title="Share">
+    <div id="share-dialog" class="dialog" title="Share this note">
         <div id="processing">
             <p>Generating your link...</p>
         </div>
@@ -58,6 +59,12 @@
     
     <div id="delete-dialog" class="dialog" title="Delete this note?">
         <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This note will be permanently deleted and cannot be recovered. Are you sure?</p>
+    </div>
+
+    <div id="rename-dialog" class="dialog" title="Rename this note?">
+        <p>What would you like to call this note?</p>
+        <input id="new-note-name" type="text"></input>
+        <p id="rename-error"></p>
     </div>
 
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>

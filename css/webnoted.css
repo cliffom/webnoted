@@ -80,24 +80,17 @@ hr {
     display: none;
 }
 
-.dialog p {
-    font-size: 12px;
-}
-
-#delete-dialog {
+.dialog {
     display: none;
 }
 
-#share-dialog p {
+.dialog p {
+    font-size: 12px;
     margin-left: 0;
 }
 
 #share-dialog div {
     display: none;
-}
-
-#shared-url {
-    width: 215px;
 }
 
 #share-dialog .tweet-link {
@@ -109,12 +102,20 @@ hr {
     font-size: 11px;
 }
 
+#shared-url {
+    width: 215px;
+}
+
+#new-note-name {
+    width: 263px;
+}
+
 #webpad:focus, #history, input:focus {
     outline: 0;
 }
 
 #history {
-    width: 174px;
+    width: 152px;
     margin: 0 0 6px 4px;
 }
 

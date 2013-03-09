@@ -4,7 +4,8 @@ $(function () {
         historyElement = $("#history"),
         footerElement = $("#footer"),
         shareDialogElement = $("#share-dialog"),
-        deleteDialogElement = $("#delete-dialog");
+        deleteDialogElement = $("#delete-dialog"),
+        renameDialogElement = $("#rename-dialog");
 
     shareDialogElement.dialog({
         autoOpen:   false,
@@ -22,11 +23,39 @@ $(function () {
         buttons: {
             "Delete this note": function() {
                 webNoted.webNoted("delete", webNoted.webNoted('getCurrentDocument'), true);
+                if (historyElement.find("option").length === 0) {
+                    webNoted.webNoted("rename", new Date());
+                }
                 $(this).dialog('close');
             },
             Cancel: function() {
                 $(this).dialog('close');
             }
+        }
+    });
+
+    renameDialogElement.dialog({
+        autoOpen:   false,
+        modal:      true,
+        resizable:  false,
+        draggable:  false,
+        buttons: {
+            "Rename this note": function() {
+                var newNoteName = $("#new-note-name").val();
+                if (newNoteName.length > 0) {
+                    webNoted.webNoted("rename", newNoteName);
+                    $(this).dialog('close');
+                } else {
+                    $("#rename-error").html("* Please enter a note name.");
+                }
+            },
+            Cancel: function() {
+                $(this).dialog('close');
+            }
+        },
+        close: function() {
+            $("#new-note-name").val("");
+            $("#rename-error").html("");
         }
     });
 
@@ -98,6 +127,8 @@ $(function () {
             deleteDialogElement.dialog("open");
         } else if (action === "create") {
             webNoted.webNoted(action);
+        } else if (action === "rename") {
+            renameDialogElement.dialog("open");
         } else if (action === "share") {
             shareDialogElement
                 .dialog("open")
