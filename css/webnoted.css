@@ -116,7 +116,10 @@ hr {
 
 #history {
     width: 152px;
-    margin: 0 0 6px 4px;
+}
+
+#history-container div {
+    margin: 0 0 4px 4px;
 }
 
 #history-container a {

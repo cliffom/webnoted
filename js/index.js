@@ -21,7 +21,7 @@ $(function () {
         resizable:  false,
         draggable:  false,
         buttons: {
-            "Delete this note": function() {
+            "OK": function() {
                 webNoted.webNoted("delete", webNoted.webNoted('getCurrentDocument'), true);
                 if (historyElement.find("option").length === 0) {
                     webNoted.webNoted("rename", new Date());
@@ -40,7 +40,7 @@ $(function () {
         resizable:  false,
         draggable:  false,
         buttons: {
-            "Rename this note": function() {
+            "OK": function() {
                 var newNoteName = $("#new-note-name").val();
                 if (newNoteName.length > 0) {
                     webNoted.webNoted("rename", newNoteName);
