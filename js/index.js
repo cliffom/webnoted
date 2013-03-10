@@ -15,7 +15,7 @@ $(function () {
         newNoteNameInput    = $("#new-note-name"),
         renameTextError     = $("#rename-error"),
         tweetElement        = shareDialogElement.find(".tweet-link");
-        
+
     sharedUrlInput
         .attr("readonly", true)
         .on("click", function() {
@@ -57,7 +57,7 @@ $(function () {
             "OK": function() {
                 webNoted.webNoted("delete", webNoted.webNoted('getCurrentDocument'), true);
                 if (historyElement.find("option").length === 0) {
-                    webNoted.webNoted("rename", new Date());
+                    webNoted.webNoted("rename", webNoted.webNoted("getNewNoteName"));
                 }
                 deleteDialogElement.dialog('close');
             },

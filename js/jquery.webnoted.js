@@ -72,7 +72,7 @@
         edit:function () {
             this
                 .webNoted('canSave', true)
-                .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
+                .webNoted('setCurrentDocument', this.webNoted('getNewNoteName', true))
                 .webNoted('save')
                 .trigger('wnEdited');
         },
@@ -81,7 +81,7 @@
             this
                 .webNoted('save')
                 .webNoted('clear')
-                .webNoted('setCurrentDocument', this.webNoted('getNewNoteName'))
+                .webNoted('setCurrentDocument', this.webNoted('getNewNoteName', true))
                 .webNoted('save')
                 .trigger('wnNoteCreated');
             return this;
@@ -156,7 +156,7 @@
             } else {
                 var currentDocument = storage.getItem('currentDocument');
                 if (currentDocument === null) {
-                    currentDocument = this.webNoted('getNewNoteName');
+                    currentDocument = this.webNoted('getNewNoteName', true);
                     this.webNoted('setCurrentDocument', currentDocument);
                 }
                 return currentDocument;
@@ -170,10 +170,26 @@
             return this;
         },
 
-        getNewNoteName:function () {
-            var now = new Date();
+        getNewNoteName:function (usePrefix) {
+            if (!storage) {
+                return false;
+            } else {
+                var noteName = "";
+                var numNotes = parseInt(storage.getItem('notesCreated'));
+                if (isNaN(numNotes)) {
+                    numNotes = 1;
+                } else {
+                    numNotes++;
+                }
+                storage.setItem("notesCreated", numNotes);
+                noteName = "Untitled-" + numNotes;
 
-            return documentPrefix + now;
+                if (usePrefix === true) {
+                    noteName = documentPrefix + noteName;
+                }
+
+                return noteName;
+            }
         },
 
         getSharedUrl:function () {
