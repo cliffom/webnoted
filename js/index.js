@@ -1,11 +1,26 @@
 $(function () {
     var webNoted = $("#webpad"),
-        sideBarElement = $("#sidebar"),
-        historyElement = $("#history"),
-        footerElement = $("#footer"),
-        shareDialogElement = $("#share-dialog"),
+        sideBarElement      = $("#sidebar"),
+        historyElement      = $("#history"),
+        footerElement       = $("#footer"),
+        shareDialogElement  = $("#share-dialog"),
         deleteDialogElement = $("#delete-dialog"),
-        renameDialogElement = $("#rename-dialog");
+        renameDialogElement = $("#rename-dialog"),
+        shareDialogDivs     = shareDialogElement.find("div"),
+        shareTextDefault    = shareDialogElement.find("#share-default-text"),
+        shareTextProcessing = shareDialogElement.find("#processing"),
+        shareTextError      = shareDialogElement.find("#error"),
+        shareTextSuccess    = shareDialogElement.find("#success"),
+        sharedUrlInput      = shareDialogElement.find("#shared-url"),
+        newNoteNameInput    = $("#new-note-name"),
+        renameTextError     = $("#rename-error"),
+        tweetElement        = shareDialogElement.find(".tweet-link");
+        
+    sharedUrlInput
+        .attr("readonly", true)
+        .on("click", function() {
+            this.select();
+        });
 
     shareDialogElement.dialog({
         autoOpen:   false,
@@ -15,23 +30,21 @@ $(function () {
         width:      315,
         buttons: {
             "OK": function() {
-                $(this)
-                    .find("div").hide()
-                    .end().next().hide()
-                    .end().find("#processing").show()
+                shareDialogDivs.hide();
+                shareTextProcessing.show();
+                shareDialogElement.next().hide();
                 webNoted.webNoted("share");
             },
             Cancel: function() {
-                $(this).dialog("close");
+                shareDialogElement.dialog("close");
             }
         },
         open: function() {
-          $(this).find("#share-default-text").show();  
+          shareTextDefault.show();
         },
         close: function() {
-            $(this)
-                .find("div").hide()
-                .end().next().show()
+            shareDialogDivs.hide();
+            shareDialogElement.next().show();
         }
     });
 
@@ -46,10 +59,10 @@ $(function () {
                 if (historyElement.find("option").length === 0) {
                     webNoted.webNoted("rename", new Date());
                 }
-                $(this).dialog('close');
+                deleteDialogElement.dialog('close');
             },
             Cancel: function() {
-                $(this).dialog('close');
+                deleteDialogElement.dialog('close');
             }
         }
     });
@@ -61,21 +74,21 @@ $(function () {
         draggable:  false,
         buttons: {
             "OK": function() {
-                var newNoteName = $("#new-note-name").val();
+                var newNoteName = newNoteNameInput.val();
                 if (newNoteName.length > 0) {
                     webNoted.webNoted("rename", newNoteName);
-                    $(this).dialog('close');
+                    renameDialogElement.dialog('close');
                 } else {
-                    $("#rename-error").html("* Please enter a note name.");
+                    renameTextError.html("* Please enter a note name.");
                 }
             },
             Cancel: function() {
-                $(this).dialog('close');
+                renameDialogElement.dialog('close');
             }
         },
         close: function() {
-            $("#new-note-name").val("");
-            $("#rename-error").html("");
+            newNoteNameInput.val("");
+            renameTextError.html("");
         }
     });
 
@@ -87,29 +100,18 @@ $(function () {
         .on('wnShareLinkGenerated', function () {
             var url = webNoted.webNoted("getSharedUrl");
 
-            shareDialogElement
-                .find('.tweet-link')
-                .html('<a href="https://twitter.com/share" class="twitter-share-button" data-url="' + url + '" data-text="I shared a note:" data-count="none" data-hashtags="webnoted"></a>')
-                .end().find("div").hide()
-                .end().find("#success").show()
-                .end()
-                .find("#shared-url")
-                .attr("readonly", false)
-                .val(url)
-                .attr("readonly", true)
-                .click(function() {
-                    this.select();
-                })
-                .select();
+            tweetElement.html('<a href="https://twitter.com/share" class="twitter-share-button" data-url="' + url + '" data-text="I shared a note:" data-count="none" data-hashtags="webnoted"></a>');
+            shareDialogDivs.hide();
+            shareTextSuccess.show();
+            sharedUrlInput.val(url).select();
 
             if (typeof twttr !== undefined) {
                 twttr.widgets.load();
             }
         })
         .on('wnShareLinkError', function () {
-            shareDialogElement
-                .find("div").hide()
-                .end().find("#error").show()
+            shareDialogDivs.hide();
+            shareTextError.show();
         })
         .on('wnNoteRenamed wnNoteCreated wnReady wnNoteDeleted', function (e) {
             buildHistory(webNoted.webNoted("getSavedNotes"), webNoted.webNoted("getCurrentDocument"), historyElement);
