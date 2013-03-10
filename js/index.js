@@ -1,5 +1,5 @@
 $(function () {
-    var webNoted = $("#webpad"),
+    var webNoted            = $("#webpad"),
         sideBarElement      = $("#sidebar"),
         historyElement      = $("#history"),
         footerElement       = $("#footer"),
