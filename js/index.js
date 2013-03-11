@@ -6,12 +6,16 @@ $(function () {
         shareDialogElement  = $("#share-dialog"),
         deleteDialogElement = $("#delete-dialog"),
         renameDialogElement = $("#rename-dialog"),
+        infoDialogElement   = $("#info-dialog");
         shareDialogDivs     = shareDialogElement.find("div"),
         shareTextDefault    = shareDialogElement.find("#share-default-text"),
         shareTextProcessing = shareDialogElement.find("#processing"),
         shareTextError      = shareDialogElement.find("#error"),
         shareTextSuccess    = shareDialogElement.find("#success"),
         sharedUrlInput      = shareDialogElement.find("#shared-url"),
+        infoTextCreated     = $("#note-created").find("span");
+        infoTextSaved       = $("#note-modified").find("span");
+        infoTextVersion     = $("#version").find("span");
         newNoteNameInput    = $("#new-note-name"),
         renameTextError     = $("#rename-error"),
         tweetElement        = shareDialogElement.find(".tweet-link");
@@ -92,6 +96,24 @@ $(function () {
         }
     });
 
+    infoDialogElement.dialog({
+       autoOpen:    false,
+       modal:       true,
+       resizable:   false,
+       draggable:   false,
+       width:       315,
+       open: function() {
+           var documentData = webNoted.webNoted("getDocumentData");
+           infoTextCreated.html(new Date(documentData.created));
+           infoTextSaved.html(new Date(documentData.lastSaved));
+           infoTextVersion.html(webNoted.webNoted("version"));
+       },
+       close: function() {
+           infoTextCreated.html('');
+           infoTextSaved.html('');
+       }
+    });
+
     webNoted
         .on('resizeWebNoted', function () {
             webNoted.height($(window).height() - footerElement.height() - 88);
@@ -149,6 +171,8 @@ $(function () {
             webNoted.webNoted(action);
         } else if (action === "rename") {
             renameDialogElement.dialog("open");
+        } else if (action === "info") {
+            infoDialogElement.dialog("open");
         } else if (action === "share") {
             shareDialogElement.dialog("open");
         }

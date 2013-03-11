@@ -11,7 +11,7 @@
         sharedUrl,
         documentPrefix,
         documentData,
-        version = '1.0.30';
+        version = '1.0.31';
 
     var methods = {
         init:function (options) {
@@ -112,6 +112,10 @@
             documentData.created = created;
             documentData.lastSaved = lastSaved;
             return this;
+        },
+
+        getDocumentData:function() {
+            return documentData;
         },
 
         rename:function (newDocumentName) {

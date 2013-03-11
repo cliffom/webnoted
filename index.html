@@ -27,6 +27,7 @@
                     <span><a href="#" id="create" class="jsManageContents"><img src="/img/glyphicons_190_circle_plus.png" alt="Create" title="Create a new note" width="16" height="16"></a></span>
                     <span><a href="#" id="delete" class="jsManageContents"><img src="/img/glyphicons_191_circle_minus.png" alt="Delete" title="Delete this note" width="16" height="16"></a></span>
                     <span><a href="#" id="rename" class="jsManageContents"><img src="/img/glyphicons_030_pencil.png" alt="Rename" title="Rename this note" width="16" height="16"></a></span>
+                    <span><a href="#" id="info" class="jsManageContents"><img src="/img/glyphicons_195_circle_info.png" alt="Info" title="Note info" width="16" height="16"></a></span>
                     <span><a href="#" id="share" class="jsManageContents"><img src="/img/glyphicons_363_cloud_upload.png" alt="Share" title="Share this note" width="22" height="16"></a></span>
                     <select id="history"></select>
                 </div>
@@ -70,6 +71,13 @@
         <p>What would you like to call this note?</p>
         <input id="new-note-name" type="text" />
         <p id="rename-error"></p>
+    </div>
+    
+    <div id="info-dialog" class="dialog" title="Information">
+        <p id="note-created"><strong>Created:</strong><br/><span></span></p>
+        <p id="note-modified"><strong>Last Saved:</strong><br/><span></span></p>
+        <br/>
+        <p id="version"><strong>Plugin Version:</strong> <span></span></p>
     </div>
 
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>
