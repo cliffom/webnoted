@@ -10,7 +10,8 @@
         canSave,
         sharedUrl,
         documentPrefix,
-        version = '1.0.21';
+        documentData,
+        version = '1.0.30';
 
     var methods = {
         init:function (options) {
@@ -57,21 +58,33 @@
 
         save:function () {
             if (canSave && storage !== false) {
-                storage.setItem(this.webNoted('getCurrentDocument'), this.webNoted('getContents'));
+                this.webNoted('setDocumentData', this.webNoted('getContents'), documentData.created, new Date());
+                storage.setItem(this.webNoted('getCurrentDocument'), JSON.stringify(documentData));
             }
             return this;
         },
 
         open:function () {
             if (storage !== false) {
-                this.webNoted('setContents', storage.getItem(this.webNoted('getCurrentDocument')));
+                var storedData = storage.getItem(this.webNoted('getCurrentDocument'));
+                try {
+                    storedData = JSON.parse(storedData);
+                    this.webNoted('setDocumentData', storedData.noteContents, storedData.created, storedData.lastSaved);
+                } catch(e) {
+                    var date = new Date();
+                    this.webNoted('setDocumentData', storedData, date, date);
+                }
+
+                this.webNoted('setContents', documentData.noteContents);
             }
             return this;
         },
 
         edit:function () {
+            var date = new Date();
             this
                 .webNoted('canSave', true)
+                .webNoted('setDocumentData', this.webNoted('getContents'), date, date)
                 .webNoted('setCurrentDocument', this.webNoted('getNewNoteName', true))
                 .webNoted('save')
                 .trigger('wnEdited');
@@ -81,9 +94,23 @@
             this
                 .webNoted('save')
                 .webNoted('clear')
+                .webNoted('createNewDocument')
                 .webNoted('setCurrentDocument', this.webNoted('getNewNoteName', true))
                 .webNoted('save')
                 .trigger('wnNoteCreated');
+            return this;
+        },
+
+        createNewDocument:function() {
+            var date = new Date();
+            return this.webNoted('setDocumentData', '', date, date);
+        },
+
+        setDocumentData:function(contents, created, lastSaved) {
+            documentData = {};
+            documentData.noteContents = contents;
+            documentData.created = created;
+            documentData.lastSaved = lastSaved;
             return this;
         },
 
@@ -94,7 +121,6 @@
                 this
                     .webNoted('save')
                     .webNoted('setCurrentDocument', newDocumentName)
-                    .webNoted('setContents', storage.getItem(oldDocumentName))
                     .webNoted('save')
                     .webNoted('delete', oldDocumentName, false)
                     .trigger('wnNoteRenamed');
