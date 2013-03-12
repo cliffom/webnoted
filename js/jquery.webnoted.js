@@ -11,7 +11,7 @@
         sharedUrl,
         documentPrefix,
         documentData,
-        version = '1.0.31';
+        version = '1.0.32';
 
     var methods = {
         init:function (options) {
@@ -162,7 +162,7 @@
                     note:webNoted.webNoted('getContents')
                 },
                 dataType:'json',
-                error:function (jqXHR, textStatus, errorThrown) {
+                error:function () {
                     webNoted.trigger('wnShareLinkError');
                 }
             }).done(function (msg) {
@@ -204,7 +204,7 @@
             if (!storage) {
                 return false;
             } else {
-                var noteName = "";
+                var noteName;
                 var numNotes = parseInt(storage.getItem('notesCreated'));
                 if (isNaN(numNotes)) {
                     numNotes = 1;
@@ -273,12 +273,15 @@
     };
 
     $.fn.webNoted = function (method) {
+        var dataToReturn = false;
         if (methods[method]) {
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            dataToReturn = methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
-            return methods.init.apply(this, arguments);
+            dataToReturn = methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + method + ' does not exist on jQuery.webNoted');
         }
+
+        return dataToReturn;
     };
 })(jQuery);
