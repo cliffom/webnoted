@@ -58,7 +58,7 @@
         <div id="success">
             <p>Paste link in <strong>email</strong> or <strong>IM</strong>:</p>
             <input id="shared-url" type="text" />
-            <span class="tweet-link"></span>
+            <span id="tweet-link"></span>
             <p class="foot-note">* Shared links are not editable. Changes made after generating the link won't be viewable until you share a new link.</p>
         </div>
     </div>
@@ -74,10 +74,12 @@
     </div>
     
     <div id="info-dialog" class="dialog" title="Information">
-        <p id="note-created"><strong>Created:</strong><br/><span></span></p>
-        <p id="note-modified"><strong>Last Saved:</strong><br/><span></span></p>
+        <p><strong>Characters:</strong> <span id="char-count"></span></p>
         <br/>
-        <p id="version"><strong>Plugin Version:</strong> <span></span></p>
+        <p><strong>Created:</strong><br/><span id="note-created"></span></p>
+        <p><strong>Last Saved:</strong><br/><span id="note-modified"></span></p>
+        <br/>
+        <p><strong>Plugin Version:</strong> <span id="version"></span></p>
     </div>
 
     <script type="text/javascript" src="/js/jquery.1.9.1.min.js"></script>

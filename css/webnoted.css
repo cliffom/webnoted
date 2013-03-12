@@ -15,7 +15,7 @@ h1, h2 {
     margin: 0;
     padding: 0;
     color: #7f7373;
-    font-family: "Helvetica Neue",Helvetica,Arial,Sans-Serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,Sans-Serif,serif;
     font-size: 24px;
     text-shadow: #f4f4f4 0 1px 0;
 }
@@ -93,7 +93,7 @@ hr {
     display: none;
 }
 
-#share-dialog .tweet-link {
+#tweet-link {
     position: relative;
     top: 4px;
 }

@@ -6,19 +6,20 @@ $(function () {
         shareDialogElement  = $("#share-dialog"),
         deleteDialogElement = $("#delete-dialog"),
         renameDialogElement = $("#rename-dialog"),
-        infoDialogElement   = $("#info-dialog");
+        infoDialogElement   = $("#info-dialog"),
         shareDialogDivs     = shareDialogElement.find("div"),
-        shareTextDefault    = shareDialogElement.find("#share-default-text"),
-        shareTextProcessing = shareDialogElement.find("#processing"),
-        shareTextError      = shareDialogElement.find("#error"),
-        shareTextSuccess    = shareDialogElement.find("#success"),
-        sharedUrlInput      = shareDialogElement.find("#shared-url"),
-        infoTextCreated     = $("#note-created").find("span");
-        infoTextSaved       = $("#note-modified").find("span");
-        infoTextVersion     = $("#version").find("span");
+        shareTextDefault    = $("#share-default-text"),
+        shareTextProcessing = $("#processing"),
+        shareTextError      = $("#error"),
+        shareTextSuccess    = $("#success"),
+        sharedUrlInput      = $("#shared-url"),
+        infoTextCount       = $("#char-count"),
+        infoTextCreated     = $("#note-created"),
+        infoTextSaved       = $("#note-modified"),
+        infoTextVersion     = $("#version"),
         newNoteNameInput    = $("#new-note-name"),
         renameTextError     = $("#rename-error"),
-        tweetElement        = shareDialogElement.find(".tweet-link");
+        tweetElement        = $("#tweet-link");
 
     sharedUrlInput
         .attr("readonly", true)
@@ -104,13 +105,15 @@ $(function () {
        width:       315,
        open: function() {
            var documentData = webNoted.webNoted("getDocumentData");
+           infoTextCount.html(webNoted.webNoted("count"));
            infoTextCreated.html(new Date(documentData.created));
            infoTextSaved.html(new Date(documentData.lastSaved));
            infoTextVersion.html(webNoted.webNoted("version"));
        },
        close: function() {
-           infoTextCreated.html('');
-           infoTextSaved.html('');
+           infoTextCount.html("");
+           infoTextCreated.html("");
+           infoTextSaved.html("");
        }
     });
 
