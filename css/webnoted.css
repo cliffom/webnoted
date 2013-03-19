@@ -24,6 +24,11 @@ h1 {
     line-height: 63px;
 }
 
+#header img {
+    vertical-align: middle;
+    margin: 0 10px 0 2px;
+}
+
 h2 {
     font-size: 15px;
     margin: 5px;
