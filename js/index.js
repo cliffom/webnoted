@@ -121,6 +121,10 @@ $(function () {
         .on('resizeWebNoted', function () {
             webNoted.height($(window).height() - footerElement.height() - 88);
             webNoted.width($(window).width() - 298);
+            roundedEdge(webNoted);
+        })
+        .on('wnContentChanged', function() {
+            roundedEdge(webNoted);
         })
         .on('wnShareLinkGenerated', function () {
             var url = webNoted.webNoted("getSharedUrl");
@@ -156,7 +160,7 @@ $(function () {
             "apiURL":   "/php/share.php"
         })
         .trigger("resizeWebNoted")
-        .trigger("contentChanged")
+        .trigger("wnContentChanged")
     ;
 
     historyElement.on("change", function (e) {
@@ -202,4 +206,12 @@ function buildHistory(notes, currentDocument, historyElement) {
             historyElement.val(key).attr("selected", true);
         }
     });
+}
+function roundedEdge(e) {
+    var webNotedElement = e.get(0);
+    if (webNotedElement.scrollHeight > webNotedElement.clientHeight) {
+        e.css("border-radius", "4px 0 0 4px");
+    } else {
+        e.css("border-radius", "4px");
+    }
 }

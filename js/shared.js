@@ -11,6 +11,7 @@ $(function () {
         .on('resizeWebNoted', function () {
             webNoted.width($(window).width() - 298);
             webNoted.height($(window).height() - footerElement.height() - 88);
+            roundedEdge(webNoted);
         })
         .trigger("resizeWebNoted");
 
@@ -24,3 +25,11 @@ $(function () {
         webNoted.trigger("resizeWebNoted");
     });
 });
+function roundedEdge(e) {
+    var webNotedElement = e.get(0);
+    if (webNotedElement.scrollHeight > webNotedElement.clientHeight) {
+        e.css("border-radius", "4px 0 0 4px");
+    } else {
+        e.css("border-radius", "4px");
+    }
+}

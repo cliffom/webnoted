@@ -52,6 +52,7 @@ p {
     color: #000;
     padding: 4px;
     border: 1px solid #aaa;
+    border-radius: 4px;
     overflow-y: auto;
     position: relative;
     background-color: #fff;
