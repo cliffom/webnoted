@@ -166,7 +166,7 @@ $(function () {
     historyElement.on("change", function (e) {
         var documentName = $(e.target).find(":selected").text();
         webNoted.webNoted("switchDocument", documentName);
-        _StatHat.push(['_trackCount', 'SQt4WvvD9of0MXzg053l8yBTeVdi', 13.0]);
+        _StatHat.push(['_trackCount', 'SQt4WvvD9of0MXzg053l8yBTeVdi', 1.0]);
     });
 
     sideBarElement.find(".jsManageContents").click(function (e) {
@@ -175,19 +175,19 @@ $(function () {
 
         if (action === "delete") {
             deleteDialogElement.dialog("open");
-            _StatHat.push(['_trackCount', 'v3leA12Vm7MmaetWU7UPSCBXeEZK', 13.0]);
+            _StatHat.push(['_trackCount', 'v3leA12Vm7MmaetWU7UPSCBXeEZK', 1.0]);
         } else if (action === "create") {
             webNoted.webNoted(action);
-            _StatHat.push(['_trackCount', 'Oq2IAf-rg2mCBj1iQItS0yBLYUsy', 13.0]);
+            _StatHat.push(['_trackCount', 'Oq2IAf-rg2mCBj1iQItS0yBLYUsy', 1.0]);
         } else if (action === "rename") {
             renameDialogElement.dialog("open");
-            _StatHat.push(['_trackCount', 'fdWj1sG9cNGjQcVNHYU-_SA0R3B6Sw~~', 13.0]);
+            _StatHat.push(['_trackCount', 'fdWj1sG9cNGjQcVNHYU-_SA0R3B6Sw~~', 1.0]);
         } else if (action === "info") {
             infoDialogElement.dialog("open");
-            _StatHat.push(['_trackCount', 'HjgEvt9kMmUZ8vwNmiIAfiBKNlcx', 13.0]);
+            _StatHat.push(['_trackCount', 'HjgEvt9kMmUZ8vwNmiIAfiBKNlcx', 1.0]);
         } else if (action === "share") {
             shareDialogElement.dialog("open");
-            _StatHat.push(['_trackCount', 'a_8grwiXvKbByVkAAtFvwCA1M2NT', 13.0]);
+            _StatHat.push(['_trackCount', 'a_8grwiXvKbByVkAAtFvwCA1M2NT', 1.0]);
         }
     });
 
@@ -197,7 +197,7 @@ $(function () {
         })
         .on("blur unload", function () {
             webNoted.webNoted("save");
-            _StatHat.push(['_trackCount', '4g3ytR38IC-eJw2zLIgRqSBZT2tH', 13.0]);
+            _StatHat.push(['_trackCount', '4g3ytR38IC-eJw2zLIgRqSBZT2tH', 1.0]);
         })
     ;
 
