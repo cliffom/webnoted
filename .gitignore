@@ -11,3 +11,5 @@ api/aws.phar
 .idea/*
 
 .c9revisions/*
+
+.vagrant/machines/default/virtualbox/id
